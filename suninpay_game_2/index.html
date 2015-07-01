@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="x-key" content="fbfab7919bf139c1fc65bf79d3f55756">
+    <meta charset="utf-8" />
+    <title>见缝插针小游戏,在线玩,html5小游戏</title><meta name="description" content="见缝插针小游戏在线玩,更多好玩小游戏尽在m.html5youxi.com" /><meta name="keywords" content="见缝插针,见缝插针小游戏,在线玩" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="full-screen" content="true"/>
+    <meta name="screen-orientation" content="portrait">
+    <meta name="x5-fullscreen" content="true"/>
+    <meta name="360-fullscreen" content="true"/>
+    <meta name="renderer" content="webkit">
+    <style type="text/css">
+        html,body{padding:0;margin:0;border:0;overflow:hidden;text-align:center;background-color:#aaa;-moz-user-select:none;-webkit-user-select:none;user-select:none;}
+        body{overflow:visible;}/* for Android Native Browser bug */
+        canvas{background-color:#aaa;vertical-align:middle;opacity:1;border-top:solid 1px #000;}
+        .title{font-size:24px;font-family:微软雅黑,黑体;color:#000;letter-spacing:4px;margin-bottom:4px;}
+        #gohw {position:fixed;z-index:99;bottom:0;left:0;width:100%;}
+        #gohw a{display:block;width:100%;}
+        #gohw a img{width:100%;}
+        @media all and (min-width: 480px) and (max-height: 479px) {
+            canvas {-webkit-transform:translateY(-80px) rotate(-90deg); -moz-transform:translateY(-80px) rotate(-90deg); transform:translateY(-80px) rotate(-90deg); border-top:0;border-right:solid 1px #000;}
+        }
+    </style>
+
+</head>
+<body>
+<div id="game3366" style="position:absolute; z-index:99; top:10px; left:0px; width:100%; text-align:center;">
+    <a href="javascript:void(0);" style="padding: 8px 20px;background-color: #fff;border-radius: 5px;text-decoration: none;color:black;"  ontouchstart="share_3366();">分享游戏</a>
+    <a href="javascript:void(0);" style="padding: 8px 20px;background-color: #fff;border-radius: 5px;text-decoration: none;color:black;" onclick="more_3366();">更多游戏</a>
+</div>
+<img src="images/wx.jpg" width="0" height="0" style="position:absolute">
+<div class="title"></div>
+<canvas id="stage" width="320" height="480"></canvas>
+<div id="gohw"></div>
+
+<div id="share" style="display: none;">
+    <img width="100%" src="images/share.png" style="position: fixed; z-index: 9999; top: 0; left: 0; display: " ontouchstart="document.getElementById('share').style.display='none';" onclick="document.getElementById('share').style.display='none';">
+</div>
+<script>document.getElementById('stage').style.height = (480 - Math.max(0, 568 - screen.height)) + 'px';</script>
+<script src="js/game.js?v=3"></script>
+<script type="text/javascript">
+
+
+    function level3366Fn(F){
+        //alert(F);
+        try{
+            document.title = window.shareData.desc = "我在见缝插针里已经过了"+F+"关，求超越！"
+            //document.title = shareData.tTitle = "见缝插针，我已经过了"+F+"关，求超越！";
+            //submit_3366(F)
+        }catch(e){console.log(e)}
+    }
+
+    function more_3366(){
+        window.location.href="http://m.html5youxi.com";
+    }
+
+    function share_3366(){
+        document.getElementById("share").style.display = "block";
+    }
+
+</script>
+</body>﻿<script type="text/javascript">
+    /*
+     var gameOption =
+     {
+     gameid : 30336,
+     gamename : "见缝插针",
+     gamepath : "h5/2015/jfcz/game.html",
+     isrecommend : 1,
+     adspos : 2,
+     scorecmp : 2
+     };*/
+    window.shareData = window.shareData || {
+        title: "很好玩的小游戏《见缝插针》，好玩到停不下来。点击就开始玩，无需安装。", // 分享标题
+        link:  "http://game.html5youxi.com/201501/jfcz/", // 分享链接
+        imgUrl: 'http://game.html5youxi.com/201501/jfcz/icon.jpg', // 分享图标
+        desc : "很好玩的小游戏《见缝插针》，好玩到停不下来。点击就开始玩，无需安装。"
+    };
+
+</script>
+
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript" src="js/common2.js"></script>
+
+
+<div class="" style="display:none;">
+    <script type="text/javascript">
+        var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+        document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F94c393e91adc6ef59fa06c3f34ce2c0d' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+</html>
