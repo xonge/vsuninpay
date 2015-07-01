@@ -1,0 +1,123 @@
+<%@ page language="C#" autoeventwireup="true" inherits="TransactionDetailsList, App_Web_transactiondetailslist.aspx.cdcab7d2" %>    
+                                                                                                    
+<%@ Register Src="BeforeControl/DataPaingNoTo.ascx" TagName="DataPaingNoTo" TagPrefix="uc6" %>
+
+<%@ Register Src="BeforeControl/DivNoticePaging.ascx" TagName="DivNoticePaging" TagPrefix="uc5" %>
+
+<%@ Register Src="BeforeControl/UserLoginMessageShow.ascx" TagName="UserLoginMessageShow" TagPrefix="uc4" %>
+
+<%@ Register Src="BeforeControl/DivNewsList.ascx" TagName="DivNewsList" TagPrefix="uc3" %>
+
+<%@ Register Src="BeforeControl/WebFoot.ascx" TagName="WebFoot" TagPrefix="uc2" %>
+
+<%@ Register Src="BeforeControl/WebTop.ascx" TagName="WebTop" TagPrefix="uc1" %>
+<% Response.Expires = -1 ;%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>商户网银交易记录查看|<%=GetMemberSystemTitle()%>|<%=GetWebsiteName()%></title>
+    <link href="WebCss/WebSite.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<form id="FomSub" runat="server">
+    <div>
+	    <uc1:WebTop ID="WebTop1" runat="server" />
+			
+		<uc4:UserLoginMessageShow id="UserLoginMessageShow1" runat="server" />
+			
+        <div class="mainbody"> 
+			<!-- <div class="box" style="margin-bottom:10px"> -->
+            <div class="FullWidth">
+			    <div class="title01">
+				    <h2>网银交易统计</h2>
+				    <span></span>                                                                                  
+			    </div>
+			    <div class="FullWidthList">
+				    <div class="BankTransactionList">
+					    &nbsp;&nbsp;&nbsp;
+					    当日总额：<b class="org"><%= GetSolidDoubleValue(StrTodayTransactionMoney, 2)%></b> 元 
+					    <span>当日实收金额：</span><b class="blue"><%= GetSolidDoubleValue(StrTodayResultMoney, 2)%></b> 元<span>
+					    当日利润：</span><b class="blue"><%= GetSolidDoubleValue(StrTodaySuccessProfit, 2)%></b> 元 
+					    <P>
+					    <span>昨日总额：</span><b class="org"><%= GetSolidDoubleValue(StrYesterdayTransactionMoney, 2)%></b> 元 
+					    <span>昨日实收金额：</span><b class="blue"><%= GetSolidDoubleValue(StrYesterdayResultMoney, 2)%></b> 元 
+					    <span>昨日利润：</span><b class="blue"><%= GetSolidDoubleValue(StrYesterdaySuccessProfit, 2)%></b> 元 </P>
+				    </div>
+			    </div>
+		    </div>	
+        </div>
+			
+		<div class="mainbody">
+		    <div class="FullMain">
+			    <div class="FullWidth">
+				    <div class="title01">
+					    <h2>网银交易记录</h2>
+					    <span></span>
+				    </div>
+				    <div class="FullWidthList" style="font-size:16px;">
+					    <table  class="b1" cellspacing="1" cellpadding="0">
+						    <tr >
+							    <th>交易商户</th> 
+							    <th>交易类型</th>
+							    <th>交易订单号</th> 
+							    <th>交易金额</th>
+							    <th>商户手续费</th> 
+							    <th>下级商户手续费</th> 
+							    <th>实际金额</th>
+							    <th>交易利润</th> 
+							    <th>交易时间</th>  
+							    <th style="display:none;">通道</th>
+							    <th style="display:none;">状态</th>           
+						    </tr>                                                  
+                            <asp:Repeater ID="RptNewsList" runat="server" >
+                                <ItemTemplate>                              
+		                        <tr class="<%# Container.ItemIndex%2==0 ?"tr1":"tr2"%>">
+				                    <td><%# GetDataNameValue("MerchantID", "UserName", "MerchantMessageTab", Eval("MerchantID").ToString())%></td>
+		                            <td><%# GetString(GetDataNameValue("TransactionClassID", "TransactionClass", "TransactionClassTab", Eval("TransactionClassID").ToString()), 7, "")%></td>
+		                            <td><%# Eval("TransactionCode")%></td>
+		                            <td>￥<%# GetSolidDoubleValue(Eval("TransactionMoney"), 2)%></td>
+		                            <td>￥<%# GetSolidDoubleValue(Eval("MainFeeMoney"), 2)%></td>  
+				                    <td>￥<%# GetSolidDoubleValue(Eval("MerchantFeeMoney"), 2)%></td>
+				                    <td>￥<%# GetSolidDoubleValue(Eval("ResultMoney"), 2)%></td> 
+				                    <td>￥<%# GetSolidDoubleValue(Eval("ResultFeeMoney"), 2)%></td> 
+				                    <td><%# Convert.ToDateTime(Eval("TransactionTime")).ToString("yyyy-MM-dd HH:mm:ss")%></td> 
+			                        <td style="display:none;"><%# GetDataNameValue("PaymentPassageID", "PaymentPassageName", "PaymentPassageSetTab", Eval("PaymentPassageID").ToString())%></td>
+				                    <td style="display:none;"><%# Eval("TransactionClassID").ToString() == "3" ? "<span class='FontGreen'>网银交易</span>" : Eval("TransactionClassID").ToString() == "2" ? "<span class='FontRed'>提现交易</span>" : "<span class='FontRed'>充值交易</span>"%></td> 
+		                        </tr>
+                                </ItemTemplate>
+                            </asp:Repeater>
+					    </table>  
+					        
+					    <div class="list_page">
+					        <uc6:DataPaingNoTo ID="DtPag" runat="server" />
+					    </div>
+				    </div>
+			    </div>
+		    </div>
+		    
+	    </div>
+		
+	    <uc2:WebFoot ID="WebFoot1" runat="server" />
+
+	</div>
+	</form>
+    <script type="text/javascript"> 
+        function nTabs(thisObj,Num){ 
+        if(thisObj.className == "active")return; 
+        var tabObj = thisObj.parentNode.id; 
+        var tabList = document.getElementById(tabObj).getElementsByTagName("li"); 
+        for(i=0; i <tabList.length; i++){ 
+        if (i == Num){ 
+           thisObj.className = "active"; 
+              document.getElementById(tabObj+"_Content"+i).style.display = "block"; 
+        }else{ 
+           tabList[i].className = "normal"; 
+           document.getElementById(tabObj+"_Content"+i).style.display = "none"; 
+        } 
+        } 
+        } 
+
+    </script>
+</body>
+</html>

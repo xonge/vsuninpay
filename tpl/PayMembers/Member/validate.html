@@ -1,0 +1,210 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>||商户实名认证</title>
+    <base href="http://xiangtan.suninpay.com:81/">
+    <link href="WebCss/WebSite.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<form id="FomSub" runat="server">
+    <div>
+	    <include file="Public:header" />
+        <!-- <include file="Public:header1" /> -->
+
+		<div class="nav01">
+		    <div class="left">信息审核(已审核)</div>
+	    </div>
+	    <div class="mainbody" >
+		    <div class="undata_main">
+			    <div class="title">
+			        商户信息
+			        <span style="font-size:16px;color:#666666;">
+			            账户余额：【<font style="color:#ff0000;">{pigcms:$member.AccountUsedValue}</font>】元。&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			            收益余额：【<font style="color:#ff0000;">{pigcms:$member.VirtualUsedValue}</font>】元。
+			        </span>
+			    </div>
+			    <div class="content1" style="border-bottom:none">
+				    <dl>
+					    <dt><img src="{pigcms:$member.SmallAdvertImage}"  alt="{pigcms:$member.RealName}" /></dt>
+					    <dd>
+						    <p class="t1">{pigcms:$member.RealName}</p>
+						    <p><span> {pigcms:$member.BodyCode}</span></p>
+    						<p style="display:none;">
+                                <span style="font-size:16px;">审核金额：【<font style="color:#ff0000;"><%= StrPassMoneyValue%></font>】元。</span>
+                                <% if (StrPassStateID != "1" & float.Parse(StrUseAccountValue) < float.Parse(StrPassMoneyValue))
+                                {%>
+                                    <br />
+                                    <asp:Button  ID="BtnRecharge" runat="server" Text="充值"
+                                    CssClass="org_bt" OnClick="BtnRecharge_Click"></asp:Button>
+                                <% }%>
+    						</p>
+
+					    </dd>
+				    </dl>
+			    </div>
+			    <div class="title" style=" border-top:3px solid #CFDBE8">
+			        证件信息<span style="font-size:12px; font-weight:normal; font-family:'宋体'">温馨提示：请确保您的身份证和银行卡是本人和同一个人 否则您的资金结算将会受到影响！</span>
+		        </div>
+		        <div class="CertificateValidate">
+			        <ul class="CertificateShow">
+				        <li>
+			                <span>
+                                本人身份证(正面)：
+                                <div id="DivBodyPositiveShowFile" runat="server" CssClass="inputk">
+                                    <strong>{pigcms:$validate.BodyPositive}</strong>&nbsp;&nbsp;
+                                    <asp:LinkButton ID='LkbtUpBodyPositiveFile' runat='server' OnClick='LkbtUpBodyPositiveFile_Click' >重新上传</asp:LinkButton>
+
+                                </div>
+                                <div id="DivBodyPositiveFile" runat="server" CssClass="inputk">
+                                    <asp:FileUpload ID="UpBodyPositiveFile" runat="server" CssClass="inputk" Width="330px" />&nbsp;
+                                    <asp:Button ID="BtnBodyPositiveUpLoad" runat="server" CssClass="inputk" OnClick="BtnBodyPositiveUpLoad_Click" Text="上  传" />
+                                </div>
+			                </span>
+                            <a href="<%= GetCertificateImages(StrBodyPositiveImage)%>" target="_blank" title="点击可以查看原图">
+                                <img alt="{pigcms:$member.RealName}身份证(正面)" src="/{pigcms:$validate.BodyPositiveSmall}" />
+                            </a>
+                            &nbsp;&nbsp;
+                            <span class='FontGreen'>已审核</span>
+				        </li>
+				        <li>
+				            <span>
+				                本人身份证(反面)：
+                                <div id="DivBodyNegativeShowFile" runat="server" class="inputk">
+                                    <strong>{pigcms:$validate.BodyNegative}</strong>&nbsp;&nbsp;
+                                    <asp:LinkButton ID='LkbtUpBodyNegativeFile' runat='server' OnClick='LkbtUpBodyNegativeFile_Click' >重新上传</asp:LinkButton>
+                                </div>
+                                <div id="DivBodyNegativeFile" runat="server" class="inputk">
+                                    <asp:FileUpload ID="UpBodyNegativeFile" runat="server" CssClass="inputk" Width="330px" />&nbsp;
+                                    <asp:Button ID="BtnUpBodyNegativeLoad" runat="server" CssClass="inputk" OnClick="BtnUpBodyNegativeLoad_Click" Text="上  传" />
+                                </div>
+                            </span>
+                            <a href="<%= GetCertificateImages(StrBodyNegativeImage)%>" target="_blank" title="点击可以查看原图">
+                                <img alt="{pigcms:$member.RealName}身份证(反面)" src="{pigcms:$validate.BodyNegativeSmall}" />
+                            </a>
+                            &nbsp;&nbsp;
+                            <span class='FontGreen'>已审核</span>
+				        </li>
+				        <li>
+					        <span>
+				                本人银行卡(正面)：
+                                <div id="DivBankCardsPositiveShowFile" align="left" runat="server" class="inputk">
+                                    <strong>{pigcms:$validate.BankCardsPositive}</strong>&nbsp;&nbsp;
+                                    <asp:LinkButton ID='LkbtUpBankCardsPositiveFile' runat='server' OnClick='LkbtUpBankCardsPositiveFile_Click' >重新上传</asp:LinkButton>
+                                </div>
+                                <div id="DivBankCardsPositiveFile" runat="server" class="inputk">
+                                    <asp:FileUpload ID="UpBankCardsPositiveFile" runat="server" CssClass="inputk" Width="330px" />&nbsp;
+                                    <asp:Button ID="BtnUpBankCardsPositiveLoad" runat="server" CssClass="inputk" OnClick="BtnUpBankCardsPositiveLoad_Click" Text="上  传" />
+                                </div>
+                            </span>
+                            <a href="<%= GetCertificateImages(StrBankCardsPositiveImage)%>" target="_blank" title="点击可以查看原图">
+                                <img alt="{pigcms:$member.RealName}银行卡(正面)" src="{pigcms:$validate.BankCardsPositiveSmall}" />
+                            </a>
+                            &nbsp;&nbsp;
+                            <span class='FontGreen'>已审核</span>
+				        </li>
+				        <li>
+					        <span>
+					            本人银行卡(反面)：
+                                <div id="DivBankCardsNegativeShowFile" align="left" runat="server" class="inputk">
+                                    <strong>{pigcms:$validate.BankCardsNegative}</strong>&nbsp;&nbsp;
+                                    <asp:LinkButton ID='LkbtUpBankCardsNegativeFile' runat='server' OnClick='LkbtUpBankCardsNegativeFile_Click' >重新上传</asp:LinkButton>
+                                </div>
+                                <div id="DivBankCardsNegativeFile" runat="server" class="inputk">
+                                    <asp:FileUpload ID="UpBankCardsNegativeFile" runat="server" CssClass="inputk" Width="330px" />&nbsp;
+                                    <asp:Button ID="BtnUpBankCardsNegativeLoad" runat="server" CssClass="inputk" OnClick="BtnUpBankCardsNegativeLoad_Click" Text="上  传" />
+                                </div>
+					        </span>
+                            <a href="<%= GetCertificateImages(StrBankCardsNegativeImage)%>" target="_blank" title="点击可以查看原图">
+                                <img alt="{pigcms:$member.RealName}银行卡(反面)" src="{pigcms:$validate.BankCardsNegativeSmall}" />
+                            </a>
+                            &nbsp;&nbsp;
+                            <span class='FontGreen'>已审核</span>
+				        </li>
+				        <li>
+					        <span>
+					            手持身份证半身 照片)：
+                                <div id="DivHalfBodyPhotoShowFile" align="left" runat="server" class="inputk">
+                                    <strong>{pigcms:$validate.HalfBodyPhoto}</strong>&nbsp;&nbsp;
+                                    <asp:LinkButton ID='LkbtUpHalfBodyPhotoFile' runat='server' OnClick='LkbtUpHalfBodyPhotoFile_Click' >重新上传</asp:LinkButton>
+                                </div>
+                                <div id="DivHalfBodyPhotoFile" runat="server" class="inputk">
+                                    <asp:FileUpload ID="UpHalfBodyPhotoFile" runat="server" CssClass="inputk" Width="330px" />&nbsp;
+                                    <asp:Button ID="BtnUpHalfBodyPhotoLoad" runat="server" CssClass="inputk" OnClick="BtnUpHalfBodyPhotoLoad_Click" Text="上  传" />
+                                </div>
+					        </span>
+                            <a href="<%= GetCertificateImages(StrHalfBodyPhotoImage)%>" target="_blank" title="点击可以查看原图">
+                                <img alt="{pigcms:$member.RealName}银行卡(反面)" src="{pigcms:$validate.HalfBodyPhotoSmall}" />
+                            </a>
+                            &nbsp;&nbsp;
+                            <span class='FontGreen'>已审核</span>
+				        </li>
+			        </ul><!--
+			         <a href="OrdersRecharge.aspx?MainID=4" class="cz">立即充值</a>
+			         选用下面的按钮会产生点击按钮不能够进入程序代码里面的问题。
+			        <input id="BtnPass2" name="" type="button" runat="server" value="提交审核" class="org_bt" onclick="return CheckAccountValue();" onserverclick="BtnPass_ServerClick" />
+			        -->
+			        <asp:Button ID="BtnPass" runat="server" Text="提交审核" CssClass="org_bt" OnClick="BtnPass_ServerClick" OnClientClick="return CheckAccountValue();" />
+		        </div>
+	        </div>
+	        <div class="sub_right">
+
+		        <div class="sub_announce">
+			        <div class="title01">
+				        <h1>系统公告</h1>
+			        </div>
+			        <div class="content">
+				        <ul class="text01">
+					        <uc3:DivNewsList ID="DivNoticeList" runat="server" />
+				        </ul>
+			        </div>
+		        </div>
+	        </div>
+	    </div>
+
+	    <include file="Public:footer" />
+	</div>
+	</form>
+    <script type="text/javascript">
+        function nTabs(thisObj,Num){
+        if(thisObj.className == "active")return;
+        var tabObj = thisObj.parentNode.id;
+        var tabList = document.getElementById(tabObj).getElementsByTagName("li");
+        for(i=0; i <tabList.length; i++){
+        if (i == Num){
+           thisObj.className = "active";
+              document.getElementById(tabObj+"_Content"+i).style.display = "block";
+        }else{
+           tabList[i].className = "normal";
+           document.getElementById(tabObj+"_Content"+i).style.display = "none";
+        }
+        }
+        }
+
+        function CheckAccountValue()
+        {
+            debugger;
+            var StrUseAccountValue="<%= StrUseAccountValue%>";
+            var StrPassMoneyValue="<%= StrPassMoneyValue%>";
+
+            /*
+            if (StrPassMoneyValue>StrUseAccountValue)
+            {
+                alert("对不起，您的可用余额不足【"+StrPassMoneyValue+"】元，请进行账户充值！");
+                document.all["BtnRecharge"].focus();
+                return false;
+            }
+            */
+            return true;
+            //FomSub.submit();
+        }
+
+        function formatFloat(src, pos)
+        {
+            return Math.round(src*Math.pow(10, pos))/Math.pow(10, pos);
+        }
+    </script>
+</body>
+</html>

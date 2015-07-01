@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+    <title>商户登录|</title>
+    <base href="http://xiangtan.suninpay.com:81/">
+    <meta name="keywords" content="商用宝,短信群发,微营销,微名片,微信导航,微店,独立网店,网络收银" />
+    <meta name="description" content="商用宝是鑫远达电子商务有限公司精心研发的一款集短信群发,微营销,微名片,微信导航,微店,独立网店,网络收银等功能于一体的高效营销系统" />                                 
+    <link href="LoginOldCss/Login.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        .vode{ position:absolute; width:510px; height:290px; left:20px; top:152px; background:#eee; z-index:55}  
+        .mainbody .head01 .left{ background:url(../<%= StrStationLogoFile%>); width:230px; height:90px;}
+    </style>
+</head>
+<body>
+    <form action="" method="post">
+    <div>
+        <div class="mainbody">
+            <div class="head01">
+                <div class="left"></div>
+                <div class="right">
+                    <p style="display:none;">欢迎你：135855485  | <a href="JavaScript://">退出</a>  |  <a href="JavaScript://">帮助中心</a>  </p>
+                    <div class="div1"></div>
+                </div>
+            </div>
+            <div class="zt">
+                <div class="div02"></div>
+                <ul>                                    
+                    <li>                                  
+                        <dl>
+                            <dt>用户名：</dt>
+                            <dd>
+                                <input type="text" name="TxtUserName" id="TxtUserName" autocomplete="on" onkeydown="ValidateNumber(event);" onpaste="ValidateClip(event);" MaxLength="11"
+                                    placeholder="请输入11位手机号码格式的用户名" class="ipnut1" />
+                            </dd>
+                        </dl>
+                    </li>
+                    <li>
+                        <dl>
+                            <dt>密&nbsp;&nbsp;码：</dt>
+                            <dd>
+                                <input type="password" name="TxtPwd" id="TxtPwd" MaxLength="64"
+                                    placeholder="请输入登录密码" class="ipnut1" />
+                            </dd>
+                        </dl>
+                    </li>
+                    <li >
+                        <dl>
+                            <dt>验证码：</dt>
+                            <dd>
+                                <input id="TxtCode" maxlength="4" name="TxtCode" autocomplete="off"
+                                    placeholder="请输入验证码" class="ipnut2" /><span class="left"><img id="ImgCode" alt="看不清楚？点击更换" 
+                                src="ValidateCode.aspx" style="cursor:pointer;" onclick="ClickChangeImage()" /></span><span class="left2"><a href="JavaScript://" onclick="ClickChangeImage();">换一张</a></span>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li style="margin-top:10px">
+                    <input type="submit" id="BtnLogin" value="" class="ipnut3" OnClientClick="return CheckEmpty();" OnClick="BtnLogin_Click" >
+                        <a href="JavaScript://" style="display:none;">忘记密码？</a>
+                    </li>
+                </ul>
+                <div class="bot" style="display:none;">
+                还没有注册？<a href="JavaScript://">三十秒快速注册</a> 
+                </div>
+            </div>
+            
+            <!--添加开始-->  
+            <div class="vode">  
+                <!-- 
+                <embed src="" quality="high" width="510" height="290" align="middle" 
+                allowScriptAccess="always" allowFullScreen="true" mode="transparent" type="application/x-shockwave-flash"></embed> 
+                          
+                <script src="WebJs/SetPlayVideo.Js" type="text/javascript" ></script>
+                <div id="DivPlayVideo" >                                  
+                    <script type="text/javascript">
+	                    //SetWindowsVideoPlay("DivPlayVideo","","http://player.youku.com/player.php/sid/XNzQ5MTE2NjQw/v.swf","510",290)
+	                    SetWindowsVideoPlay("DivPlayVideo","","","510",290,0)
+                    </script>
+                </div>
+                
+                <iframe height="290" width="510" src="http://player.youku.com/player.php/sid/XNzQ5MTE2NjQw/v.swf" frameborder="0" allowfullscreen></iframe>  
+                --> 
+
+                <iframe height="290" width="510" src="" frameborder="0" allowfullscreen></iframe>  
+            </div>
+            <!--添加结束--> 
+
+            <div style="display:none;">
+            </div>
+        </div>
+    </div>
+    </form>
+	        <script type="text/javascript">
+            var StrSearchClassid = "0";
+            function ClickChangeImage() {
+                document.getElementByid("ImgCode").src = "ValidateCode.aspx?" + Math.random();
+            }
+
+            function CheckEmpty() 
+            {
+                if (document.all["TxtUserName"].value=="")
+                {
+                    alert("对不起，用户名不能为空！");            
+                    document.all["TxtUserName"].focus();
+                    return false;
+                }
+                if (document.all["TxtPwd"].value=="")
+                {
+                    alert("对不起，密码不能为空！");            
+                    document.all["TxtPwd"].focus();
+                    return false;
+                }
+                if (document.all["TxtCode"].value=="")
+                {
+                    alert("对不起，验证码不能为空！");            
+                    document.all["TxtCode"].focus();
+                    return false;
+                }
+
+                //FomSub.submit();
+            }
+
+            function SetSearchClass(StrClassid) {
+                StrSearchClassid = StrClassid;
+            }
+
+            function SearchMerchantResult() {
+                //alert("OK");
+                var StrEearchKey = document.all["TxtSearchKey"].value;
+                if (StrEearchKey == "") {
+                    alert("对不起，要搜索的关键字不能为空！");
+                    document.all["TxtSearchKey"].focus();
+                    return false;
+                }
+                return true;
+                //location.href="MobileSearchResultList.aspx?Type="+StrSearchClassid+"&SKey="+StrEearchKey;
+            }
+        </script>
+        <script type="text/javascript">
+            //////只能输入数字
+            function OnlyInputNumber(obj, reg, inputstr) 
+            { 
+                if(event.srcelement.getattribute("readonly")||event.srcelement.getattribute("disabled"))return false; 
+                if(event.keycode<46 || event.keycode>57)return false; 
+                var docsel = document.selection.createrange(); 
+                if (docsel.parentelement().tagname != "input") return false; 
+                osel = docsel.duplicate() 
+                osel.text = "" 
+                var srcrange = obj.createtextrange() 
+                osel.setendpoint("starttostart", srcrange) 
+                var str = osel.text + inputstr + srcrange.text.substr(osel.text.length) 
+                return reg.test(str) 
+            }
+
+            function ValidateNumber(ev)
+            {
+                var e = ev.keyCode;
+                //允许的有大、小键盘的数字，左右键，backspace, delete, Control + C, Control + V
+                if(e != 8  && e != 9 && e != 13  && e != 37 && e != 39 && e != 46&& e != 48 && e != 49 && e != 50 && e != 51 && e != 52 && e != 53 && e != 54 && e != 55 && e != 56 && e != 57 && e != 96 && e != 97 && e != 98 && e != 99 && e != 100 && e != 101 && e != 102 && e != 103 && e != 104 && e != 105)
+                {
+                    if(ev.ctrlKey == false)
+                    {
+                        //不允许的就清空!
+                         ev.returnValue = "";
+                     }
+                    else
+                    {
+                        //验证剪贴板里的内容是否为数字!
+                         ValidateClip(ev);
+                     }
+                 }
+            }
+
+            //验证剪贴板里的内容是否为数字!
+            function ValidateClip(ev)
+            {
+                //查看剪贴板的内容!
+                var content = clipboardData.getData("Text");
+                if(content != null)
+                {
+                    try
+                    {
+                        var test = parseInt(content);
+                        var str = "" + test;
+                        if(isNaN(test) == true)
+                        {
+                            //如果不是数字将内容清空!
+                             clipboardData.setData("Text","");
+                         }
+                        else
+                        {
+                            if(str != content)
+                                 clipboardData.setData("Text", str);
+                         }
+                     }
+                    catch(e)
+                    {
+                        //清空出现错误的提示!
+                         alert("粘贴出现错误!");
+                     }
+                 }
+            }
+        </script>
+	<!-- --> 
+	<script type="text/javascript" src="HomeVideo/suninday_20141020.js"></script>
+	    
+    
+</body>
+</html>

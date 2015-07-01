@@ -1,0 +1,13 @@
+.shoukuan_form {
+	position: fixed;
+	z-index: 9999;
+	width: 50%;
+	height: 60px;
+	/*background-color: #000;*/
+	bottom: 120px;
+	padding: 5px;
+}
+
+.shoukuan_form input {
+	margin-bottom: 5px;
+}

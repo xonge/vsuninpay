@@ -1,0 +1,205 @@
+<%@ page language="C#" autoeventwireup="true" inherits="MerchantBusinessApplication, App_Web_merchantbusinessapplication.aspx.cdcab7d2" %>
+
+<%@ Register Src="BeforeControl/UserLoginMessageShow.ascx" TagName="UserLoginMessageShow" TagPrefix="uc4" %>
+
+<%@ Register Src="BeforeControl/DivNewsList.ascx" TagName="DivNewsList" TagPrefix="uc3" %>
+
+<%@ Register Src="BeforeControl/WebFoot.ascx" TagName="WebFoot" TagPrefix="uc2" %>
+
+<%@ Register Src="BeforeControl/WebTop.ascx" TagName="WebTop" TagPrefix="uc1" %>
+<% Response.Expires = -1 ;%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>商务应用短信充值功能|<%=GetMemberSystemTitle()%>|<%=GetWebsiteName()%></title>
+    <link href="WebCss/WebSite.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<form id="FomSub" runat="server">
+    <div>
+	    <uc1:WebTop ID="WebTop1" runat="server" />
+			
+		<uc4:UserLoginMessageShow id="UserLoginMessageShow1" runat="server" />
+			
+		<div class="mainbody">
+	        <div class="undata_main">                                                                              
+		        <div class="title">商户应用——短信充值</div> 
+                <div class="RequestSubmitPage">
+                    <ul>
+                        <li style="font-size:18px;">
+                            您的账户可用现金余额：【<b style="font-size:18px; color:#FF0000"><%= StrUseAccountValue%></b>】元。 
+                            短信总条数：【<b style="font-size:18px; color:#FF0000"><%= StrAllMessageNumber%></b>】条。
+                            <br />
+                        </li>
+                        <li style="font-size:18px;">  
+                            已发短信条数：【<b style="font-size:18px; color:#FF0000"><%= StrMessageSendNumber%></b>】条。 
+                            剩余短信条数：【<b style="font-size:18px; color:#FF0000"><%= StrMessageHaveNumber%></b>】条。
+                            <br /> 
+                            <br /> 
+                        </li>
+                        <li style="font-size:18px;">
+                            充值短信金额：
+                            <input id="TxtPayMoney" runat="server" name="TxtPayMoney" type="text" class="input1" maxlength="7" onkeydown="ValidateNumber(event);" onblur="SetMessageNumber();" onpaste="ValidateClip(event);" />
+                            元。
+                            <br />
+                            价格<%= StrMessagePrice%>元一条短信,超出的短信尾数部分将直接去掉取整数短信数量值。 
+                        </li>
+                        <li style="font-size:18px;">
+                            充值短信条数：
+                            <input id="TxtMessageNumber" runat="server" name="TxtMessageNumber" type="text" class="input1" maxlength="11" onkeydown="ValidateNumber(event);" onpaste="ValidateClip(event);" readonly="readonly" />
+                            条。 
+                        </li>
+                        <li style="font-size:18px;">
+                            <br />
+                            <asp:Button  ID="BtnPaymentMoney" runat="server" Text="短信充值" CssClass="org_bt" OnClick="BtnPaymentMoney_Click" OnClientClick="return CheckMoneyValue();" ></asp:Button>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <asp:Button  ID="BtnRecharge" runat="server" Text="账户充值" CssClass="org_bt" OnClick="BtnRecharge_Click"></asp:Button> 
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <asp:Button  ID="BtnMessageSend" runat="server" Text="短信发送" CssClass="org_bt" OnClick="BtnMessageSend_Click"></asp:Button> 
+                        </li>
+                    </ul>
+                    <div class="fisht_bt">
+                        
+                    </div>
+                </div>
+
+	        </div>
+	        <div class="sub_right">
+		        <div class="sub_announce">
+			        <div class="title01"><h1>系统公告</h1></div>
+			        <div class="content">
+				        <ul class="text01">
+					        <uc3:DivNewsList ID="DivNoticeList" runat="server" />
+				        </ul>
+			        </div>
+		        </div>
+	        </div>
+        </div>
+		
+	    <uc2:WebFoot ID="WebFoot1" runat="server" />
+	</div>
+	</form>
+    <script type="text/javascript"> 
+        function nTabs(thisObj,Num){ 
+        if(thisObj.className == "active")return; 
+        var tabObj = thisObj.parentNode.id; 
+        var tabList = document.getElementById(tabObj).getElementsByTagName("li"); 
+        for(i=0; i <tabList.length; i++){ 
+        if (i == Num){ 
+           thisObj.className = "active"; 
+              document.getElementById(tabObj+"_Content"+i).style.display = "block"; 
+        }else{ 
+           tabList[i].className = "normal"; 
+           document.getElementById(tabObj+"_Content"+i).style.display = "none"; 
+        } 
+        } 
+        } 
+
+        function CheckMoneyValue()
+        {
+            var StrPayMoney=document.all["TxtPayMoney"].value;
+            StrRechargeNumber=formatFloat(StrPayMoney/<%= StrMessagePrice%>,0)-1;
+            var StrUseAccountValue='<%= StrUseAccountValue%>';
+            var StrBuyPrice='<%= StrBuyPrice%>';
+
+            if (StrPayMoney=="")
+            {
+                alert("对不起，充值短信的金额不能为空！");            
+                document.all["TxtPayMoney"].focus();
+                return false;
+            }
+            
+            if (!confirm("确定要充值【"+StrRechargeNumber+"】条短信吗？一旦充值将不可撤销！"))
+            {
+                return false;    
+            }
+            
+            if (formatFloat(StrPayMoney,3)>StrUseAccountValue)
+            {
+                alert("对不起，您的可用余额不足【"+StrPayMoney+"】元，请进行账户充值！");
+                document.all["BtnRecharge"].focus();
+                return false;
+            }
+
+            //FomSub.submit();
+            return true;
+        }
+
+        function SetMessageNumber()
+        {
+            var StrMessageNumber=document.all["TxtPayMoney"].value/<%= StrMessagePrice%>-1;
+            document.all["TxtMessageNumber"].value=formatFloat(StrMessageNumber,0);    
+        }
+        
+        function formatFloat(src, pos)
+        {
+            return Math.round(src*Math.pow(10, pos))/Math.pow(10, pos);
+        }
+        
+        //////只能输入数字
+        function OnlyInputNumber(obj, reg, inputstr) 
+        { 
+            if(event.srcelement.getattribute("readonly")||event.srcelement.getattribute("disabled"))return false; 
+            if(event.keycode<46 || event.keycode>57)return false; 
+            var docsel = document.selection.createrange(); 
+            if (docsel.parentelement().tagname != "input") return false; 
+            osel = docsel.duplicate() 
+            osel.text = "" 
+            var srcrange = obj.createtextrange() 
+            osel.setendpoint("starttostart", srcrange) 
+            var str = osel.text + inputstr + srcrange.text.substr(osel.text.length) 
+            return reg.test(str) 
+        }
+
+        function ValidateNumber(ev)
+        {
+            var e = ev.keyCode;
+            //允许的有大、小键盘的数字，左右键，backspace, delete, Control + C, Control + V
+            if(e != 8  && e != 9 && e != 13  && e != 37 && e != 39 && e != 46&& e != 48 && e != 49 && e != 50 && e != 51 && e != 52 && e != 53 && e != 54 && e != 55 && e != 56 && e != 57 && e != 96 && e != 97 && e != 98 && e != 99 && e != 100 && e != 101 && e != 102 && e != 103 && e != 104 && e != 105)
+            {
+                if(ev.ctrlKey == false)
+                {
+                    //不允许的就清空!
+                     ev.returnValue = "";
+                 }
+                else
+                {
+                    //验证剪贴板里的内容是否为数字!
+                     ValidateClip(ev);
+                 }
+             }
+        }
+
+        //验证剪贴板里的内容是否为数字!
+        function ValidateClip(ev)
+        {
+            //查看剪贴板的内容!
+            var content = clipboardData.getData("Text");
+            if(content != null)
+            {
+                try
+                {
+                    var test = parseInt(content);
+                    var str = "" + test;
+                    if(isNaN(test) == true)
+                    {
+                        //如果不是数字将内容清空!
+                         clipboardData.setData("Text","");
+                     }
+                    else
+                    {
+                        if(str != content)
+                             clipboardData.setData("Text", str);
+                     }
+                 }
+                catch(e)
+                {
+                    //清空出现错误的提示!
+                     alert("粘贴出现错误!");
+                 }
+             }
+        } 
+    </script>
+</body>
+</html>

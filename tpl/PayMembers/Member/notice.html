@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>系统公告中心|<%=GetMemberSystemTitle()%>|<%=GetWebsiteName()%></title>
+    <base href="http://xiangtan.suninpay.com:81/">
+    <link href="WebCss/WebSite.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<form id="FomSub" runat="server">
+    <div>
+	    <include file="Public:header" />
+	    <include file="Public:header1" />
+			
+			<div class="mainbody">
+		    <div class="index_main">
+    		
+			    <div class="box">
+				    <div class="title01">
+					    <h2>系统公告</h2>
+    				                                                                                
+				    </div>
+				    <div class="text_list">
+					    <ul class="textlist1">   
+					        <uc4:DivNoticePaging id="NewsTextList" runat="server" />
+					    </ul>
+					    <div class="list_page">              
+					        <uc5:DataPaingNoTo ID="DtPag" runat="server" />
+					    </div>
+				    </div>
+			    </div>
+		    </div>
+		    <div class="sub_right">
+			    <include file="Public:right" />
+			    
+		    </div>
+	    </div>
+
+       	<include file="Public:footer" />
+	</div>
+	</form>
+    <script type="text/javascript"> 
+        function nTabs(thisObj,Num){ 
+        if(thisObj.className == "active")return; 
+        var tabObj = thisObj.parentNode.id; 
+        var tabList = document.getElementById(tabObj).getElementsByTagName("li"); 
+        for(i=0; i <tabList.length; i++){ 
+        if (i == Num){ 
+           thisObj.className = "active"; 
+              document.getElementById(tabObj+"_Content"+i).style.display = "block"; 
+        }else{ 
+           tabList[i].className = "normal"; 
+           document.getElementById(tabObj+"_Content"+i).style.display = "none"; 
+        } 
+        } 
+        } 
+
+    </script>
+</body>
+</html>

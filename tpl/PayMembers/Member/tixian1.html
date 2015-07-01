@@ -1,0 +1,94 @@
+<%@ page language="C#" autoeventwireup="true" inherits="FeeMoneyView, App_Web_feemoneyview.aspx.cdcab7d2" %>
+
+<%@ Register Src="BeforeControl/UserLoginMessageShow.ascx" TagName="UserLoginMessageShow" TagPrefix="uc4" %>
+
+<%@ Register Src="BeforeControl/DivNewslist.ascx" TagName="DivNewslist" TagPrefix="uc3" %>
+
+<%@ Register Src="BeforeControl/WebFoot.ascx" TagName="WebFoot" TagPrefix="uc2" %>
+
+<%@ Register Src="BeforeControl/WebTop.ascx" TagName="WebTop" TagPrefix="uc1" %>
+<% Response.Expires = -1 ;%>
+<!DOCTYPE html PUBliC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>商户手续费查看|<%=GetMemberSystemTitle()%>|<%=GetWebsiteName()%></title>
+    <link href="WebCss/WebSite.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<form id="FomSub" runat="server">
+    <div>
+	    <uc1:WebTop ID="WebTop1" runat="server" />
+			
+		<uc4:UserLoginMessageShow id="UserLoginMessageShow1" runat="server" />
+			
+        <div class="mainbody">
+            <div class="undata_main" style="overflow:hidden">
+            <div class="title">提现手续费</div>
+                <div  class="shengh">
+                    <div class="nTab" >
+                        <div class="TabTitle">
+                            <ul id="mid0">
+                                <li onclick="nTabs(this,0);" class="active">（T+0）手续费</li>
+                                <li onclick="nTabs(this,1);" class="normal">（T+1）手续费</li>
+                            </ul>
+                        </div><!-- 内容开始 -->                       
+                        <div class="content">
+                            <div id="mid0_Content0" style="display: block;">
+                            <ul class="ul55">
+                                <li>
+                                    宝付:
+                                    <span class="org" style="font-size:24px">      
+                                    <%=  StrBaoFuZeroWithdrawalsMoney%>
+                                    </span>元
+                                </li>
+                            </ul>
+                            </div>
+                            <div id="mid0_Content1" class="none" style="display: none;">
+                                <ul class="ul55">
+                                    <li>
+                                        宝付:
+                                        <span class="org" style="font-size:24px">
+                                        <%= StrBaoFuOneWithdrawalsMoney%>
+                                        </span>元
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sub_right">
+                <div class="sub_announce">
+                    <div class="title01"><h1>系统公告</h1></div>
+                    <div class="content">
+	                    <ul class="text01">
+		                    <uc3:DivNewslist ID="DivNoticeList" runat="server" />
+	                    </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+		
+	    <uc2:WebFoot ID="WebFoot1" runat="server" />
+	</div>
+	</form>
+    <script type="text/javascript"> 
+        function nTabs(thisObj,Num){ 
+        if(thisObj.className == "active")return; 
+        var tabObj = thisObj.parentNode.id; 
+        var tablist = document.getElementById(tabObj).getElementsByTagName("li"); 
+        for(i=0; i <tablist.length; i++){ 
+        if (i == Num){ 
+           thisObj.className = "active"; 
+              document.getElementById(tabObj+"_Content"+i).style.display = "block"; 
+        }else{ 
+           tablist[i].className = "normal"; 
+           document.getElementById(tabObj+"_Content"+i).style.display = "none"; 
+        } 
+        } 
+        } 
+
+    </script>
+</body>
+</html>

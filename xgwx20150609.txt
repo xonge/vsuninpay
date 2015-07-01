@@ -1,0 +1,8 @@
+{"longitude":"112.95372","latitude":"27.833755","speed":"0.0","accuracy":"40.0","errMsg":"getLocation:ok"}
+{"longitude":"112.95372","latitude":"27.833755","speed":"0.0","accuracy":"40.0","errMsg":"getLocation:ok"}
+{"longitude":"112.95368","latitude":"27.833742","speed":"0.0","accuracy":"60.0","errMsg":"getLocation:ok"}
+{"longitude":"112.94503","latitude":"27.773966","speed":"0.0","accuracy":"40.0","errMsg":"getLocation:ok"}
+{"longitude":"112.94547","latitude":"27.773294","speed":"0.0","accuracy":"70.0","errMsg":"getLocation:ok"}
+{"longitude":112.9539,"latitude":27.8338,"accuracy":70.96282,"speed":-1,"errMsg":"getLocation:ok"}
+{"longitude":"112.02676","latitude":"29.010454","speed":"0.0","accuracy":"110.0","errMsg":"getLocation:ok"}
+{"longitude":"112.02676","latitude":"29.010454","speed":"0.0","accuracy":"110.0","errMsg":"getLocation:ok"}

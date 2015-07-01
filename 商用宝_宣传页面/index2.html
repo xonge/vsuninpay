@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>Document</title>
+	<style type="text/css">
+* { margin: 0; padding: 0; }
+html, body { /*width: 100%;*/ height: 100%; overflow: hidden; }
+.container { height: 100%; position: absolute; left: 0; top: 0%; }
+.container ul {
+    list-style: none;
+    height: 100%;
+}
+.container ul li {
+    display: block;
+    width: auto;
+    height: 100%;
+    float: left;
+}
+.container img {
+    max-width: 100%;
+}
+.container .page { /*height: 100%;*/ position: relative; color:#fff;text-align:center; 
+float: left;}
+.container .page h1{padding-top:120px; line-height:50px; color:#666;}
+.container .page p{text-align:center; color:#aaa;}
+.container .page0 {
+	background: red url(images/1.jpg) no-repeat;
+    -webkit-background-size: cover;
+    background-size: cover;
+}
+.container .page1 {
+	background: gray url(images/2.jpg) no-repeat;}
+.container .page2 {
+	background: green url(images/3.jpg) no-repeat;}
+.container .page3 {
+	background: yellow url(images/4.jpg) no-repeat;}
+#content {
+  overflow: hidden;
+  position: relative;
+}
+#imgs {
+  float: left;
+  display: inline;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  transition-property: transform;
+  transition-duration: 0.5s;
+  transition-timing-function: ease-out;
+  transform: translate(0, 0);
+}
+#imgs img {
+    border:none;
+}
+</style>
+<link rel="stylesheet" type="text/css" href="js/bower_components/fullpage.js/jquery.fullPage.css" />
+
+<script src="js/bower_components/jquery/jquery.js"></script>
+
+<!-- This following line is optional. Only necessary if you use the option css3:false and you want to use other easing effects rather than "linear", "swing" or "easeInOutCubic". -->
+<script src="js/bower_components/fullpage.js/vendors/jquery.easings.min.js"></script>
+
+
+<!-- This following line is only necessary in the case of using the plugin option `scrollOverflow:true` -->
+<script type="text/javascript" src="js/bower_components/fullpage.js/vendors/jquery.slimscroll.min.js"></script>
+
+<script type="text/javascript" src="js/bower_components/fullpage.js/jquery.fullPage.js"></script>
+</head>
+<body>
+<div id="fullpage">
+    <div class="section">
+        <div class="slide"><img src="images/1.jpg" width="100%"></div>
+        <div class="slide"><img src="images/2.jpg" width="100%"></div>
+        <div class="slide"><img src="images/3.jpg" width="100%"></div>
+        <div class="slide"><img src="images/4.jpg" width="100%"></div>
+    </div>
+<!--     <div class="section"><img src="images/2.jpg" width="100%"></div>
+    <div class="section"><img src="images/3.jpg" width="100%"></div>
+    <div class="section"><img src="images/4.jpg" width="100%"></div> -->
+</div>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#fullpage').fullpage({
+      // navigationPosition: 'right',
+      // slidesNavigation: true,
+    });
+});
+</script>
+<!-- <script type="text/javascript">
+  $(document).ready(function() {
+    $('#fullpage').fullpage({
+        //Navigation
+        menu: false,
+        anchors:['firstPage', 'secondPage'],
+        navigation: false,
+        navigationPosition: 'right',
+        navigationTooltips: ['firstSlide', 'secondSlide'],
+        showActiveTooltips: false,
+        slidesNavigation: true,
+        slidesNavPosition: 'bottom',
+
+        //Scrolling
+        css3: true,
+        scrollingSpeed: 700,
+        autoScrolling: true,
+        fitToSection: true,
+        scrollBar: false,
+        easing: 'easeInOutCubic',
+        easingcss3: 'ease',
+        loopBottom: false,
+        loopTop: false,
+        loopHorizontal: true,
+        continuousVertical: false,
+        normalScrollElements: '#element1, .element2',
+        scrollOverflow: false,
+        touchSensitivity: 15,
+        normalScrollElementTouchThreshold: 5,
+
+        //Accessibility
+        keyboardScrolling: true,
+        animateAnchor: true,
+        recordHistory: true,
+
+        //Design
+        controlArrows: true,
+        verticalCentered: true,
+        resize : false,
+        sectionsColor : ['#ccc', '#fff'],
+        paddingTop: '3em',
+        paddingBottom: '10px',
+        fixedElements: '#header, .footer',
+        responsive: 0,
+
+        //Custom selectors
+        sectionSelector: '.section',
+        slideSelector: '.slide',
+
+        //events
+        onLeave: function(index, nextIndex, direction){},
+        afterLoad: function(anchorLink, index){},
+        afterRender: function(){},
+        afterResize: function(){},
+        afterSlideLoad: function(anchorLink, index, slideAnchor, slideIndex){},
+        onSlideLeave: function(anchorLink, index, slideIndex, direction){}
+    });
+});
+</script> -->
+</body>
+</html>

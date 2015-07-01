@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>我的账户|<%=GetMemberSystemTitle()%>|<%=GetWebsiteName()%></title>
+    <base href="http://xiangtan.suninpay.com:81/">
+    <link href="WebCss/WebSite.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <form id="FomSub" runat="server">
+    <div>
+	    <include file="Public:header" />
+
+		<div class="nav01">
+		    <div class="left">信息审核(已审核)</div>
+	    </div>
+	    <div class="mainbody" >
+		    <div class="index_main">
+			    <div class="box" style="margin-bottom:10px">
+				    <div class="title01">
+					    <h2>账户余额</h2>
+
+				    </div>
+				    <div class="chy_2_st">
+					    <div class="div_01 Font14">
+						    <h1>现金余额：【<b class="org">{pigcms:$member.AccountUsedValue}</b>】元&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						    收益余额：【<b class="org">{pigcms:$member.VirtualUsedValue}</b>】元</h1>
+						    <h2><b>现金余额：</b>
+						    （可用余额+冻结金额）：【<b class="FontBoldBlue">{pigcms:$member.AccountValue}</b>】元&nbsp;&nbsp;
+						    冻结金额：【<b class="org">{pigcms:$member.AccountDisableValue}</b>】元&nbsp;&nbsp;
+						    已提现金额：【<b class="org">{pigcms:$money}</b>】元
+						    <P>当日订单数量：【<b class="org">{pigcms:$ordernum}</b>】笔&nbsp;&nbsp;&nbsp;
+						    当日订单总额：【<b class="org">{pigcms:$totalmoney}</b>】元&nbsp;&nbsp;&nbsp;
+						    默认提现银行账户：【{pigcms:$bankcard.BankName}(尾号：<b class="org">{pigcms:$r4num.0|reset}</b>)】</P>
+						    </h2>
+						    <h2><b>收益余额：</b>
+						    （可用余额+冻结金额）：【<b class="FontBoldBlue">{pigcms:$member.VirtualAccountValue}</b>】元&nbsp;&nbsp;
+						    冻结金额：【<b class="org">{pigcms:$member.VirtualDisableValue}</b>】元&nbsp;&nbsp;
+					    </div>
+				    </div>
+			    </div>
+
+
+			    <div class="box">
+				    <div class="title01">
+					    <h2>最近交易列表</h2>
+					    <span><a href="BankTransactionList.aspx?MainID=4">网银交易记录</a>|<a href="MerchantWithdrawalList.aspx?MainID=2&ACID=2">委托提现记录</a>|<a href="MerchantWithdrawalList.aspx?MainID=2">提现记录</a></span>
+				    </div>
+				    <div class="list_tab">
+					    <table  class="b1" cellspacing="1" cellpadding="0">
+						    <tbody><tr>
+							    <th>交易类型</th>
+							    <th>交易时间</th>
+							    <th>交易金额</th>
+							    <th>交易账户</th>
+							    <th>状态</th>
+							    <th>备注</th>
+						    </tr>
+
+		                        <tr class="tr1">
+			                        <td>转账付款</td>
+			                        <td><span class="brown_color">2015-05-22 10:09:16</span></td>
+			                        <td>200</td>
+				                    <td>13789322528</td>
+			                        <td><span class="FontGreen">交易成功</span></td>
+				                    <td>转账付款交易</td>
+		                        </tr>
+
+		                        <tr class="tr2">
+			                        <td>转账付款</td>
+			                        <td><span class="brown_color">2015-05-22 10:02:12</span></td>
+			                        <td>1000</td>
+				                    <td>13789322528</td>
+			                        <td><span class="FontGreen">交易成功</span></td>
+				                    <td>转账付款交易</td>
+		                        </tr>
+
+		                        <tr class="tr1">
+			                        <td>转账付款</td>
+			                        <td><span class="brown_color">2015-05-19 01:17:32</span></td>
+			                        <td>1000</td>
+				                    <td>13789322528</td>
+			                        <td><span class="FontGreen">交易成功</span></td>
+				                    <td>转账付款交易</td>
+		                        </tr>
+
+		                        <tr class="tr2">
+			                        <td>订单充值</td>
+			                        <td><span class="brown_color">2015-05-18 15:57:38</span></td>
+			                        <td>2895</td>
+				                    <td>13789322528</td>
+			                        <td><span class="FontRed">未支付</span></td>
+				                    <td>订单充值交易</td>
+		                        </tr>
+
+		                        <tr class="tr1">
+			                        <td>订单充值</td>
+			                        <td><span class="brown_color">2015-05-18 15:53:08</span></td>
+			                        <td>1895</td>
+				                    <td>13789322528</td>
+			                        <td><span class="FontGreen">交易成功</span></td>
+				                    <td>订单充值交易</td>
+		                        </tr>
+
+		                        <tr class="tr2">
+			                        <td>订单充值</td>
+			                        <td><span class="brown_color">2015-05-18 15:46:28</span></td>
+			                        <td>2346</td>
+				                    <td>13789322528</td>
+			                        <td><span class="FontGreen">交易成功</span></td>
+				                    <td>订单充值交易</td>
+		                        </tr>
+
+		                        <tr class="tr1">
+			                        <td>商户提现</td>
+			                        <td><span class="brown_color">2015-05-15 18:50:26</span></td>
+			                        <td>12926</td>
+				                    <td>13789322528</td>
+			                        <td><span class="FontRed">未支付</span></td>
+				                    <td>T+0提现交易</td>
+		                        </tr>
+
+		                        <tr class="tr2">
+			                        <td>商户提现</td>
+			                        <td><span class="brown_color">2015-05-15 17:51:44</span></td>
+			                        <td>100</td>
+				                    <td>13789322528</td>
+			                        <td><span class="FontRed">未支付</span></td>
+				                    <td>T+0提现交易</td>
+		                        </tr>
+
+
+					    </tbody>
+
+
+					    </table>
+
+					    <div class="list_page" style="display:none;">
+						    <div class="left">
+							    （总额：<span class="org">100</span>元    实收金额：<span class="org">100</span>元    成功订单：<span class="org">5</span>笔）
+						     </div>
+						    <div class="right">
+							    <div class="page">
+								    <span class="current">1</span><a href="#?page=2">2</a><a href="#?page=3">3</a><a href="#?page=2">Next</a>
+							    </div>
+						    </div>
+					    </div>
+				    </div>
+			    </div>
+		    </div>
+		    <div class="sub_right">
+
+			    <div class="sub_announce">
+				    <div class="title01">
+					    <h1>系统公告</h1>
+				    </div>
+				    <div class="content">
+					    <ul class="text01">
+						    <uc3:DivNewsList ID="DivNoticeList" runat="server" />
+					    </ul>
+				    </div>
+			    </div>
+		    </div>
+	    </div>
+
+	    <include file="Public:footer" />
+
+	</div>
+	</form>
+    <script type="text/javascript">
+        function nTabs(thisObj,Num){
+        if(thisObj.className == "active")return;
+        var tabObj = thisObj.parentNode.id;
+        var tabList = document.getElementById(tabObj).getElementsByTagName("li");
+        for(i=0; i <tabList.length; i++){
+        if (i == Num){
+           thisObj.className = "active";
+              document.getElementById(tabObj+"_Content"+i).style.display = "block";
+        }else{
+           tabList[i].className = "normal";
+           document.getElementById(tabObj+"_Content"+i).style.display = "none";
+        }
+        }
+        }
+
+    </script>
+</body>
+</html>

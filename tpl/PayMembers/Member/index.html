@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>|</title>
+  <base href="http://xiangtan.suninpay.com:81/">
+  <link href="WebCss/WebSite.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+  <form>
+    <div>
+      <div class="topnav">
+        <!-- 共用头部 -->
+        <include file="Public:header" />
+        <include file="Public:header1" />
+        <div class="mainbody">
+          <div class="index_main">
+            <div class="box bottom10">
+              <div class="title01">
+                <h1 class="t1">欢迎您：【{pigcms:$member.RealName}】&nbsp;&nbsp;{pigcms:$member.UserName}&nbsp;&nbsp;&nbsp;&nbsp; <font><a href="MerchantAccountShow.aspx?MainID=0">我的账户</a></font></h1>
+            </div>
+            <div class="index_3">
+              <ul>
+                <li >
+                  <dl>
+                    <dt>
+                      <a href="MerchantBasicMessage.aspx?MainID=1">
+                        <img src="WebImages/1.jpg" />
+                      </a>
+                    </dt>
+                    <dd>
+                      <a href="MerchantBasicMessage.aspx?MainID=1">我的档案</a>
+                    </dd>
+                  </dl>
+                </li>
+                <li>
+                  <dl>
+                    <dt>
+                      <a href="IdentityValidate.aspx?MainID=0">
+                        <img src="WebImages/2.jpg" />
+                      </a>
+                    </dt>
+                    <dd>
+                      <a href="IdentityValidate.aspx?MainID=0">实名认证</a>
+                    </dd>
+                  </dl>
+                </li>
+                <li>
+                  <dl>
+                    <dt>
+                      <a href="javascript:;" target="_blank">
+                        <img src="WebImages/3.jpg" />
+                      </a>
+                    </dt>
+                    <dd>
+                      <a href="javascript:;" target="_blank">我的微店</a>
+                    </dd>
+                  </dl>
+                </li>
+                <li>
+                  <dl>
+                    <dt>
+                      <a href="http://www.suninpay.com" target="_blank">
+                        <img src="WebImages/4.jpg" />
+                      </a>
+                    </dt>
+                    <dd>
+                      <a href="http://www.suninpay.com" target="_blank">同城购物</a>
+                    </dd>
+                  </dl>
+                </li>
+                <li>
+                  <dl>
+                    <dt>
+                      <a href="NoticeCenterList.aspx?MainID=0">
+                        <img src="WebImages/5.jpg" />
+                      </a>
+                    </dt>
+                    <dd>
+                      <a href="NoticeCenterList.aspx?MainID=0">站内公告</a>
+                    </dd>
+                  </dl>
+                </li>
+                <li>
+                  <dl>
+                    <dt>
+                      <a href="MerchantNewsList.aspx?MainID=6">
+                        <img src="WebImages/6.jpg" />
+                      </a>
+                    </dt>
+                    <dd>
+                      <a href="MerchantNewsList.aspx?MainID=6">微信营销</a>
+                    </dd>
+                  </dl>
+                </li>
+                <li >
+                  <dl>
+                    <dt>
+                      <a href="MerchantMessageSend.aspx?MainID=6">
+                        <img src="WebImages/7.jpg" />
+                      </a>
+                    </dt>
+                    <dd>
+                      <a href="MerchantMessageSend.aspx?MainID=6">商务短信</a>
+                    </dd>
+                  </dl>
+                </li>
+                <li>
+                  <dl>
+                    <dt>
+                      <a href="OrdersRecharge.aspx?MainID=4">
+                        <img src="WebImages/8.jpg" />
+                      </a>
+                    </dt>
+                    <dd>
+                      <a href="OrdersRecharge.aspx?MainID=4">一键收款</a>
+                    </dd>
+                  </dl>
+                </li>
+
+                <li>
+                  <dl>
+                    <dt>
+                      <a href="MerchantWithdrawal.aspx?MainID=3">
+                        <img src="WebImages/9.jpg" />
+                      </a>
+                    </dt>
+                    <dd>
+                      <a href="MerchantWithdrawal.aspx?MainID=3">马上结算</a>
+                    </dd>
+                  </dl>
+                </li>
+</ul>
+            </div>
+          </div>
+          <div class="box">
+            <div class="title01">
+              <h2>最近交易列表</h2>
+              <span>
+                <a href="BankTransactionList.aspx?MainID=4">网银交易记录</a>
+                |
+                <a href="MerchantWithdrawalList.aspx?MainID=2&ACID=2">委托提现记录</a>
+                |
+                <a href="MerchantWithdrawalList.aspx?MainID=2">提现记录</a>
+              </span>
+            </div>
+            <div class="list_tab">
+              <table  class="b1" cellspacing="1" cellpadding="0">
+                <!-- <tr >
+                  <th>交易类型</th>
+                  <th>交易时间</th>
+                  <th>交易金额</th>
+                  <th>交易账户</th>
+                  <th>状态</th>
+                  <th>备注</th>
+                </tr> -->
+                <tbody><tr>
+                  <th>交易类型</th>
+                  <th>交易时间</th>
+                  <th>交易金额</th>
+                  <th>交易账户</th>
+                  <th>状态</th>
+                  <th>备注</th>
+                </tr>
+                                
+                              <tr class="tr1">
+                                <td>转账付款</td>
+                                <td><span class="brown_color">2015-05-19 01:17:32</span></td>   
+                                <td>1000</td>
+                                <td>13789322528</td> 
+                                <td>
+                                    <span style="display:"></span>
+                                    <span class="FontGreen">交易成功</span>
+                                    
+                                    <!-- 
+                                    <input id="BtnEdit" name="" type="button" value="继续付款" class="OrangeButton"  onclick="ShowAlterValue(1896)" style="display:none" />
+                                    -->
+                                </td>
+                                <td>转账付款交易</td>
+                              </tr>
+                                    
+                              <tr class="tr2">
+                                <td>订单充值</td>
+                                <td><span class="brown_color">2015-05-18 15:53:08</span></td>   
+                                <td>1895</td>
+                                <td>13789322528</td> 
+                                <td>
+                                    <span style="display:"></span>
+                                    <span class="FontGreen">交易成功</span>
+                                    
+                                    <!-- 
+                                    <input id="BtnEdit" name="" type="button" value="继续付款" class="OrangeButton"  onclick="ShowAlterValue(1893)" style="display:none" />
+                                    -->
+                                </td>
+                                <td>订单充值交易</td>
+                              </tr>
+                                    
+                              <tr class="tr1">
+                                <td>订单充值</td>
+                                <td><span class="brown_color">2015-05-18 15:46:28</span></td>   
+                                <td>2346</td>
+                                <td>13789322528</td> 
+                                <td>
+                                    <span style="display:"></span>
+                                    <span class="FontGreen">交易成功</span>
+                                    
+                                    <!-- 
+                                    <input id="BtnEdit" name="" type="button" value="继续付款" class="OrangeButton"  onclick="ShowAlterValue(1892)" style="display:none" />
+                                    -->
+                                </td>
+                                <td>订单充值交易</td>
+                              </tr>
+                                    
+                              <tr class="tr2">
+                                <td>订单充值</td>
+                                <td><span class="brown_color">2015-05-15 15:58:23</span></td>   
+                                <td>1858</td>
+                                <td>13789322528</td> 
+                                <td>
+                                    <span style="display:"></span>
+                                    <span class="FontGreen">交易成功</span>
+                                    
+                                    <!-- 
+                                    <input id="BtnEdit" name="" type="button" value="继续付款" class="OrangeButton"  onclick="ShowAlterValue(1875)" style="display:none" />
+                                    -->
+                                </td>
+                                <td>订单充值交易</td>
+                              </tr>
+                                    
+                              <tr class="tr1">
+                                <td>订单充值</td>
+                                <td><span class="brown_color">2015-05-15 15:55:31</span></td>   
+                                <td>976</td>
+                                <td>13789322528</td> 
+                                <td>
+                                    <span style="display:"></span>
+                                    <span class="FontGreen">交易成功</span>
+                                    
+                                    <!-- 
+                                    <input id="BtnEdit" name="" type="button" value="继续付款" class="OrangeButton"  onclick="ShowAlterValue(1873)" style="display:none" />
+                                    -->
+                                </td>
+                                <td>订单充值交易</td>
+                              </tr>
+                                    
+                              <tr class="tr2">
+                                <td>订单充值</td>
+                                <td><span class="brown_color">2015-05-15 15:52:32</span></td>   
+                                <td>976</td>
+                                <td>13789322528</td> 
+                                <td>
+                                    <span style="display:"></span>
+                                    <span class="FontGreen">交易成功</span>
+                                    
+                                    <!-- 
+                                    <input id="BtnEdit" name="" type="button" value="继续付款" class="OrangeButton"  onclick="ShowAlterValue(1871)" style="display:none" />
+                                    -->
+                                </td>
+                                <td>订单充值交易</td>
+                              </tr>
+                                    
+                              <tr class="tr1">
+                                <td>订单充值</td>
+                                <td><span class="brown_color">2015-05-15 15:50:38</span></td>   
+                                <td>752</td>
+                                <td>13789322528</td> 
+                                <td>
+                                    <span style="display:"></span>
+                                    <span class="FontGreen">交易成功</span>
+                                    
+                                    <!-- 
+                                    <input id="BtnEdit" name="" type="button" value="继续付款" class="OrangeButton"  onclick="ShowAlterValue(1870)" style="display:none" />
+                                    -->
+                                </td>
+                                <td>订单充值交易</td>
+                              </tr>
+                                    
+                              <tr class="tr2">
+                                <td>订单充值</td>
+                                <td><span class="brown_color">2015-05-15 15:46:38</span></td>   
+                                <td>2852</td>
+                                <td>13789322528</td> 
+                                <td>
+                                    <span style="display:"></span>
+                                    <span class="FontGreen">交易成功</span>
+                                    
+                                    <!-- 
+                                    <input id="BtnEdit" name="" type="button" value="继续付款" class="OrangeButton"  onclick="ShowAlterValue(1867)" style="display:none" />
+                                    -->
+                                </td>
+                                <td>订单充值交易</td>
+                              </tr>
+                                    
+                              <tr class="tr1">
+                                <td>订单充值</td>
+                                <td><span class="brown_color">2015-05-15 15:45:23</span></td>   
+                                <td>1568</td>
+                                <td>13789322528</td> 
+                                <td>
+                                    <span style="display:"></span>
+                                    <span class="FontGreen">交易成功</span>
+                                    
+                                    <!-- 
+                                    <input id="BtnEdit" name="" type="button" value="继续付款" class="OrangeButton"  onclick="ShowAlterValue(1866)" style="display:none" />
+                                    -->
+                                </td>
+                                <td>订单充值交易</td>
+                              </tr>
+                                    
+                              <tr class="tr2">
+                                <td>转账付款</td>
+                                <td><span class="brown_color">2015-05-11 11:26:53</span></td>   
+                                <td>10</td>
+                                <td>13808412184</td> 
+                                <td>
+                                    <span style="display:"></span>
+                                    <span class="FontGreen">交易成功</span>
+                                    
+                                    <!-- 
+                                    <input id="BtnEdit" name="" type="button" value="继续付款" class="OrangeButton"  onclick="ShowAlterValue(1849)" style="display:none" />
+                                    -->
+                                </td>
+                                <td>转账付款交易</td>
+                              </tr>
+                                    
+                              <tr class="tr1">
+                                <td>转账付款</td>
+                                <td><span class="brown_color">2015-05-11 11:26:19</span></td>   
+                                <td>10</td>
+                                <td>13789322528</td> 
+                                <td>
+                                    <span style="display:"></span>
+                                    <span class="FontGreen">交易成功</span>
+                                    
+                                    <!-- 
+                                    <input id="BtnEdit" name="" type="button" value="继续付款" class="OrangeButton"  onclick="ShowAlterValue(1848)" style="display:none" />
+                                    -->
+                                </td>
+                                <td>转账付款交易</td>
+                              </tr>
+                                    
+                              <tr class="tr2">
+                                <td>转账付款</td>
+                                <td><span class="brown_color">2015-04-30 15:45:09</span></td>   
+                                <td>154</td>
+                                <td>13808412184</td> 
+                                <td>
+                                    <span style="display:"></span>
+                                    <span class="FontGreen">交易成功</span>
+                                    
+                                    <!-- 
+                                    <input id="BtnEdit" name="" type="button" value="继续付款" class="OrangeButton"  onclick="ShowAlterValue(1833)" style="display:none" />
+                                    -->
+                                </td>
+                                <td>转账付款交易</td>
+                              </tr>
+                                    
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="sub_right">
+        <include file="Public:right" />
+        <div class="sub_announce" style="margin-top:17px;">
+          <div class="title01">
+            <h1>系统公告</h1>
+          </div>
+          <div class="content">
+            <ul class="text01">
+              <include file="Public:rightnews" />
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <include file="Public:footer" />
+  </div>
+</div>
+</form>
+<script type="text/javascript">
+        function nTabs(thisObj,Num){
+        if(thisObj.className == "active")return;
+        var tabObj = thisObj.parentNode.id;
+        var tabList = document.getElementById(tabObj).getElementsByTagName("li");
+        for(i=0; i <tabList.length; i++){
+        if (i == Num){
+           thisObj.className = "active";
+              document.getElementById(tabObj+"_Content"+i).style.display = "block";
+        }else{
+           tabList[i].className = "normal";
+           document.getElementById(tabObj+"_Content"+i).style.display = "none";
+        }
+        }
+        }
+
+    </script></body>
+</html>

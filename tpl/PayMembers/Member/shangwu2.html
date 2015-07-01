@@ -1,0 +1,103 @@
+<%@ page language="C#" autoeventwireup="true" inherits="OnlineRechargeWebsite, App_Web_onlinerechargewebsite.aspx.cdcab7d2" %>
+
+<%@ Register Src="BeforeControl/UserLoginMessageShow.ascx" TagName="UserLoginMessageShow" TagPrefix="uc4" %>
+
+<%@ Register Src="BeforeControl/DivNewsList.ascx" TagName="DivNewsList" TagPrefix="uc3" %>
+
+<%@ Register Src="BeforeControl/WebFoot.ascx" TagName="WebFoot" TagPrefix="uc2" %>
+
+<%@ Register Src="BeforeControl/WebTop.ascx" TagName="WebTop" TagPrefix="uc1" %>
+<% Response.Expires = -1 ;%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>远程收款|<%=GetMemberSystemTitle()%>|<%=GetWebsiteName()%></title>
+    <link href="WebCss/WebSite.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<form id="FomSub" runat="server">
+    <div>
+	    <uc1:WebTop ID="WebTop1" runat="server" />
+			
+		<uc4:UserLoginMessageShow id="UserLoginMessageShow1" runat="server" />
+			
+			<div class="mainbody">
+    		
+		    <div class="undata_main">
+			    <div class="title">
+				    网络收银台地址<span>（一旦确认后不能再修改！）</span>
+			    </div>
+			    <div class="bank_content1">
+				     请输入支付页面二级地址名称
+			    </div>
+    		
+			    <div class="step1_cont">                                                                
+				    <ul>
+					    <li>
+						    <dl>    <!-- http://pay.xxhlshop.com/ -->
+							    <dt style="width:200px">
+							        <a href="http://<%= Request.Url.Authority%>/<%= StrPageLinkName%>" target="_blank">http://<%= Request.Url.Authority%>/<%= StrPageLinkName%></a>
+							    </dt>
+							    <dd style="width:200px">
+							        <input id="TxtPageLinkName" runat="server" name="TxtPageLinkName" type="text" class="input1" /><asp:Label id="LabHaveName" runat="server" style=" color:#ff0000;"></asp:Label>
+							    </dd>
+						    </dl>
+					    </li>
+    					
+				    </ul>
+			    </div>	 
+    			
+		        <div class="step1_cont">
+				    <ul>
+					    <li>
+						    <dl>
+							    <dt>&nbsp;</dt>
+							    <dd >
+							        <span style=" padding-left:160px">
+    							        <asp:Button  ID="BtnRecharge" runat="server" Text="确定" OnClientClick="return CheckEmpty();" 
+							            CssClass="org_bt" OnClick="BtnRecharge_Click" ></asp:Button>
+							        </span>
+							    </dd>
+						    </dl>
+					    </li>
+    					
+				    </ul>
+			    </div>
+    			
+		    </div>
+
+		    <div class="sub_right">
+			    <div class="sub_announce">
+				    <div class="title01"><h1>系统公告</h1></div>
+				    <div class="content">
+					    <ul class="text01">
+						    <uc3:DivNewsList ID="DivNoticeList" runat="server" />
+					    </ul>
+				    </div>
+			    </div>
+		    </div>
+	    </div>
+		
+	    <uc2:WebFoot ID="WebFoot1" runat="server" />
+	</div>
+	</form>
+    <script type="text/javascript"> 
+        function nTabs(thisObj,Num){ 
+        if(thisObj.className == "active")return; 
+        var tabObj = thisObj.parentNode.id; 
+        var tabList = document.getElementById(tabObj).getElementsByTagName("li"); 
+        for(i=0; i <tabList.length; i++){ 
+        if (i == Num){ 
+           thisObj.className = "active"; 
+              document.getElementById(tabObj+"_Content"+i).style.display = "block"; 
+        }else{ 
+           tabList[i].className = "normal"; 
+           document.getElementById(tabObj+"_Content"+i).style.display = "none"; 
+        } 
+        } 
+        } 
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+{"latitude":27.56395,"longitude":112.8437,"speed":-1,"accuracy":1414,"errMsg":"getLocation:ok"}
+{"latitude":27.81631,"longitude":113.1047,"speed":-1,"accuracy":88.30928,"errMsg":"getLocation:ok"}
+{"latitude":27.81574,"longitude":113.1048,"speed":-1,"accuracy":65,"errMsg":"getLocation:ok"}
+{"latitude":27.81581,"longitude":113.1048,"speed":-1,"accuracy":65,"errMsg":"getLocation:ok"}
+{"longitude":117.9609,"latitude":28.43177,"accuracy":100,"errMsg":"getLocation:ok"}
+{"longitude":113.0255,"latitude":28.17661,"accuracy":1024.206,"speed":-1,"errMsg":"getLocation:ok"}
+{"longitude":113.1693,"latitude":27.83587,"accuracy":65,"speed":-1,"errMsg":"getLocation:ok"}

@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>通道网银费率查看|<%=GetMemberSystemTitle()%>|<%=GetWebsiteName()%></title>
+    <base href="http://xiangtan.suninpay.com:81/">
+    <link href="WebCss/WebSite.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<form id="FomSub" runat="server">
+    <div>
+	    <include file="Public:header" />
+
+	    <div class="mainbody" >
+		    <div class="index_main">
+			    <div class="box" style="margin-bottom:10px">
+				    <div class="title01">
+					    <h2>充值手续费</h2>                                                      
+    				
+				    </div>
+				    <div class="chy_2_st">
+					    <div class="div_01">
+						    <h1 style="float:left; width:300px">宝付：<b class="org">{pigcms:$rate}%</b></h1>                                                                  
+						    <h1 style="float:left"><b class="blue">网银：</b><b class="org">{pigcms:$rate}%</b></h1>
+					    </div>
+				    </div>
+			    </div>		
+		    </div>
+		    <div class="sub_right">
+    			
+			    <div class="sub_announce">
+				    <div class="title01">
+					    <h1>系统公告</h1>
+				    </div>
+				    <div class="content">
+					    <ul class="text01">
+						    <uc3:DivNewsList ID="DivNoticeList" runat="server" />
+					    </ul>
+				    </div>
+			    </div>
+		    </div>
+	    </div>
+		
+	    <uc2:WebFoot ID="WebFoot1" runat="server" />
+	</div>
+	</form>
+    <script type="text/javascript"> 
+        function nTabs(thisObj,Num){ 
+        if(thisObj.className == "active")return; 
+        var tabObj = thisObj.parentNode.id; 
+        var tabList = document.getElementById(tabObj).getElementsByTagName("li"); 
+        for(i=0; i <tabList.length; i++){ 
+        if (i == Num){ 
+           thisObj.className = "active"; 
+              document.getElementById(tabObj+"_Content"+i).style.display = "block"; 
+        }else{ 
+           tabList[i].className = "normal"; 
+           document.getElementById(tabObj+"_Content"+i).style.display = "none"; 
+        } 
+        } 
+        } 
+
+    </script>
+</body>
+</html>

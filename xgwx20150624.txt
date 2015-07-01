@@ -1,0 +1,4 @@
+{"latitude":22.89365,"longitude":113.8115,"speed":-1,"accuracy":65,"errMsg":"getLocation:ok"}
+{"longitude":110.5699,"latitude":34.41474,"accuracy":1586.266,"speed":-1,"errMsg":"getLocation:ok"}
+{"latitude":28.50494,"longitude":121.5158,"speed":-1,"accuracy":65,"errMsg":"getLocation:ok"}
+{"latitude":28.50495,"longitude":121.5159,"speed":-1,"accuracy":65,"errMsg":"getLocation:ok"}

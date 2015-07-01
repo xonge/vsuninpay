@@ -1,0 +1,149 @@
+<%@ page language="C#" autoeventwireup="true" inherits="MerchantWithdrawalList, App_Web_merchantwithdrawallist.aspx.cdcab7d2" %>    
+                                                                                                    
+<%@ Register Src="BeforeControl/DataPaingNoTo.ascx" TagName="DataPaingNoTo" TagPrefix="uc6" %>
+
+<%@ Register Src="BeforeControl/DivNoticePaging.ascx" TagName="DivNoticePaging" TagPrefix="uc5" %>
+
+<%@ Register Src="BeforeControl/UserLoginMessageShow.ascx" TagName="UserLoginMessageShow" TagPrefix="uc4" %>
+
+<%@ Register Src="BeforeControl/DivNewsList.ascx" TagName="DivNewsList" TagPrefix="uc3" %>
+
+<%@ Register Src="BeforeControl/WebFoot.ascx" TagName="WebFoot" TagPrefix="uc2" %>
+
+<%@ Register Src="BeforeControl/WebTop.ascx" TagName="WebTop" TagPrefix="uc1" %>
+<% Response.Expires = -1 ;%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>商户<%= StrClassName%>记录查看|<%=GetMemberSystemTitle()%>|<%=GetWebsiteName()%></title>
+    <link href="WebCss/WebSite.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<form id="FomSub" runat="server">
+    <div>
+	    <uc1:WebTop ID="WebTop1" runat="server" />
+			
+		<uc4:UserLoginMessageShow id="UserLoginMessageShow1" runat="server" />
+			
+        <div class="mainbody"> 
+			<!-- <div class="box" style="margin-bottom:10px"> -->
+            <div class="FullWidth">
+			    <div class="title01">
+				    <h2><%= StrClassName%>记录统计</h2>
+				    <span></span>
+			    </div>
+			    <div class="FullWidthList">
+				    <div class="BankWithdrawalList FontSize16">
+					    &nbsp;&nbsp;&nbsp;
+					    当日提现总额：<b class="org"><%= StrTodayWithdrawalMoney%></b> 元&nbsp;&nbsp;&nbsp;
+					    <span>当日提现次数：</span><b class="blue"><%= StrTodayWithdrawalNumber%></b> 次<span>&nbsp;&nbsp;&nbsp;
+					    当日提现总交易笔数：</span><b class="blue"><%= StrTodayWithdrawalFeeMoney%></b> 笔<br /><br /> 
+					    <P>
+					    <span>请选择申请时间：</span>
+					    <b class="org">
+					        <input type="text" id="TxtRequestTime" name="TxtRequestTime"  class="input1" readonly="readonly"
+                            onclick="WdatePicker()" value=""  runat="server" style="cursor:pointer;width:110px;font-size:16px; height:22px;" />
+					    </b> 
+					    <span>请选择状态：</span>
+					    <b class="blue">
+					        <asp:DropDownList ID="DpdTransactionStateList" runat="server" >
+                                <asp:ListItem Value="0" Text="所有状态" Selected="True"></asp:ListItem>
+                                <asp:ListItem Value="1" Text="未处理"></asp:ListItem>
+                                <asp:ListItem Value="2" Text="处理中"></asp:ListItem>
+                                <asp:ListItem Value="3" Text="已汇款"></asp:ListItem>
+                            </asp:DropDownList>
+					    </b> 
+					    <span>请选择类型：</span>
+					    <b class="blue">
+					        <asp:DropDownList ID="DpdTransactionClassList" runat="server" >
+                                <asp:ListItem Value="0" Text="所有类型" Selected="True"></asp:ListItem>
+                                <asp:ListItem Value="1" Text="T+0"></asp:ListItem>
+                                <asp:ListItem Value="2" Text="T+1"></asp:ListItem>
+                            </asp:DropDownList>
+					    </b> 
+					    <span>通道类型：</span>
+					    <b class="blue">
+					        <asp:DropDownList ID="DpdPaymentPassageList" runat="server" >
+                                <asp:ListItem Value="0" Text="所有通道" Selected="True"></asp:ListItem>
+                                <asp:ListItem Value="1" Text="宝付"></asp:ListItem>
+                                <asp:ListItem Value="2" Text="支付宝"></asp:ListItem>
+                            </asp:DropDownList> 
+					    </b> 
+					    <asp:Button ID="BtnSearch" runat="server" OnClick="BtnSearch_Click" CssClass="" Text="查 询" />
+				    </div>
+			    </div>
+		    </div>	
+        </div>
+			
+		<div class="mainbody">
+		    <div class="FullMain">
+			    <div class="FullWidth">
+				    <div class="title01">
+					    <h2><%= StrClassName%>交易记录</h2>
+					    <span></span>
+				    </div>
+				    <div class="FullWidthList" style="font-size:16px;">
+					    <table  class="b1" cellspacing="1" cellpadding="0">
+						    <tr >                  
+							    <th>提现金额</th>   
+							    <th>手续费</th>
+							    <th>到账金额</th>
+							    <th>银行名称</th>
+							    <th>分行名称</th>
+							    <th>银行帐号</th>
+							    <th>申请时间</th>
+							    <th>类型</th>
+							    <th>通道</th>
+							    <th>状态</th>
+						    </tr>                                                  
+                            <asp:Repeater ID="RptNewsList" runat="server" >
+                                <ItemTemplate>                              
+		                        <tr class="<%# Container.ItemIndex%2==0 ?"tr1":"tr2"%>">
+		                            <td>￥<%# Eval("TransactionMoney") %></td>
+				                    <td>￥<%# Eval("TransactionFeeMoney") %></td> 
+				                    <td>￥<%# Eval("ResultMoney") %></td> 
+				                    <td><%# Eval("BankName")%></td>
+				                    <td><%# GetDataNameValue("WithdrawalBankID", "ChildBankName", "WithdrawalBankMessageTab", Eval("WithdrawalBankID").ToString())%></td>
+				                    <td><%# GetDataNameValue("WithdrawalBankID", "WithdrawalAccount", "WithdrawalBankMessageTab", Eval("WithdrawalBankID").ToString())%></td>
+		                            <td><%# Convert.ToDateTime(Eval("TransactionTime")).ToString("yyyy-MM-dd HH:mm:ss")%></td>  
+			                        <td><%# Eval("WithdrawalsClassID").ToString() == "1" ? "T + 0" : Eval("WithdrawalsClassID").ToString() == "2" ? "T + 1" : "订单充值"%></td> 
+		                            <td><%# GetDataNameValue("PaymentPassageID", "PaymentPassageName", "PaymentPassageSetTab", Eval("PaymentPassageID").ToString())%></td>
+				                    <td><%# Eval("TransactionState").ToString() == "3" ? "<span class='FontGreen'>已汇款</span>" : Eval("TransactionState").ToString() == "2" ? "<span class='FontRed'>处理中</span>" : "<span class='FontRed'>未处理</span>"%></td> 
+		                        </tr>
+                                </ItemTemplate>
+                            </asp:Repeater>
+					    </table>                          
+					    <div class="list_page"> 
+					        <uc6:DataPaingNoTo ID="DtPag" runat="server" />
+					    </div>
+				    </div>
+			    </div>
+		    </div>
+		    
+	    </div>
+		
+	    <uc2:WebFoot ID="WebFoot1" runat="server" />
+
+	</div>
+	</form>
+    <script type="text/javascript"> 
+        function nTabs(thisObj,Num){ 
+        if(thisObj.className == "active")return; 
+        var tabObj = thisObj.parentNode.id; 
+        var tabList = document.getElementById(tabObj).getElementsByTagName("li"); 
+        for(i=0; i <tabList.length; i++){ 
+        if (i == Num){ 
+           thisObj.className = "active"; 
+              document.getElementById(tabObj+"_Content"+i).style.display = "block"; 
+        }else{ 
+           tabList[i].className = "normal"; 
+           document.getElementById(tabObj+"_Content"+i).style.display = "none"; 
+        } 
+        } 
+        } 
+
+    </script> 
+    <script language="javascript" src="../My97DatePicker/WdatePicker.js" type="text/javascript"></script>
+</body>
+</html>

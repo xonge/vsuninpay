@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no, initial-scale=1">
+    <title>商用宝定制小游戏：惩罚台</title>
+    <link rel="stylesheet" type="text/css" href="css/cvent.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/template.js"></script>
+    <script type="text/javascript">
+    	var gameid = '2';
+        var _global = 'http://www.zpwsh.cn/index.php?g=Wap&m=Punish&a=run&token=rreprs1419052211&id=2&wecha_id=no';
+        var _use_num = 'http://www.zpwsh.cn/index.php?g=Wap&m=Punish&a=use_num&token=rreprs1419052211&id=2&wecha_id=no';
+    </script>
+    <script type="text/javascript" src="js/index.js"></script>
+</head>
+<body>
+<div id="wrap">
+	<div class="plate">
+		<ul class="clearfix"></ul>
+	</div>
+	<div class="pop pop-result" style="display: none;">
+		<span class="pop-closed">×</span>
+		<div class="pop-con">
+			<i class="smile"></i>
+			<p></p>
+		</div>
+	</div>
+	<div class="pop pop-info" style="display: none;">
+		<span class="pop-closed">×</span>
+		<div class="pop-con"></div>
+	</div>
+	<div class="pop-mask" style="display: none;"></div>
+</div>
+
+<script id="item-list" type="text/html">
+	{{if item}}
+		<li item-order="1"><div class="plate-item"><span>{{item.item1}}</span></div></li>
+		<li item-order="2"><div class="plate-item"><span>{{item.item2}}</span></div></li>
+		<li item-order="3"><div class="plate-item"><span>{{item.item3}}</span></div></li>
+		<li item-order="12"><div class="plate-item"><span>{{item.item12}}</span></div></li>
+		<li class="blank-item"></li>
+		<li item-order="4"><div class="plate-item"><span>{{item.item4}}</span></div></li>
+		<li item-order="11"><div class="plate-item"><span>{{item.item11}}</span></div></li>
+		<li class="blank-item"></li>
+		<li item-order="5"><div class="plate-item"><span>{{item.item5}}</span></div></li>
+		<li item-order="10"><div class="plate-item"><span>{{item.item10}}</span></div></li>
+		<li class="blank-item"></li>
+		<li item-order="6"><div class="plate-item"><span>{{item.item6}}</span></div></li>
+		<li item-order="9"><div class="plate-item"><span>{{item.item9}}</span></div></li>
+		<li item-order="8"><div class="plate-item"><span>{{item.item8}}</span></div></li>
+		<li item-order="7"><div class="plate-item"><span>{{item.item7}}</span></div></li>
+		<li class="plate-btn"><span class="name"><table><tr><td><img src="images/logo.jpg" style="width:100%;margin-top: 20px;">惩罚台</td></tr></table></span></li>
+	{{/if}}
+</script>
+
+<script type="text/javascript">
+window.shareData = {
+            "moduleName":"Punish",
+            "moduleID":"0",
+            "imgUrl": "http://weixin.292w.com/uploads/r/rreprs1419052211/d/1/4/d/thumb_5495258a593a4.jpg",
+            "timeLineLink": "http://www.zpwsh.cn/index.php?g=Wap&m=Punish&a=index&token=rreprs1419052211&id=2",
+            "sendFriendLink": "http://www.zpwsh.cn/index.php?g=Wap&m=Punish&a=index&token=rreprs1419052211&id=2",
+           	"weiboLink": "http://www.zpwsh.cn/index.php?g=Wap&m=Punish&a=index&token=rreprs1419052211&id=2",
+            "tTitle": "漳浦五尚砖KTV人品考验惩罚台",
+            "tContent": "K歌、喝酒气氛怎么搞？！想怎么high就怎么high！"
+        };
+</script>
+	<!-- <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script> -->
+	<script type="text/javascript">
+		wx.config({
+		  debug: false,
+		  appId: 	'',
+		  timestamp: 1432207071,
+		  nonceStr: '972671',
+		  signature: '8978b7c027c43688bf9c0d6c79e5574920491d41',
+		  jsApiList: [
+		    'checkJsApi',
+		    'onMenuShareTimeline',
+		    'onMenuShareAppMessage',
+		    'onMenuShareQQ',
+		    'onMenuShareWeibo',
+			'openLocation',
+			'getLocation'
+		  ]
+		});
+	</script>
+	<script type="text/javascript">
+	wx.ready(function () {
+	  // 1 判断当前版本是否支持指定 JS 接口，支持批量判断
+	  /*document.querySelector('#checkJsApi').onclick = function () {
+	    wx.checkJsApi({
+	      jsApiList: [
+	        'getNetworkType',
+	        'previewImage'
+	      ],
+	      success: function (res) {
+	        //alert(JSON.stringify(res));
+	      }
+	    });
+	  };*/
+
+	  // 2. 分享接口
+	  // 2.1 监听“分享给朋友”，按钮点击、自定义分享内容及分享结果接口
+	    wx.onMenuShareAppMessage({
+			title: window.shareData.tTitle,
+			desc: window.shareData.tContent,
+			link: window.shareData.sendFriendLink,
+			imgUrl: window.shareData.imgUrl,
+		    type: '', // 分享类型,music、video或link，不填默认为link
+		    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+		    success: function () { 
+				shareHandle('frined');
+		    },
+		    cancel: function () { 
+		        //alert('分享朋友失败');
+		    }
+		});
+
+
+	  // 2.2 监听“分享到朋友圈”按钮点击、自定义分享内容及分享结果接口
+		wx.onMenuShareTimeline({
+			title: window.shareData.fTitle?window.shareData.fTitle:window.shareData.tTitle,
+			link: window.shareData.sendFriendLink,
+			imgUrl: window.shareData.imgUrl,
+		    success: function () { 
+				shareHandle('frineds');
+		        //alert('分享朋友圈成功');
+		    },
+		    cancel: function () { 
+		        //alert('分享朋友圈失败');
+		    }
+		});	
+
+	  // 2.4 监听“分享到微博”按钮点击、自定义分享内容及分享结果接口
+		wx.onMenuShareWeibo({
+			title: window.shareData.tTitle,
+			desc: window.shareData.tContent,
+			link: window.shareData.sendFriendLink,
+			imgUrl: window.shareData.imgUrl,
+		    success: function () { 
+				shareHandle('weibo');
+		       	//alert('分享微博成功');
+		    },
+		    cancel: function () { 
+		        //alert('分享微博失败');
+		    }
+		});
+		
+	});
+		
+	function shareHandle(to) {
+		var submitData = {
+			module: window.shareData.moduleName,
+			moduleid: window.shareData.moduleID,
+			token:'rreprs1419052211',
+			wecha_id:'oqn2lt3fvhSeRaIbhVMAi_6i3giQ',
+			url: window.shareData.sendFriendLink,
+			to:to
+		};
+
+		$.post('index.php?g=Wap&m=Share&a=shareData&token=rreprs1419052211&wecha_id=oqn2lt3fvhSeRaIbhVMAi_6i3giQ',submitData,function (data) {},'json')
+	}
+</script></body>
+</html>

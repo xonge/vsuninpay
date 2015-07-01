@@ -1,0 +1,149 @@
+<%@ page language="C#" autoeventwireup="true" inherits="DownGradeMerchantList, App_Web_downgrademerchantlist.aspx.cdcab7d2" %>    
+                                                                                                    
+<%@ Register Src="BeforeControl/DataPaingNoTo.ascx" TagName="DataPaingNoTo" TagPrefix="uc6" %>
+
+<%@ Register Src="BeforeControl/DivNoticePaging.ascx" TagName="DivNoticePaging" TagPrefix="uc5" %>
+
+<%@ Register Src="BeforeControl/UserLoginMessageShow.ascx" TagName="UserLoginMessageShow" TagPrefix="uc4" %>
+
+<%@ Register Src="BeforeControl/DivNewsList.ascx" TagName="DivNewsList" TagPrefix="uc3" %>
+
+<%@ Register Src="BeforeControl/WebFoot.ascx" TagName="WebFoot" TagPrefix="uc2" %>
+
+<%@ Register Src="BeforeControl/WebTop.ascx" TagName="WebTop" TagPrefix="uc1" %>
+<% Response.Expires = -1 ;%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>我的推广商户|<%=GetMemberSystemTitle()%>|<%=GetWebsiteName()%></title>
+    <link href="WebCss/WebSite.shit.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<form id="FomSub" runat="server">
+    <div>
+	    <uc1:WebTop ID="WebTop1" runat="server" />
+			
+		<uc4:UserLoginMessageShow id="UserLoginMessageShow1" runat="server" />
+			
+		<div class="mainbody">
+	        <div class="FullWidth">
+		        <div class="title01">
+			        <h2>我的推广商户</h2>
+			        <span></span>
+		        </div>                                                                              
+		        <div class="FullWidthList" style="font-size:16px;">
+		            <div class="BankTransactionList" style="text-align: center;">
+		                <p class="fuck_font">
+		                    新增用户：
+		                    【<b class="org"><%= StrAddUserCount%></b>】
+		                </p>
+		                <p class="fuck_font">
+		                    新增会员：
+		                    【<b class="org"><%= StrAddMemberCount%></b>】
+		                </p>
+		                <p class="fuck_font">
+		                    新增代理：
+		                    【<b class="org"><%= StrAddAgentCount%></b>】
+		                </p>
+		                <p class="fuck_font">
+		                    收益：
+		                    【<b class="blue"><%= decimal.Parse(StrAddUserMoney) + decimal.Parse(StrAddMemberMoney) + decimal.Parse(StrAddAgentMoney)%></b>】
+		                </p>
+		            </div>
+		            <!-- <div class="BankTransactionList">
+		            <p class="fuck_font" >注册时间：<b class="org">2014-10-15</b></p>
+		            </div> -->
+		            <div class="BankTransactionList " style="margin-bottom: 30px;">
+		                <div class="x_info ">
+		                    <p class="fuck_font">
+		                        注册时间段：
+		                    </p>
+		                    <input type="text" id="TxtStartTime" name="TxtStartTime"  class="input1" readonly="readonly"
+                                        onclick="WdatePicker()" value=""  runat="server" style="cursor:pointer;width:140px;" />
+		                    至
+		                    <input type="text" id="TxtEndTime" name="TxtEndTime" class="input1" readonly="readonly"
+                                        onclick="WdatePicker()" value=""  runat="server" style="cursor:pointer;width:140px;" />
+
+		                    <asp:Button ID="BtnSearch" runat="server" OnClick="BtnSearch_Click" Text=" 查 询 " />
+		                </div>
+		            </div>
+		            
+			        <table  class="b1" cellspacing="1" cellpadding="0">
+				        <tr >
+					        <th>用户名</th>
+					        <th>姓名</th>
+					        <th>状态</th>
+					        <th>审核状态</th>
+					        <th>费率</th>
+					        <th>账户余额</th>
+					        <th>今日订单数量</th>
+					        <th>今日订单金额</th>
+					        <th>今日提成</th>
+					        <th>总共提成</th>
+					        <th>订单记录</th>
+				        </tr>                                                    
+                        <asp:Repeater ID="RptNewsList" runat="server" >
+                            <ItemTemplate>
+                            <tr class="<%# Container.ItemIndex%2==0 ?"tr1":"tr2"%>">
+                                <td><%# Eval("UserName")%></td>
+                                <td><%# Eval("RealName")%></td>
+	                            <td><%# Eval("MerchantState").ToString() == "0" ? "<span class='FontGreen'>正常</span>" : Eval("MerchantState").ToString() == "1" ? "<span class='FontRed'>冻结</span>" : "<span class='FontRed'>未审核</span>"%></td>  
+                                <td>
+				                <%# Eval("IsPass").ToString() == "2" ? "<span class='FontGray'>等待</span>" : Eval("IsPass").ToString() == "1" ?
+                                "<span class='FontGreen'>已审</span>" : "<span class='FontRed'>未审</span>"%></td>
+				                <td><%# Eval("WithdrawalRatio")%></td>
+                                <td><span class="FontGreen">￥<%# GetSolidDoubleValue(Eval("AccountUsedValue"), 2)%></span></td>
+	                            <td><%# GetDataNameValue("Count(*)", "FundsTransactionRecordTab where MainMerchantID='" + Eval("MerchantID").ToString() + "' and TransactionTime between '" + DateTime.Now.ToString("yyyy-MM-dd") + "' and '" + DateTime.Now.AddDays(1).ToString("yyyy-MM-dd") + "'", "")%></td>
+	                            <td>
+	                                <span class="FontGreen">
+		                                ￥<%# GetDataNameValue("case sum(TransactionMoney) when null then 0 when '''' then 0 else sum(TransactionMoney) end", "FundsTransactionRecordTab where MainMerchantID='" + Eval("MerchantID").ToString() + "' and TransactionTime between '" + DateTime.Now.ToString("yyyy-MM-dd") + "' and '" + DateTime.Now.AddDays(1).ToString("yyyy-MM-dd") + "'", "")%>
+	                                </span>
+	                            </td>
+	                            <td>
+	                                <span class="FontGreen">
+		                                ￥<%# GetDataNameValue("case sum(TransactionMoney) when null then 0 when '''' then 0 else sum(TransactionMoney) end", "FundsTransactionRecordTab where MainMerchantID='" + Eval("MerchantID").ToString() + "' and TransactionTime between '" + DateTime.Now.ToString("yyyy-MM-dd") + "' and '" + DateTime.Now.AddDays(1).ToString("yyyy-MM-dd") + "'", "")%>
+	                                </span>
+	                            </td>
+	                            <td>
+	                                <span class="FontGreen">
+		                                ￥<%# GetDataNameValue("case sum(TransactionMoney) when null then 0 when '''' then 0 else sum(TransactionMoney) end", "FundsTransactionRecordTab where MainMerchantID='" + Eval("MerchantID").ToString() + "' and TransactionTime between '" + DateTime.Now.ToString("yyyy-MM-dd") + "' and '" + DateTime.Now.AddDays(1).ToString("yyyy-MM-dd") + "'", "")%>
+	                                </span>
+	                            </td>
+	                            <td><a href="BankTransactionList.aspx?MainID=4&MCUID=<%# Eval("MerchantID") %>" target="_blank">查询</a></td> 
+                            </tr>
+                            </ItemTemplate>
+                        </asp:Repeater>
+			        </table>    
+			                  
+			        <div class="list_page"> 
+			            <uc6:DataPaingNoTo ID="DtPag" runat="server" />
+			        </div>
+		        </div>
+	        </div>
+        </div>
+		
+	    <uc2:WebFoot ID="WebFoot1" runat="server" />
+
+	</div>
+	</form>
+    <script type="text/javascript"> 
+        function nTabs(thisObj,Num){ 
+        if(thisObj.className == "active")return; 
+        var tabObj = thisObj.parentNode.id; 
+        var tabList = document.getElementById(tabObj).getElementsByTagName("li"); 
+        for(i=0; i <tabList.length; i++){ 
+        if (i == Num){ 
+           thisObj.className = "active"; 
+              document.getElementById(tabObj+"_Content"+i).style.display = "block"; 
+        }else{ 
+           tabList[i].className = "normal"; 
+           document.getElementById(tabObj+"_Content"+i).style.display = "none"; 
+        } 
+        } 
+        } 
+
+    </script> 
+    <script language="javascript" src="../My97DatePicker/WdatePicker.js" type="text/javascript"></script>
+</body>
+</html>

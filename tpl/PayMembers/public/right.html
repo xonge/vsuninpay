@@ -1,0 +1,38 @@
+<div class="index_peopel">
+    <div class="people_id">帐号：{pigcms:$member.UserName}，我是推广员。</div>
+    <div class="people_img">
+        <dl> 
+            <dt><a href="MerchantUserCenter.aspx"><img src="{pigcms:$member.SmallAdvertImage}" alt="" /></a></dt>
+            <dd class="right">
+                <p class="t1">【{pigcms:$member.RealName}】</p>
+                <P><span>已审核</span></P>
+                <p><a href="OrdersRecharge.aspx?MainID=4" class="cz">立即充值</a></p>
+            </dd>
+        </dl>
+        <ul>
+            <li>注册时间：{pigcms:$member.AddTime}</li>
+            <li>到期时间：{pigcms:$member.EndTime}</li> 
+            <li>
+                
+                <a href="NoticeDetails.aspx?MTID=1&CTID=1&NID=27" class="xf" style="margin:auto;">续费</a></li> 
+            <!-- 
+            <li>
+                <span>安全系数：</span>
+                <span><img src="WebImages/index_r15_c18.jpg" /></span>
+                <span><img src="WebImages/index_r15_c18.jpg" /></span>
+                <span><img src="WebImages/index_r15_c18.jpg" /></span>
+                <span><a href="MerchantSafeMessage.aspx?MainID=1">管理</a></span>
+            </li>
+            -->
+        </ul>
+    </div>
+    <div class="people_money">                                                           
+        <h1>现金余额：【<span class="org">{pigcms:$member.AccountUsedValue}</span>】<font>元</font></h1>
+        <h1>收益余额：【<span class="org">{pigcms:$member.VirtualUsedValue}</span>】<font>元</font></h1>
+    </div>   
+        <!--
+    <div class="botom">
+        <a href="MerchantAccountShow.aspx?MainID=0">我的账户</a>  | <a href="JavaScript://">账户明细</a>
+    </div>     
+        -->
+</div>

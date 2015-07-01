@@ -1,0 +1,577 @@
+<%@ page language="C#" autoeventwireup="true" inherits="MerchantWithdrawal, App_Web_merchantwithdrawal.aspx.cdcab7d2" %>   
+
+<%@ Register Src="BeforeControl/UserAccountShow.ascx" TagName="UserAccountShow" TagPrefix="uc4" %>       
+
+<%@ Register Src="BeforeControl/UserLoginMessageShow.ascx" TagName="UserLoginMessageShow" TagPrefix="uc3" %>
+
+<%@ Register Src="BeforeControl/WebFoot.ascx" TagName="WebFoot" TagPrefix="uc2" %>
+
+<%@ Register Src="BeforeControl/WebTop.ascx" TagName="WebTop" TagPrefix="uc1" %>
+<% Response.Expires = -1 ;%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>商户进行相应类别的提现|<%=GetMemberSystemTitle()%>|<%=GetWebsiteName()%></title>
+    <link href="WebCss/WebSite.css" rel="stylesheet" type="text/css" />
+</head>
+<body onload="oload()" onresize="oresize()">
+	<form id="FomSub" runat="server">
+    <div>
+	    <uc1:WebTop ID="WebTop1" runat="server" />
+			
+	    <uc3:UserLoginMessageShow id="UserLoginMessageShow1" runat="server" />
+			
+			<div class="mainbody">
+    		
+    		
+	    <div class="undata_main">
+		    <div class="title">
+			    <span style="color:#EF7607">
+			    【单笔最小提现金额：<%= StrWithdrawalMinMoney%> 元   
+			    单笔最大提现金额：<%= StrWithdrawalMaxMoney%> 元  
+			    每天可提现总金额：<%= GetDataNameValue("ParametersID", "DayMaxMoney", "WithdrawalsParametersSetTab", StrManageUserID)%> 元 
+			    每天提现最大次数：<%= GetDataNameValue("ParametersID", "DayMaxCount", "WithdrawalsParametersSetTab", StrManageUserID)%>次】
+			    </span>
+
+		    </div>
+		    <div class="chyy_22_w">
+			    <div class="chy_leff_tdl">
+				    <div class="title011">
+					    <h1></h1>
+					    <span>
+				            <span style="display:none;">今天已申请提现总金额：<%= StrTodayWithdrawalMoney%>元</span>
+				            <span style="display:none;">今天已申请提现总金额：<%= StrTodayWithdrawalMoney%>元</span>
+					    </span>
+				    </div>  
+				    <div class="content"> 
+					    <ul>
+						    <li class="li1">
+							    <dl> 
+								    <dt>现金余额：</dt>
+								    <dd>                                                  
+								        <span id="SpnOnePassageList" style="float:left; margin-right:5px; display:none;">
+								            <asp:DropDownList ID="DpdOnePassageList" runat="server" >
+                                                <asp:ListItem Value="0" Text="所有状态" Selected="True"></asp:ListItem>
+                                                <asp:ListItem Value="1" Text="宝付"></asp:ListItem>
+                                                <asp:ListItem Value="2" Text="支付宝"></asp:ListItem>
+                                            </asp:DropDownList>
+								        </span>
+								        <span class="FontBoldBlue"><b>【<%= StrUseAccountValue%>】</b></span>元
+								    </dd>
+							    </dl>
+						    </li>
+						    <li>
+							    <dl>
+								    <dt>提现金额：</dt>
+								    <dd>
+								        <input id="TxtOneWithdrawalsMoney" runat="server" name="TxtOneWithdrawalsMoney" onkeydown="ValidateNumber(event);" onpaste="ValidateClip(event);" onblur="return CalculateJobNighttimeMoney();" maxlength="7" type="text" class="input1" /><span class="FontRed">*</span>
+								        <input id="BtnOneCalculate" name="" type="button" class="niput2" value="计算费率" onclick="return CalculateJobNighttimeMoney();" />
+								    </dd>
+							    </dl>
+						    </li>
+						    <li>
+							    <dl>
+								    <dt>手续费：</dt>
+								    <dd><b><span id="SpnOneFeeMoney" runat="server"></span>元</b></dd>
+							    </dl>
+						    </li>
+						    <li>
+							    <dl>
+								    <dt>到账金额：</dt>
+							        <dd><b class="blue"><span id="SpnOneResultMoney" runat="server"></span>元</b></dd>
+							    </dl>
+						    </li>
+						    <li>
+							    <dl>
+								    <dt>提现银行：</dt>
+								    <dd>
+								        <span id="SpnOneDefaultBank" style="float:left; margin-right:5px"><%= StrWithdrawalBank%>(尾号：<%= StrWithdrawalBankAccount%>)</span>
+								        <span id="SpnOneBankList" style="float:left; margin-right:5px; display:none;">
+								            <asp:DropDownList ID="DpdOnePaymentBankList" runat="server" >
+                                                <asp:ListItem Value="0" Text="所有状态" Selected="True"></asp:ListItem>
+                                                <asp:ListItem Value="1" Text="宝付"></asp:ListItem>
+                                                <asp:ListItem Value="2" Text="支付宝"></asp:ListItem>
+                                            </asp:DropDownList>
+								        </span>
+								        <input name="" type="button" class="niput2" value="更改银行"  onclick="cl()" style="display:none;" />
+								    </dd>
+							    </dl>
+						    </li>
+						    <li  class="li1">
+							    <dl>
+								    <dt>支付密码：</dt>
+								    <dd>
+								        <input id="TxtOnePayPwd" runat="server" name="TxtOnePayPwd" type="password" class="input1" /><span class="FontRed">*</span> 
+								    </dd>
+							    </dl>
+						    </li>
+						    <li>
+							    <dl>
+								    <dt>&nbsp;</dt>
+								    <dd>
+								        <asp:Button  ID="BtnAddOneRequest" runat="server" Text="申请提现" OnClientClick="return CheckOneEmpty();" CssClass="org_bt"
+				                        OnClick="BtnAddOneRequest_Click"></asp:Button>
+								    </dd>
+							    </dl>
+						    </li>
+					    </ul>
+				    </div>
+			    </div>
+			    <% if (StrIsZero=="1"){ %>
+			    <div class="chy_leff_tdl" style="float:right;">
+				    <div class="title011">
+					    <h1 id="t1"></h1>     					  
+					    <span>
+				            <span style="display:none;">今天已申请提现总金额：<%= StrTodayWithdrawalMoney%>元</span>
+				            <span style="display:none;">今天已申请提现总金额：<%= StrTodayWithdrawalMoney%>元</span>
+					    </span>
+				    </div>
+				    <div class="content">
+					    <ul>
+						    <li class="li1">
+							    <dl>
+								    <dt>现金余额：</dt>
+								    <dd>                                                  
+								        <span id="SpnZeroPassageList" style="float:left; margin-right:5px; display:none;">
+								            <asp:DropDownList ID="DpdZeroPassageList" runat="server" >
+                                                <asp:ListItem Value="0" Text="所有状态" Selected="True"></asp:ListItem>
+                                                <asp:ListItem Value="1" Text="宝付"></asp:ListItem>
+                                                <asp:ListItem Value="2" Text="支付宝"></asp:ListItem>
+                                            </asp:DropDownList>
+								        </span>
+								        <span class="FontBoldBlue"><b>【<%= StrUseAccountValue%>】</b></span>元
+								    </dd>
+							    </dl>
+						    </li>
+						    <li>
+							    <dl>
+								    <dt>提现金额：</dt>
+								    <dd>
+								        <input id="TxtZeroWithdrawalsMoney" runat="server" name="TxtZeroWithdrawalsMoney" onkeydown="ValidateNumber(event);" onpaste="ValidateClip(event);" onblur="return CalculateJobDaytimeMoney();" maxlength="7" type="text" class="input1" /><span class="FontRed">*</span>
+								        <input name="" type="button" class="niput2" value="计算费率" onclick="return CalculateJobDaytimeMoney();" />
+								    </dd>
+							    </dl>
+						    </li>
+						    <li>
+							    <dl>
+								    <dt>手续费：</dt>
+								    <dd><b><span id="SpnZeroFeeMoney" runat="server"></span>元</b></dd>
+							    </dl>
+						    </li>
+						    <li>
+							    <dl>
+								    <dt>到账金额：</dt>
+								    <dd><b class="blue"><span id="SpnZeroResultMoney" runat="server"></span>元</b></dd>
+							    </dl>
+						    </li>
+						    <li>
+							    <dl>
+								    <dt>提现银行：</dt>
+								    <dd>
+								        <span id="SpnZeroDefaultBank" style="float:left; margin-right:5px"><%= StrWithdrawalBank%>(尾号：<%= StrWithdrawalBankAccount%>)</span>
+								        <span id="SpnZeroBankList" style="float:left; margin-right:5px; display:none;">
+								            <asp:DropDownList ID="DpdZeroPaymentBankList" runat="server" >
+                                                <asp:ListItem Value="0" Text="所有状态" Selected="True"></asp:ListItem>
+                                                <asp:ListItem Value="1" Text="宝付"></asp:ListItem>
+                                                <asp:ListItem Value="2" Text="支付宝"></asp:ListItem>
+                                            </asp:DropDownList>
+								        </span>
+								        <input name="" type="button" class="niput2" value="更改银行" onclick="cl()" style="display:none;" />
+								    </dd>
+							    </dl>
+						    </li>
+						    <li  class="li1">
+							    <dl>
+								    <dt>支付密码：</dt>
+								    <dd><input id="TxtZeroPayPwd" runat="server" name="TxtZeroPayPwd" type="password" class="input1" /><span class="FontRed">*</span></dd>
+							    </dl>
+						    </li>
+						    <li>
+							    <dl>
+								    <dt>&nbsp;</dt>
+								    <dd>
+								        <asp:Button  ID="BtnAddZeroRequest" runat="server" Text="申请提现" OnClientClick="return CheckZeroEmpty();" CssClass="org_bt"
+				                        OnClick="BtnAddOneRequest_Click"></asp:Button>
+								    </dd>
+							    </dl>
+						    </li>
+					    </ul>
+				    </div>
+			    </div>
+			    <% } %>
+                <span id="SpnRemindMessage" style="color:#ff0000; font-size:16px;">  
+			        <br />   
+                    T+1方式提现款项将于申请提交后的第二天到账。&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T+0方式提现款项将于申请提交的当天到账。
+                    <br />
+                    请在上午9:00至下午17：00之前进行T+0提现操作。T+0方式提现周末不能够当天到账，只能够进行顺延到下周一到账。
+                    
+                    如开通T+0方式提现7*24小时全天候当天到账服务将另行通知。
+                    
+                </span> 
+		    </div>	
+	    </div>
+
+		    <div class="sub_right">
+			    <uc4:UserAccountShow ID="UserAccountShow1" runat="server" />
+	        </div>
+	    </div>
+		
+	    <uc2:WebFoot ID="WebFoot1" runat="server" />
+
+	    <div id="topFill" style=" top:0px; z-index:9999"> 
+		    <div class="bg">
+		    </div>
+		    <div id="alertBox"> 
+			    <div class="close1"><input type="button" value="关闭" onclick="isno('no')" /></div>
+			    <div id="alertTitle" style=" display:none">警告</div> 
+			    <div id="alertContent">
+				    <div style="height:70px">
+					    <p>文字说文字说明文字说明明</p>
+				    </div>
+				    <p class="p1"><input type="button" value="保存" onclick="isno('yes')" class="bt" /></p>
+			    </div> 
+    		
+		    </div>
+	    </div> 
+	</div>
+	</form>
+    <script type="text/javascript"> 
+        function nTabs(thisObj,Num){ 
+        if(thisObj.className == "active")return; 
+        var tabObj = thisObj.parentNode.id; 
+        var tabList = document.getElementById(tabObj).getElementsByTagName("li"); 
+        for(i=0; i <tabList.length; i++){ 
+        if (i == Num){ 
+           thisObj.className = "active"; 
+              document.getElementById(tabObj+"_Content"+i).style.display = "block"; 
+        }else{ 
+           tabList[i].className = "normal"; 
+           document.getElementById(tabObj+"_Content"+i).style.display = "none"; 
+        } 
+        } 
+        } 
+
+    </script>
+    <script type="text/javascript" > 
+        //document.documentElement.clientHeight+'px' 
+        //  onload的时候声明对象 
+        var obj = new Object; 
+        function oload(){ 
+        obj = document.getElementById('topFill'); 
+        obj.style.display = 'none'; 
+        } 
+
+        function cl(){ 
+        document.body.style.overflow = 'hidden'; 
+        document.body.style.height = document.documentElement.clientHeight + 'px'; 
+        obj.style.display = 'block'; 
+        obj.style.height = document.documentElement.clientHeight + 'px'; 
+        } 
+        function bcl(){ 
+        document.body.style.overflow = ''; 
+        obj.style.display = 'none'; 
+        } 
+        function oresize(){ 
+        if(obj.style.display != 'block'){ 
+
+        }else{ 
+        cl(); 
+        } 
+        } 
+        function isno(str){ 
+        if (str == 'yes'){ 
+        window.close(); 
+        }else { 
+        bcl(); 
+        } 
+        } 
+    </script>
+    <script type="text/javascript">
+        function CheckOneEmpty()
+        {
+            var StrOneWithdrawalsMoneyValue=document.all["TxtOneWithdrawalsMoney"].value;   
+            var StrOneWithdrawalsMoney="<%= StrOneWithdrawalsMoney%>";
+            if (StrOneWithdrawalsMoneyValue=="")
+            {
+                alert("对不起，提现的金额不能为空！");            
+                document.all["TxtOneWithdrawalsMoney"].focus();
+                return false;
+            }
+            if (FomSub.TxtOnePayPwd.value=="")
+            {
+                alert("对不起，提现的密码不能为空！");            
+                FomSub.TxtOnePayPwd.focus();
+                return false;
+            }
+
+            var StrWithdrawalBankAccount='<%= StrWithdrawalBankAccount%>';
+            var FloatUseAccountValue='<%= StrUseAccountValue%>';
+            var FloatWithdrawalMinMoney='<%= StrWithdrawalMinMoney%>';
+            var FloatWithdrawalMaxMoney='<%= StrWithdrawalMaxMoney%>';
+            var FloatBaoFuRate = "<%= StrBaoFuRate%>";  
+            var FloatOneBaoFuFeeMoney=StrOneWithdrawalsMoneyValue*FloatBaoFuRate;        
+            var FloatOneWithdrawalsFeeMoney=document.all["SpnOneFeeMoney"].innerText;      
+            //var FloatOneFeeMoney=FloatOneBaoFuFeeMoney*1+FloatOneWithdrawalsFeeMoney*1;  
+            var FloatOneFeeMoney=FloatOneWithdrawalsFeeMoney;
+            
+            if (StrWithdrawalBankAccount=="")
+            {
+                alert("对不起，默认的提现银行不能为空,请到提现银行设置页面设置默认的提现银行！");       
+                location.href="WithdrawalBankSet.aspx?MainID=1"; 
+                return false;
+            }      
+            
+            if (formatFloat(StrOneWithdrawalsMoneyValue,3)>FloatUseAccountValue)
+            {
+                alert("对不起，您的可用现金余额不足【" + StrOneWithdrawalsMoneyValue + "】元，请重新输入提现金额或进行账户充值！");            
+                document.all["TxtOneWithdrawalsMoney"].focus();
+                return false;
+            }
+            
+            if (formatFloat(StrOneWithdrawalsMoneyValue,3)<FloatWithdrawalMinMoney)
+            {
+                alert("对不起，提现金额不能小于系统设置的单笔提现最小金额【" + FloatWithdrawalMinMoney + "】元！");            
+                document.all["TxtOneWithdrawalsMoney"].focus();
+                return false;
+            }
+            
+            if (formatFloat(StrOneWithdrawalsMoneyValue,3)>FloatWithdrawalMaxMoney)
+            {
+                alert("对不起，提现金额不能大于系统设置的单笔提现最大金额【" + FloatWithdrawalMaxMoney + "】元！");            
+                document.all["TxtOneWithdrawalsMoney"].focus();
+                return false;
+            }
+            
+            if (formatFloat(StrOneWithdrawalsMoneyValue, 3) < FloatOneFeeMoney) 
+            {
+                alert("对不起，提现金额不能小于系统的提现手续费【" + FloatOneFeeMoney + "】元！");
+                document.all["TxtOneWithdrawalsMoney"].focus();
+                return false;
+            }
+            /*
+            if (FomSub.TxtOKPayPwd.value!=FomSub.TxtPayPwd.value)
+            {
+                alert("对不起，新支付密码与新支付确认密码不匹配，请重新输入！");            
+                FomSub.TxtOKPayPwd.focus();
+                return false;
+            }
+            */
+            //FomSub.submit();
+            return true;
+        }
+        
+        function CheckZeroEmpty()
+        {                   
+            var StrZeroWithdrawalsMoneyValue=document.all["TxtZeroWithdrawalsMoney"].value;
+            var StrZeroWithdrawalsMoney="<%= StrZeroWithdrawalsMoney%>";
+            if (StrZeroWithdrawalsMoneyValue=="")
+            {
+                alert("对不起，提现的金额不能为空！");            
+                document.all["TxtZeroWithdrawalsMoney"].focus();
+                return false;
+            }
+            if (FomSub.TxtZeroPayPwd.value=="")
+            {
+                alert("对不起，提现的密码不能为空！");            
+                FomSub.TxtZeroPayPwd.focus();
+                return false;
+            }
+                       
+            var StrWithdrawalBankAccount='<%= StrWithdrawalBankAccount%>';
+            var FloatUseAccountValue='<%= StrUseAccountValue%>';
+            var FloatWithdrawalMinMoney='<%= StrWithdrawalMinMoney%>';
+            var FloatWithdrawalMaxMoney='<%= StrWithdrawalMaxMoney%>';  
+            var FloatBaoFuRate = "<%= StrBaoFuRate%>";  
+            var FloatZeroBaoFuFeeMoney=StrZeroWithdrawalsMoneyValue*FloatBaoFuRate;        
+            var FloatZeroWithdrawalsFeeMoney=document.all["SpnZeroFeeMoney"].innerText;      
+            //var FloatZeroFeeMoney=FloatZeroBaoFuFeeMoney*1+FloatZeroWithdrawalsFeeMoney*1;  
+            var FloatZeroFeeMoney=FloatZeroWithdrawalsFeeMoney;
+            
+            if (StrWithdrawalBankAccount=="")
+            {
+                alert("对不起，默认的提现银行不能为空，请到提现银行设置页面设置默认的提现银行！");
+                location.href="WithdrawalBankSet.aspx?MainID=1"; 
+                return false;
+            }
+            
+            if (formatFloat(StrZeroWithdrawalsMoneyValue,3)>FloatUseAccountValue)
+            {
+                alert("对不起，您的可用现金余额不足【" + StrZeroWithdrawalsMoneyValue + "】元，请重新输入提现金额或进行账户充值！");            
+                document.all["TxtZeroWithdrawalsMoney"].focus();
+                return false;
+            }
+            if (formatFloat(StrZeroWithdrawalsMoneyValue,3)<FloatWithdrawalMinMoney)
+            {
+                alert("对不起，提现金额不能小于系统设置的单笔提现最小金额【" + FloatWithdrawalMinMoney + "】元！");            
+               document.all["TxtZeroWithdrawalsMoney"].focus();
+                return false;
+            }
+            if (formatFloat(StrZeroWithdrawalsMoneyValue,3)>FloatWithdrawalMaxMoney)
+            {
+                alert("对不起，提现金额不能大于系统设置的单笔提现最大金额【" + FloatWithdrawalMaxMoney + "】元！");            
+                document.all["TxtZeroWithdrawalsMoney"].focus();
+                return false;
+            } 
+            
+            if (formatFloat(StrZeroWithdrawalsMoneyValue, 3) < FloatZeroFeeMoney) 
+            {
+                alert("对不起，提现金额不能小于系统的提现手续费【" + FloatZeroFeeMoney + "】元！");
+                document.all["TxtZeroWithdrawalsMoney"].focus();
+                return false;
+            }
+            /*
+            if (FomSub.TxtOKPayPwd.value!=FomSub.TxtPayPwd.value)
+            {
+                alert("对不起，新支付密码与新支付确认密码不匹配，请重新输入！");            
+                FomSub.TxtOKPayPwd.focus();
+                return false;
+            }
+            */
+            //FomSub.submit();
+            return true;
+        }
+        
+        function formatFloat(src, pos)
+        {
+            return Math.round(src*Math.pow(10, pos))/Math.pow(10, pos);
+        }
+        
+        //////只能输入数字
+        function OnlyInputNumber(obj, reg, inputstr) 
+        { 
+            if(event.srcelement.getattribute("readonly")||event.srcelement.getattribute("disabled"))return false; 
+            if(event.keycode<46 || event.keycode>57)return false; 
+            var docsel = document.selection.createrange(); 
+            if (docsel.parentelement().tagname != "input") return false; 
+            osel = docsel.duplicate() 
+            osel.text = "" 
+            var srcrange = obj.createtextrange() 
+            osel.setendpoint("starttostart", srcrange) 
+            var str = osel.text + inputstr + srcrange.text.substr(osel.text.length) 
+            return reg.test(str) 
+        }
+
+        function ValidateNumber(ev)
+        {
+            var e = ev.keyCode;
+            //允许的有大、小键盘的数字，左右键，backspace, delete, Control + C, Control + V
+            if(e != 8  && e != 9 && e != 13  && e != 37 && e != 39 && e != 46&& e != 48 && e != 49 && e != 50 && e != 51 && e != 52 && e != 53 && e != 54 && e != 55 && e != 56 && e != 57 && e != 96 && e != 97 && e != 98 && e != 99 && e != 100 && e != 101 && e != 102 && e != 103 && e != 104 && e != 105)
+            {
+                if(ev.ctrlKey == false)
+                {
+                    //不允许的就清空!
+                     ev.returnValue = "";
+                 }
+                else
+                {
+                    //验证剪贴板里的内容是否为数字!
+                     ValidateClip(ev);
+                 }
+             }
+        }
+
+        //验证剪贴板里的内容是否为数字!
+        function ValidateClip(ev)
+        {
+            //查看剪贴板的内容!
+            var content = clipboardData.getData("Text");
+            if(content != null)
+            {
+                try
+                {
+                    var test = parseInt(content);
+                    var str = "" + test;
+                    if(isNaN(test) == true)
+                    {
+                        //如果不是数字将内容清空!
+                         clipboardData.setData("Text","");
+                     }
+                    else
+                    {
+                        if(str != content)
+                             clipboardData.setData("Text", str);
+                     }
+                 }
+                catch(e)
+                {
+                    //清空出现错误的提示!
+                     alert("粘贴出现错误!");
+                 }                                                   
+             }
+        }                                                      
+                                                       
+        var StrTransactionFeeMoney="<%= StrTransactionFeeMoney%>";
+        var StrRechargePassageID="<%= StrRechargePassageID%>";
+        var StrMainMerchantID="<%= StrMerchantUserID%>";
+        var StrManageUserID="<%= StrManageUserID%>";
+        var StrWithdrawalsClassID="1";     
+        var StrOneWithdrawalsMoneyValue="0";     
+        var StrZeroWithdrawalsMoneyValue="0";     
+        
+        function CalculateJobNighttimeMoney()
+        {                
+            //debugger;    
+            StrWithdrawalsClassID="2";                              
+            StrOneWithdrawalsMoneyValue=document.all["TxtOneWithdrawalsMoney"].value;
+            var StrOneWithdrawalsMoney="<%= StrOneWithdrawalsMoney%>";
+            if (StrOneWithdrawalsMoneyValue!="")
+            {                 
+                //debugger;         
+                GetTransactionFeeMoney(StrOneWithdrawalsMoneyValue,StrRechargePassageID,StrManageUserID,StrMainMerchantID,"2");   
+                //debugger;  
+                //document.all["SpnOneResultMoney"].innerText=formatFloat(StrOneWithdrawalsMoneyValue,2)-formatFloat(StrOneWithdrawalsMoney,2);
+                document.all["SpnOneFeeMoney"].innerText=StrTransactionFeeMoney;                             
+                document.all["SpnOneResultMoney"].innerText=formatFloat(StrOneWithdrawalsMoneyValue - StrTransactionFeeMoney,2);
+            } 
+        }
+        
+        function CalculateJobDaytimeMoney()
+        {                           
+            StrWithdrawalsClassID="1";  
+            StrZeroWithdrawalsMoneyValue=document.all["TxtZeroWithdrawalsMoney"].value; 
+            var StrZeroWithdrawalsMoney="<%= StrZeroWithdrawalsMoney%>";
+            if (StrZeroWithdrawalsMoneyValue!="")
+            {                          
+                GetTransactionFeeMoney(StrZeroWithdrawalsMoneyValue,StrRechargePassageID,StrManageUserID,StrMainMerchantID,"1");                 
+                //document.all["SpnZeroResultMoney"].innerText=formatFloat(StrZeroWithdrawalsMoneyValue,2)-formatFloat(StrZeroWithdrawalsMoney,2);
+                document.all["SpnZeroFeeMoney"].innerText=StrTransactionFeeMoney;
+                document.all["SpnZeroResultMoney"].innerText=formatFloat(StrZeroWithdrawalsMoneyValue - StrTransactionFeeMoney,2);
+            }
+        }
+        
+        function GetTransactionFeeMoney(StrWithdrawalsMoneyValue,StrRechargePassageID,StrManageUserID,StrMainMerchantID,StrWithdrawalsClassID)
+        {           
+            MerchantWithdrawal.GetWithdrawalsFeeMoneyValue(StrWithdrawalsMoneyValue,StrRechargePassageID,StrManageUserID,StrMainMerchantID,StrWithdrawalsClassID,OutFeeMoneyReturnShow);
+        }
+        
+        function OutFeeMoneyReturnShow(ObjReturnStringValue)
+        {         
+            debugger;
+            //注意，此处的字符串参数(StrPersonMessage)必须为字符串类型，不能够为回调函数的返回值类型。
+            //所以在将其赋值作为字符串参数传递时必须加上.value的属性以获取其字符串属性值才可以
+            //进行函数截取操作，否则会报“对象不支持次属性或方法错误！”的错误。
+            //var StrPersonMessage=StrReturn.value;
+
+            StrTransactionFeeMoney = ObjReturnStringValue.value; 
+            if (StrWithdrawalsClassID=="2")
+            {   
+                StrOneWithdrawalsMoneyValue=document.all["TxtOneWithdrawalsMoney"].value;
+                SetFeeMoneyMessage(StrOneWithdrawalsMoneyValue,StrTransactionFeeMoney,"SpnOneFeeMoney","SpnOneResultMoney");
+            }
+            else
+            {       
+                StrZeroWithdrawalsMoneyValue=document.all["TxtZeroWithdrawalsMoney"].value;
+                SetFeeMoneyMessage(StrZeroWithdrawalsMoneyValue,StrTransactionFeeMoney,"SpnZeroFeeMoney","SpnZeroResultMoney");
+            }
+            //document.getElementById("SpnOneFeeMoney").innerHTML=ObjReturnStringValue.value;  
+        }
+        
+        function SetFeeMoneyMessage(StrWithdrawalsMoneyValue,StrTransactionFeeMoney,StrSpanFeeMoneyName,StrSpanResultMoneyName)
+        {
+            document.all[StrSpanFeeMoneyName].innerText=StrTransactionFeeMoney;
+            document.all[StrSpanResultMoneyName].innerText=formatFloat(StrWithdrawalsMoneyValue - StrTransactionFeeMoney,2);
+        }
+    </script>
+</body>
+</html>

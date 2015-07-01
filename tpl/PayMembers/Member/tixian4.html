@@ -1,0 +1,131 @@
+<%@ page language="C#" autoeventwireup="true" inherits="RequestPassZero, App_Web_requestpasszero.aspx.cdcab7d2" %>
+
+<%@ Register Src="BeforeControl/UserLoginMessageShow.ascx" TagName="UserLoginMessageShow" TagPrefix="uc4" %>
+
+<%@ Register Src="BeforeControl/DivNewsList.ascx" TagName="DivNewsList" TagPrefix="uc3" %>
+
+<%@ Register Src="BeforeControl/WebFoot.ascx" TagName="WebFoot" TagPrefix="uc2" %>
+
+<%@ Register Src="BeforeControl/WebTop.ascx" TagName="WebTop" TagPrefix="uc1" %>
+<% Response.Expires = -1 ;%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>商户申请开通T+0提现功能|<%=GetMemberSystemTitle()%>|<%=GetWebsiteName()%></title>
+    <link href="WebCss/WebSite.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<form id="FomSub" runat="server">
+    <div>
+	    <uc1:WebTop ID="WebTop1" runat="server" />
+			
+		<uc4:UserLoginMessageShow id="UserLoginMessageShow1" runat="server" />
+			
+		<div class="mainbody">
+	        <div class="undata_main">
+		        <div class="title">申请开通T+0提现功能</div> 
+	            <% if (StrIsZero=="1") { %>
+	            <div class="content1" style=" height:70px; ">
+		            <div style="font-size:24px; font-family:'微软雅黑'; text-align:center; margin-bottom:10px"><span class="org">已购买T+0服务！</span></div>
+		            <div style="font-size:16px; font-family:'微软雅黑'; text-align:center">
+		                生效时间：<span class="org"><%= StrStartTime%></span>&nbsp; 
+		                到期时间：<span class="org"><%= StrEndTime%></span>&nbsp; 
+		                购买价格：<span class="org"><%= StrBuyPrice%></span>&nbsp; 
+		                购买时间：<span class="org"><%= StrBuyTime%></span>
+		            </div>
+	            </div> 
+		        <% } %>                                                                                             
+                <div class="DivLeftDownContent">
+                    <ul>
+                        <li style="font-size:18px;">申请开通T+0提现需要金额：【<b class="org"><%= StrBuyPrice%></b>】元/年。 </li>
+                        <li style="font-size:18px;">
+                            您的账户可用现金余额：【<b style="font-size:18px; color:#FF0000"><%= StrUseAccountValue%></b>】元。&nbsp;&nbsp;&nbsp;&nbsp;
+                            收益余额：【<b style="font-size:18px; color:#FF0000"><%= StrVirtualUsedValue%></b>】元。 
+                            <% if (float.Parse(StrUseAccountValue) < float.Parse(StrBuyPrice) & StrIsZero == "0")
+                            {%>
+                            <span style="color:#ff0000;font-size:14px;font-weight:bold;">您的余额不足！</span>
+                            <%} %>
+                        </li>
+
+                    </ul>
+                    <% if (StrIsZero == "0" & float.Parse(StrUseAccountValue) < float.Parse(StrBuyPrice))
+                       {%>
+                    <div class="fisht_bt">
+                        <asp:Button  ID="BtnRecharge" runat="server" Text="充值" 
+						        CssClass="org_bt" OnClick="BtnRecharge_Click"></asp:Button> 
+                    </div>
+                    <% }
+                       else if (StrIsZero == "0" & float.Parse(StrUseAccountValue) >= float.Parse(StrBuyPrice))
+                       { %>
+                    <div class="fisht_bt">
+                        <asp:Button  ID="BtnPassZero" runat="server" Text="申请T+0" CssClass="org_bt" OnClick="BtnPassZero_Click" OnClientClick="return CheckMoneyValue();" ></asp:Button> 
+                    </div>
+                    <%} 
+                       else if (StrIsZero == "2" )
+                       { %>
+		                <div style="font-size:18px; font-family:'微软雅黑'; text-align:center; margin-bottom:10px">
+		                    <span class="org">已提交开通T+0提现功能申请，请等待系统审核！</span>
+		                </div>
+                    <%} %>
+                </div>
+
+	        </div>
+	        <div class="sub_right">
+		        <div class="sub_announce">
+			        <div class="title01"><h1>系统公告</h1></div>
+			        <div class="content">
+				        <ul class="text01">
+					        <uc3:DivNewsList ID="DivNoticeList" runat="server" />
+				        </ul>
+			        </div>
+		        </div>
+	        </div>
+        </div>
+		
+	    <uc2:WebFoot ID="WebFoot1" runat="server" />
+	</div>
+	</form>
+    <script type="text/javascript"> 
+        function nTabs(thisObj,Num){ 
+        if(thisObj.className == "active")return; 
+        var tabObj = thisObj.parentNode.id; 
+        var tabList = document.getElementById(tabObj).getElementsByTagName("li"); 
+        for(i=0; i <tabList.length; i++){ 
+        if (i == Num){ 
+           thisObj.className = "active"; 
+              document.getElementById(tabObj+"_Content"+i).style.display = "block"; 
+        }else{ 
+           tabList[i].className = "normal"; 
+           document.getElementById(tabObj+"_Content"+i).style.display = "none"; 
+        } 
+        } 
+        } 
+
+        function CheckMoneyValue()
+        {
+            var StrUseAccountValue='<%= StrUseAccountValue%>';
+            var StrBuyPrice='<%= StrBuyPrice%>';
+            
+            if (!confirm('确定要申请开通T+0提现功能吗？一旦申请将不可撤销！'))
+            {
+                return false;    
+            }
+            
+            if (StrBuyPrice>StrUseAccountValue)
+            {
+                alert("对不起，您的可用余额不足【" + StrBuyPrice + "】元，请进行账户充值！");
+                return false;
+            }
+
+            //FomSub.submit();
+            return true;
+        }
+        
+        function formatFloat(src, pos)
+        {
+            return Math.round(src*Math.pow(10, pos))/Math.pow(10, pos);
+        }
+    </script>
+</body>
+</html>

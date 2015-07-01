@@ -1,0 +1,410 @@
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <title>商户微名片导航菜单修改||</title>
+  <base href="http://xiangtan.suninpay.com:81/">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="format-detection"content="telephone=no, email=no" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <link rel="shortcut icon" href="CardImages/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon-precomposed" href="CardImages/touch-icon-ipad-144.png" />
+  <link rel="stylesheet" type="text/css" href="CardStyle/CardCommon.css?v=2.0.2" />
+  <link rel="stylesheet" type="text/css" href="CardStyle/CardMain.css?v=2.0.2" />
+  <link href="WebCss/WebSite.css" rel="stylesheet" type="text/css" />
+  <style type="text/css">.SpnLeft{float:left;font-size:14px;color:#666666;}</style>
+  <style type="">
+    .m-hp-list .i-1 { background: #fdb912;}
+    .m-hp-list .i-1:after { content: "\e627";}
+    .m-hp-list .i-2 { background: #50bd50;}
+    .m-hp-list .i-2:after { content: "\e626";}
+    .m-hp-list .i-3 { background: #30a9f5;}
+    .m-hp-list .i-3:after { content: "\e625";}
+    </style>
+</head>
+<body>
+  <form>
+    <div>
+      <header class="m-topbarbox">
+        <div class="m-topbar">
+          <div class="m-left">
+            <a class="m-gocard" href="MobileIdentityValidate.aspx?MainID=0" target="_blank"> <i class="iconfont"></i>
+            </a>
+          </div>
+          <div class="m-right">
+            <a class="m-moremenu" id="j-m-moremenu" href="javascript:;"> <i class="iconfont">&#xe614;</i>
+            </a>
+          </div>
+          <div class="m-tlebox">
+            <h1>
+              <span>我的商用宝微名片</span>
+            </h1>
+          </div>
+        </div>
+        <section class="m-menubox">
+          <ul class="fixed">
+            <li>
+              <a class="menu-link" href="Card<%= StrMerchantUserName%>
+                .aspx" target="_blank">
+                <span>
+                  <i class="iconfont">&#xe617;</i>
+                </span>
+                <div class="name">我的微名片</div>
+              </a>
+            </li>
+            <li>
+              <a class="menu-link" href="Shop<%= StrMerchantUserName%>
+                .aspx" target="_blank">
+                <span>
+                  <i class="iconfont">&#xe618;</i>
+                </span>
+                <div class="name">我的微店</div>
+              </a>
+            </li>
+            <li>
+              <a class="menu-link" href="MerchantProductOrderList.aspx?MainID=0" target="_blank">
+                <span> <em class="badge"></em>
+                  <i class="iconfont">&#xe616;</i>
+                </span>
+                <div class="name">我的订单</div>
+              </a>
+            </li>
+            <li>
+              <a class="menu-link" href="MobileLogout.aspx">
+                <span>
+                  <i class="iconfont">&#xe619;</i>
+                </span>
+                <div class="name">退出</div>
+              </a>
+            </li>
+          </ul>
+        </section>
+      </header>
+      <div class="ui-pageswitch-close" data-action="close">
+        <a class="switch-close iconfont" href="javascript:void(0);"></a>
+      </div>
+      <div class="m-pagecont">
+        <div class="ui-pageswitch-wrap m-homepage">
+          <div class="ui-pageswitch ui-pageswitch-a" data-page="pa">
+            <section class="m-hp-user fixed">
+              <a href="<?php echo U('Card/index', array('uid' => 0));?>" target="_blank">
+                <div class="m-facebox">
+                  <div class="m-face iconfont">
+                    <img src="<?php echo ($userinfo["SmallAdvertImage"]); ?>" alt="用户头像" onerror="this.style.display='none'">
+                  </div>
+                </div>
+              </a>
+              <a class="btn-vip" href="RequestPassAgents.aspx?MainID=1" target="_blank">
+                开通 <em>VIP</em>
+              </a>
+              <div class="m-cont">
+                <div class="ui-elli m-name">
+                  <span class="fs-18"><?php echo ($userinfo["RealName"]); ?></span>
+                </div>
+                <div class="ui-elli m-post">
+                  <span class="fs-12 fc-f9"><?php echo ($userinfo["MerchantName"]); ?></span>
+                </div>
+              </div>
+            </section>
+            <section class="m-hp-list">
+              <ul class="fixed">
+                <li>
+                  <a class="m-href" href="JavaScript://">
+                    <i class="iconfont i-solid"></i>
+                    <div class="m-link">
+                      <i class="iconfont"></i>
+                    </div>
+                    <div class="m-cont ui-elli">名片通讯录</div>
+                  </a>
+                </li>
+                <li>
+                  <a class="m-href" href="<?php echo U('Card/edit');?>" target="_blank">
+                    <i class="iconfont i-card"></i>
+                    <div class="m-link">
+                      <i class="iconfont"></i>
+                    </div>
+                    <div class="m-cont ui-elli">编辑名片</div>
+                  </a>
+                </li>
+              </ul>
+            </section>
+            <section class="m-hp-list m-hp-list2">
+              <ul class="fixed">
+                <li>
+                  <a class="m-href" href="<?php echo U('Card/edit');?>" target="_blank">
+                    <i class="iconfont i-wallet"></i>
+                    <div class="m-link">
+                      <span>【<?php echo ($userinfo["AccountUsedValue"]); ?>】元</span>
+                      <i class="iconfont"></i>
+                    </div>
+                    <div class="m-cont ui-elli">我的钱包</div>
+                  </a>
+                </li>
+                <li>
+                  <a href="<?php echo U('Card/edit');?>" class="m-href" data-action="payUser" data-url="" target="_blank">
+                    <i class="iconfont i-pay"></i>
+                    <div class="m-link">
+                      <i class="iconfont"></i>
+                    </div>
+                    <div class="m-cont ui-elli">一键充值</div>
+                  </a>
+                </li>
+                <li>
+                  <a href="<?php echo U('Card/edit');?>" class="m-href" data-action="payUser" data-url="" target="_blank">
+                    <i class="iconfont i-pay"></i>
+                    <div class="m-link">
+                      <i class="iconfont"></i>
+                    </div>
+                    <div class="m-cont ui-elli">一键提现</div>
+                  </a>
+                </li>
+                <li>
+                  <a href="<?php echo U('Card/edit');?>" class="m-href" target="_blank">
+                    <i class="iconfont i-vshop"></i>
+                    <div class="m-link">
+                      <i class="iconfont"></i>
+                    </div>
+                    <div class="m-cont ui-elli">我的V店</div>
+                  </a>
+                </li>
+                <li>
+                  <a class="m-href" href="<?php echo U('Card/edit');?>" data-action="payUser" data-url="JavaScript://" target="_blank">
+                    <i class="iconfont i-wei"></i>
+                    <div class="m-link">
+                      <i class="iconfont"></i>
+                    </div>
+                    <div class="m-cont ui-elli">我要发文章</div>
+                  </a>
+                </li>
+              </ul>
+            </section>
+            <section class="m-hp-list">
+              <ul class="fixed">
+                <li>
+                  <a href="<?php echo U('Card/edit');?>" class="m-href" target="_blank">
+                    <i class="iconfont i-qrcode"></i>
+                    <div class="m-link">
+                      <i class="iconfont"></i>
+                    </div>
+                    <div class="m-cont ui-elli">转载统计</div>
+                  </a>
+                </li>
+                <li>
+                  <a class="m-href" href="<?php echo U('Card/edit');?>" target="_blank">
+                    <i class="iconfont i-visitor"></i>
+                    <div class="m-link">
+                      <i class="iconfont"></i>
+                    </div>
+                    <div class="m-cont ui-elli">我的访客</div>
+                  </a>
+                </li>
+                <li>
+                  <a class="m-href" href="<?php echo U('Card/edit');?>" target="_blank">
+                    <i class="iconfont i-msg"></i>
+                    <div class="m-link">
+                      <i class="iconfont"></i>
+                    </div>
+                    <div class="m-cont ui-elli">商务短信</div>
+                  </a>
+                </li>
+              </ul>
+            </section>
+            <section class="m-hp-list">
+              <ul class="fixed">
+                <li>
+                  <a class="m-href" href="JavaScript://">
+                    <i class="iconfont i-exchange"></i>
+                    <div class="m-link">
+                      <span>
+                        <em class="fc-g9">红包</em>
+                        0元
+                      </span>
+                      <i class="iconfont"></i>
+                    </div>
+                    <div class="m-cont ui-elli">兑换中心</div>
+                  </a>
+                </li>
+                <li>
+                  <a class="m-href" href="JavaScript://">
+                    <i class="iconfont i-ser"></i>
+                    <div class="m-link"></div>
+                    <div class="m-cont ui-elli">服务支持</div>
+                  </a>
+                </li>
+                <li>
+                  <a id="showSwitch3" class="m-href" href="MerchantNameCardsSet.aspx?MainID=0"
+                                data-action="pageswitch" target="_blank">
+                    <i class="iconfont i-set"></i>
+                    <div class="m-link">
+                      <i class="iconfont"></i>
+                    </div>
+                    <div class="m-cont ui-elli">设置</div>
+                  </a>
+                </li>
+              </ul>
+            </section>
+            <div class="m-copy">商用宝微名片  版权所有</div>
+          </div>
+          <div class="ui-pageswitch ui-pageswitch-b" data-page="pb">
+            <div id="switchDiv3" class="j-switchdiv">
+              <section class="m-hp-list">
+                <ul class="fixed">
+                  <li>
+                    <a class="m-href" href="JavaScript://">
+                      <div class="m-link">
+                        <i class="iconfont"></i>
+                      </div>
+                      <div class="m-cont ui-elli">账号设置</div>
+                    </a>
+                  </li>
+                </ul>
+              </section>
+              <section class="m-hp-list">
+                <ul class="fixed">
+                  <li>
+                    <a class="m-href" href="JavaScript://">
+                      <div class="m-link">
+                        <i class="iconfont"></i>
+                      </div>
+                      <div class="m-cont ui-elli">关于商用宝微名片</div>
+                    </a>
+                  </li>
+                </ul>
+              </section>
+              <div class="pad-15 mt-10">
+                <a class="ui-btn-6" type="button" href="MobileLogout.aspx">退出登录</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 弹出-新主题 -->
+      <!-- 弹出-新主题 -->
+      <div class="ui-toast" id="j-toast-default">
+        <div class="toast-cont">默认的Toast通知</div>
+      </div>
+      <div class="ui-toast ui-toast-icon" id="j-toast-icon">
+        <div class="toast-cont">
+          <i class="iconfont"></i>
+          急晖ㄖ?
+        </div>
+      </div>
+      <section class="ui-popup-mask flex-center" id="j-fail-close">
+        <div class="ui-popup">
+          <div class="ui-popup-cont">
+            <div class="ui-popup-tip">
+              <div class="tip-err">
+                <i class="iconfont i-err"></i>
+              </div>
+              <div class="tip-txt">
+                <p class="fs-20" data-action="j-fail-close-tip">对不起，设置失败!</p>
+                <p class="fs-14 mt-10" data-action="j-fail-close-content">有可能是您未设置身份证</p>
+              </div>
+            </div>
+          </div>
+          <div class="ui-popup-close iconfont" data-action="popUpClose"></div>
+        </div>
+      </section>
+      <section class="ui-popup-mask flex-center" data-action="j-confirm-default">
+        <div class="ui-popup">
+          <div class="ui-popup-cont">
+            <p class="tc pad-20" data-action="j-confirm-default-content">这里是内容</p>
+          </div>
+          <div class="ui-popup-btns flexbox">
+            <a class="flex" href="javascript:void(0)" data-action="popUpClose">取消</a>
+            <a class="flex" href="javascript:void(0)" data-action="j-confirm-default-true">确定</a>
+          </div>
+        </div>
+      </section>
+      <section class="ui-popup-mask flex-center" id="j-confirm-tip">
+        <div class="ui-popup">
+          <div class="ui-popup-hd">
+            <h3 data-action="j-confirm-tip-tip">普通对话框</h3>
+          </div>
+          <div class="ui-popup-cont">
+            <p class="tc pad-20" data-action="j-confirm-tip-content">这里是内容</p>
+          </div>
+          <div class="ui-popup-btns flexbox">
+            <a class="flex" href="javascript:void(0)" data-action="popUpClose">取消</a>
+            <a class="flex" href="javascript:void(0)" data-action="j-confirm-tip-true">确定</a>
+          </div>
+        </div>
+      </section>
+      <section class="ui-popup-mask flex-center" id="j-confirm-fail-operation">
+        <div class="ui-popup">
+          <div class="ui-popup-cont">
+            <div class="ui-popup-tip">
+              <div class="tip-err">
+                <i class="iconfont i-err"></i>
+              </div>
+              <div class="tip-txt">
+                <p class="fs-20" data-action="j-confirm-fail-operation-tip">对不起，设置失败!</p>
+                <p class="fs-14 mt-10" data-action="j-confirm-fail-operation-content">有可能是您未设置身份证</p>
+              </div>
+            </div>
+          </div>
+          <div class="ui-popup-btns flexbox">
+            <a class="flex" href="javascript:void(0)" data-action="popUpClose">取消</a>
+            <a class="flex" href="javascript:void(0)" data-action="j-confirm-fail-operation-reset">重新设置</a>
+          </div>
+        </div>
+      </section>
+      <section class="ui-popup-mask flex-center" id="popup-while-defalut">
+        <div class="ui-popup">
+          <div class="ui-popup-cont" data-action="j-while-content"></div>
+          <div class="ui-popup-close iconfont" data-action="popUpClose"></div>
+        </div>
+      </section>
+      <input type="hidden" value="false" id="agent">
+      <script type="text/javascript" src="WebJs/zepto.min.js?v=2.0.2"></script>
+      <script type="text/javascript" src="WebJs/zepto.touch.min.js?v=2.0.2"></script>
+      <script type="text/javascript" src="WebJs/basic.js?v=2.0.2"></script>
+      <script type="text/javascript" src="WebJs/util.js?v=2.0.2"></script>
+      <script type="text/javascript">
+            $(function() {
+                var switchNav = function(i) {
+                    $(".j-switchdiv").hide();
+                    $("#" + i).show();
+                }
+                $('#showSwitch1').on('tap',
+                function() {
+                    switchNav("switchDiv1");
+                });
+                $('#showSwitch2').on('tap',
+                function() {
+                    switchNav("switchDiv2");
+                });
+                $('#showSwitch3').on('tap',
+                function() {
+                    switchNav("switchDiv3");
+                });
+        
+                //弹出-新主题
+                $("[data-action='popnewClose']").on("click",
+                function() {
+                    $('.m-popnew').removeClass('active');
+                });
+                /*
+        $('[data-action="payUser"]').on('click',function(){
+        if($('#agent').val() == 'false'){
+        confirmFailReset('该功能仅限VIP用户使用','您尚未开通VIP','我要开通');
+        }else{
+        window.location.href = path + $(this).attr('data-url');
+        }
+        })
+        */
+                ;
+        
+                $('[data-action="j-confirm-fail-operation-reset"]').on('click',
+                function() {
+                    window.location.href = path + 'RequestPassAgents.aspx?MainID=1';
+                });
+            })
+        </script>
+    </div>
+  </form>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<%@ page language="C#" autoeventwireup="true" inherits="MobileDayAddMerchantList, App_Web_mobiledayaddmerchantlist.aspx.cdcab7d2" %>    
+                                                                                                    
+<%@ Register Src="BeforeControl/DataPaingNoTo.ascx" TagName="DataPaingNoTo" TagPrefix="uc1" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head id="Head1" runat="server">
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"  />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>商用宝推广员<%= StrShowMerchantRealName%>今日注册用户<%= StrAddUserCount%>人，VIP<%= StrAddMemberCount%>人，推广员<%= StrAddAgentCount%>人，累计收益<%= decimal.Parse(StrAddUserMoney) + decimal.Parse(StrAddMemberMoney) + decimal.Parse(StrAddAgentMoney)%>元。</title>
+	<link rel="stylesheet" type="text/css" href="WebCss/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="CardStyle/style.css" />
+</head>
+<body>
+    <form id="FomSub" runat="server">
+    <div>
+	    <div class="container-fluid header">
+		    <div class="row top">
+			    <div class="col-xs-3">
+				    <!-- <img src="CardImages/avatar-demo.png" class="avatar" /> -->
+				    <a href="Card<%= StrShowMerchantUserName%>.aspx"><img alt="<%= StrShowMerchantCompanyName%>" src="<%= GetHeadImage(StrShowMerchantHeadImage)%>" class="avatar" /></a>
+			    </div>
+			    <div class="col-xs-9 title"><%= StrShowMerchantRealName%>的当日业绩统计</div>
+		    </div>
+		    <div class="row tc">
+			    <div class="col-xs-3">新增用户</div>
+			    <div class="col-xs-3">新增VIP</div>
+			    <div class="col-xs-3">新增推广员</div>
+			    <div class="col-xs-3">当日收益</div>
+		    </div>
+		    <div class="row tc">
+			    <div class="col-xs-3">【<%= StrAddUserCount%>】人</div>
+			    <div class="col-xs-3">【<%= StrAddMemberCount%>】人</div>
+			    <div class="col-xs-3">【<%= StrAddAgentCount%>】人</div>
+			    <div class="col-xs-3">【<%= decimal.Parse(StrAddUserMoney) + decimal.Parse(StrAddMemberMoney) + decimal.Parse(StrAddAgentMoney)%>】元</div>
+		    </div>
+	    </div>
+	    <div class="container-fluid">
+		    <div class="row">
+			    <div class="col-xs-12"><span class="list-title">新增用户明细</span></div>
+		    </div>
+	    </div>
+	    <div class="container-fluid user-list">                                     
+            <asp:Repeater ID="RptMerchantShowList" runat="server" >
+                <ItemTemplate>                              
+		            <div class="row user-detail">
+			            <div class="col-xs-2 nopadding tc"><a href="<%# GetLinkPage("Card"+Convert.ToString(Eval("UserName"))+".aspx","JavaScript://")%>" target="_blank"><%# Eval("UserShowRealName")%></a></div>
+			            <div class="col-xs-5 nopadding"><%# Eval("UserShowName")%></div>
+			            <div class="col-xs-2 nopadding"><%# Eval("MerchantClassName")%></div>
+			            <div class="col-xs-3 "><a href="<%# GetLinkPage("Card"+Convert.ToString(Eval("UserName"))+".aspx","JavaScript://")%>" class="btn btn-success btn-xs js-gocard" target="_blank">点击查看</a></div>
+		            </div>  
+                </ItemTemplate>
+            </asp:Repeater> 
+	    </div>
+	    <div class="">
+		    <uc1:DataPaingNoTo ID="DtPag" runat="server" />
+	    </div>
+	    <div class="container-fluid tixian">
+		    <div class="row">
+			    <div class="col-xs-12">
+				    <button class="btn btn-success btn-block">收益余额提现</button>
+			    </div>
+		    </div>
+	    </div>
+	    <% if (StrShowMerchanGradeUserID == "2")
+        {%>
+	    <div class="container-fluid" style="margin-top: 10px;">
+		    <div class="row">
+			    <div class="col-xs-12">
+				    <a href="MobileRegisterOne.aspx?DLID=1" class="btn btn-default btn-block" target="_blank">我也要注册</a>
+			    </div>
+		    </div>
+	    </div>
+	    <%} %>
+	    <div class="container-fluid">
+		    <div class="row copyright tc">
+			    <div class="col-xs-12">商用宝 © 版权所有</div>
+		    </div>
+	    </div>
+    </div>
+    </form>
+</body>
+</html>

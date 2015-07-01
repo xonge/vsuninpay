@@ -1,0 +1,229 @@
+<%@ page language="C#" autoeventwireup="true" inherits="PaymentAccountMoney, App_Web_paymentaccountmoney.aspx.cdcab7d2" %>
+
+<%@ Register Src="BeforeControl/UserLoginMessageShow.ascx" TagName="UserLoginMessageShow" TagPrefix="uc4" %>
+
+<%@ Register Src="BeforeControl/DivNewsList.ascx" TagName="DivNewsList" TagPrefix="uc3" %>
+
+<%@ Register Src="BeforeControl/WebFoot.ascx" TagName="WebFoot" TagPrefix="uc2" %>
+
+<%@ Register Src="BeforeControl/WebTop.ascx" TagName="WebTop" TagPrefix="uc1" %>
+<% Response.Expires = -1 ;%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>商户转账付款设置|<%=GetMemberSystemTitle()%>|<%=GetWebsiteName()%></title>
+    <link href="WebCss/WebSite.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<form id="FomSub" runat="server">
+    <div>
+	        <uc1:WebTop ID="WebTop1" runat="server" />
+			
+			<uc4:UserLoginMessageShow id="UserLoginMessageShow1" runat="server" />
+
+			<div class="mainbody">
+		    <div class="undata_main">
+			    <div class="title01">
+				    <h2>转账到商用宝<span>现金余额：【<b class="org"><%=StrUseAccountValue%></b>】元。</span></h2>
+			    </div>
+			    <div class="step1_cont">
+				    <ul>
+					    <li>
+						    <dl>
+							    <dt>收款人：</dt>                                                             
+							    <dd>
+							        <input id="TxtUserName" runat="server" name="TxtUserName" type="text" class="input1" maxlength="11" onkeydown="ValidateNumber(event);" onpaste="ValidateClip(event);" placeholder="请输入收款人的11位数字手机用户名" /><span class="FontRed">*&nbsp;&nbsp;请输入收款人的11位数字手机用户名。</span>
+							        <asp:DropDownList ID="DpdAllBankList" runat="server" CssClass="input1" Visible="false">
+                                        <asp:ListItem Value="1" Text="招商银行"></asp:ListItem>
+                                    </asp:DropDownList>
+                                     
+                                    <asp:CheckBox ID="ChkDefaultBank" runat="server" CssClass="input1" Visible="false" Checked="true" />
+                                    <!-- 
+							        <span class="FontRed">默认转账付款</span>
+							        -->
+							        
+							    </dd>
+						    </dl>
+					    </li>
+					    <li style="display:none;">
+						    <dl>
+							    <dt>收款姓名：</dt>
+							    <dd><input id="TxtReceiveRealName" runat="server" name="TxtReceiveRealName" type="text" class="input1" maxlength="6" placeholder="请输入收款人的真实姓名" /><span class="FontRed">*&nbsp;&nbsp;请输入收款人的真实姓名。</span></dd>
+						    </dl>
+					    </li>
+					    <li>
+						    <dl>
+							    <dt>付款金额：</dt>
+							    <dd><input id="TxtPaymentMoney" runat="server" name="TxtPaymentMoney" type="text" class="input1" maxlength="20" onkeydown="ValidateNumber(event);" onpaste="ValidateClip(event);" placeholder="请输入需要转账的金额" /><span id="SpnHaveBank" runat="server" class="FontRed" >*&nbsp;&nbsp;请输入需要转账的金额。</span></dd>
+						    </dl>
+					    </li>
+					    <li>
+						    <dl>
+							    <dt>付款说明：</dt>
+							    <dd>
+							    <dd><input id="TxtPaymentContent" runat="server" name="TxtPaymentContent" type="text" class="input1" maxlength="50" placeholder="请输入付款的说明备注" /><span class="">&nbsp;&nbsp;请输入付款的说明备注。</span></dd>
+							    </dd>
+						    </dl>
+					    </li>
+					    <li>
+						    <dl>
+							    <dt>支付密码：</dt>
+							    <dd><input id="TxtPaymentPwd" runat="server" name="TxtPaymentPwd" type="password" class="input1" maxlength="64" placeholder="请输入付款的支付密码，不是登录密码" /><span class="FontRed">*&nbsp;&nbsp;请输入付款的支付密码，不是登录密码。</span></dd>
+						    </dl>
+					    </li>
+					    <li>
+						    <dl>
+							    <dt>&nbsp;</dt>
+							    <dd>
+							    <asp:Button  ID="BtnAddAccount" runat="server" Text="确认付款" OnClientClick="return CheckEmpty();" CssClass="org_bt"
+				                OnClick="BtnAddAccount_Click"></asp:Button> 
+							    &nbsp;&nbsp;&nbsp;&nbsp;<input type="reset" value="重置" name="" class="org_bt" /></dd>
+						    </dl>
+					    </li> 
+				    </ul>
+			    </div>
+		    </div>
+		    <div class="sub_right">
+			    <div class="sub_announce">
+				    <div class="title01"><h1>系统公告</h1></div>
+				    <div class="content">
+					    <ul class="text01">
+						    <uc3:DivNewsList ID="DivNoticeList" runat="server" />
+					    </ul>
+				    </div>
+			    </div>
+		    </div>
+	    </div>
+		
+	    <uc2:WebFoot ID="WebFoot1" runat="server" />
+	</div>
+	</form>
+    <script type="text/javascript"> 
+        function nTabs(thisObj,Num){ 
+        if(thisObj.className == "active")return; 
+        var tabObj = thisObj.parentNode.id; 
+        var tabList = document.getElementById(tabObj).getElementsByTagName("li"); 
+        for(i=0; i <tabList.length; i++){ 
+        if (i == Num){ 
+           thisObj.className = "active"; 
+              document.getElementById(tabObj+"_Content"+i).style.display = "block"; 
+        }else{ 
+           tabList[i].className = "normal"; 
+           document.getElementById(tabObj+"_Content"+i).style.display = "none"; 
+        } 
+        } 
+        } 
+
+    </script>
+    <script type="text/javascript">
+        function CheckEmpty()
+        {
+            if (FomSub.TxtUserName.value=="")
+            {
+                alert("对不起，收款人账户不能为空！");            
+                FomSub.TxtUserName.focus();
+                return false;
+            }
+            if (FomSub.TxtPaymentMoney.value=="")
+            {
+                alert("对不起，付款金额不能为空！");            
+                FomSub.TxtPaymentMoney.focus();
+                return false;
+            }
+            if (FomSub.TxtPaymentPwd.value=="")
+            {
+                alert("对不起，支付密码不能为空！");            
+                FomSub.TxtPaymentPwd.focus();
+                return false;
+            }
+            
+            var FloatUseAccountValue='<%= StrUseAccountValue%>';
+            var StrPaymentMoneyValue=document.all["TxtPaymentMoney"].value;
+            if (formatFloat(StrPaymentMoneyValue,3)>FloatUseAccountValue)
+            {
+                alert("对不起，您的可用现金余额不足【" + formatFloat(StrPaymentMoneyValue,3) + "】元，不能够进行转账付款，请重新输入转账金额或进行账户充值！");            
+                FomSub.TxtPaymentMoney.focus();
+                return false;
+            }
+            
+            if (!confirm('确认要转账付款吗？一旦付款将不可撤销！'))
+            {
+                return false;    
+            }
+            
+            return true;
+        }
+        
+        function formatFloat(src, pos)
+        {
+            return Math.round(src*Math.pow(10, pos))/Math.pow(10, pos);
+        }
+        
+        //////只能输入数字
+        function OnlyInputNumber(obj, reg, inputstr) 
+        { 
+            if(event.srcelement.getattribute("readonly")||event.srcelement.getattribute("disabled"))return false; 
+            if(event.keycode<46 || event.keycode>57)return false; 
+            var docsel = document.selection.createrange(); 
+            if (docsel.parentelement().tagname != "input") return false; 
+            osel = docsel.duplicate() 
+            osel.text = "" 
+            var srcrange = obj.createtextrange() 
+            osel.setendpoint("starttostart", srcrange) 
+            var str = osel.text + inputstr + srcrange.text.substr(osel.text.length) 
+            return reg.test(str) 
+        }
+
+        function ValidateNumber(ev)
+        {
+            var e = ev.keyCode;
+            //允许的有大、小键盘的数字，左右键，backspace, delete, Control + C, Control + V
+            if(e != 8  && e != 9 && e != 13  && e != 37 && e != 39 && e != 46&& e != 48 && e != 49 && e != 50 && e != 51 && e != 52 && e != 53 && e != 54 && e != 55 && e != 56 && e != 57 && e != 96 && e != 97 && e != 98 && e != 99 && e != 100 && e != 101 && e != 102 && e != 103 && e != 104 && e != 105)
+            {
+                if(ev.ctrlKey == false)
+                {
+                    //不允许的就清空!
+                     ev.returnValue = "";
+                 }
+                else
+                {
+                    //验证剪贴板里的内容是否为数字!
+                     //ValidateClip(ev);
+                 }
+             }
+        }
+
+        //验证剪贴板里的内容是否为数字!
+        function ValidateClip(ev)
+        {
+            //查看剪贴板的内容!
+            var content = clipboardData.getData("Text");
+            if(content != null)
+            {
+                try
+                {
+                    var test = parseInt(content);
+                    var str = "" + test;
+                    if(isNaN(test) == true)
+                    {
+                        //如果不是数字将内容清空!
+                         clipboardData.setData("Text","");
+                     }
+                    else
+                    {
+                        if(str != content)
+                             clipboardData.setData("Text", str);
+                     }
+                 }
+                catch(e)
+                {
+                    //清空出现错误的提示!
+                     alert("粘贴出现错误!");
+                 }
+             }
+        }
+    </script>
+            
+</body>
+</html>

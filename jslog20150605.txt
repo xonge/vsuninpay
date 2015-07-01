@@ -1,0 +1,1 @@
+{"level":"error","id":"34","content":"[uin:3088736236,url:http:\/\/xiangtan.suninpay.com:81\/html_test\/zz.js,pageurl:http:\/\/xiangtan.suninpay.com:81\/html_test\/log4js.unittest.html,ua:Mozilla\/5.0_(Windows_NT_10.0;_WOW64)_AppleWebKit\/537.36_(KHTML,_like_Gecko)_Chrome\/43.0.2357.81_Safari\/537.36]"}

@@ -1,0 +1,125 @@
+<%@ page language="C#" autoeventwireup="true" inherits="MerchantEntrustWithdrawal, App_Web_merchantentrustwithdrawal.aspx.cdcab7d2" %> 
+
+<%@ Register Src="BeforeControl/UserLoginMessageShow.ascx" TagName="UserLoginMessageShow" TagPrefix="uc3" %>
+
+<%@ Register Src="BeforeControl/WebFoot.ascx" TagName="WebFoot" TagPrefix="uc2" %>
+
+<%@ Register Src="BeforeControl/WebTop.ascx" TagName="WebTop" TagPrefix="uc1" %>
+<% Response.Expires = -1 ;%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>商户进行相应类别的提现|<%=GetMemberSystemTitle()%>|<%=GetWebsiteName()%></title>
+    <link href="WebCss/WebSite.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<form id="FomSub" runat="server">
+    <div>
+	    <uc1:WebTop ID="WebTop1" runat="server" />
+			
+	    <uc3:UserLoginMessageShow id="UserLoginMessageShow1" runat="server" />
+			
+			<div class="mainbody">
+    		
+    		
+	        <div class="undata_main" style="width:1000px;">
+		        <div class="title" style="width:1000px;">
+			        <span style="color:#EF7607">
+			        【单笔最小提现金额：<%= StrWithdrawalMinMoney%> 元   
+			        单笔最大提现金额：<%= StrWithdrawalMaxMoney%> 元  
+			        每天可提现总金额：<%= GetDataNameValue("ParametersID", "DayMaxMoney", "WithdrawalsParametersSetTab", StrManageUserID)%> 元 
+			        每天提现最大次数：<%= GetDataNameValue("ParametersID", "DayMaxCount", "WithdrawalsParametersSetTab", StrManageUserID)%>次】
+			        </span>
+
+		        </div>
+		        <div class="chyy_22_w">
+
+		        </div>
+    		    	
+	        </div>
+	    
+            <div class="FullWidth">
+                <div class="title01">
+	                <h2>未开启委托批量结算!</h2>
+	                <span></span>
+                </div>
+                <div class="list_tab">
+	                <table  class="b1" cellspacing="1" cellpadding="0" style="display:none;">
+		                <tr >
+			                <th>交易类型</th>
+			                <th>交易时间</th>
+			                <th>交易金额</th>
+			                <th>交易账户</th>
+			                <th>状态</th>
+			                <th>备注</th>
+		                </tr>
+		                <tr class="tr1">
+			                <td>支付宝支付</td>
+			                <td>2014-12-13</td>
+			                <td>1245.11</td>
+			                <td>souxiao6410</td>
+			                <td><span class="gren">未付款</span></td>
+			                <td>只拍没有支付</td>
+		                </tr>
+		                <tr class="tr2">
+			                <td>支付宝支付</td>
+			                <td>2014-12-13</td>
+			                <td>1245.11</td>
+			                <td>souxiao6410</td>
+			                <td><span class="org">未付款</span></td>
+			                <td>只拍没有支付</td>
+		                </tr>
+	                </table>
+	                <div class="list_page">
+		                <div class="left">
+		                    今天已申请提现总金额：<span class="org">0</span> 元    今天已申请提现：<span class="org">0</span> 次
+		                </div>
+		                <div class="right" style="display:none;">
+			                <div class="page">
+				                <span class="current">1</span><a href="#?page=2">2</a><a href="#?page=3">3</a><a href="#?page=2">Next</a>
+			                </div>
+		                </div>
+	                </div>
+                </div>
+            </div>
+        </div>
+        
+	    <uc2:WebFoot ID="WebFoot1" runat="server" />
+
+	    <div id="topFill" style=" top:0px; z-index:9999"> 
+		    <div class="bg">
+		    </div>
+		    <div id="alertBox"> 
+			    <div class="close1"><input type="button" value="关闭" onclick="isno('no')" /></div>
+			    <div id="alertTitle" style=" display:none">警告</div> 
+			    <div id="alertContent">
+				    <div style="height:70px">
+					    <p>文字说文字说明文字说明明</p>
+				    </div>
+				    <p class="p1"><input type="button" value="保存" onclick="isno('yes')" class="bt" /></p>
+			    </div> 
+    		
+		    </div>
+	    </div> 
+	</div>
+	</form>
+    <script type="text/javascript"> 
+        function nTabs(thisObj,Num){ 
+        if(thisObj.className == "active")return; 
+        var tabObj = thisObj.parentNode.id; 
+        var tabList = document.getElementById(tabObj).getElementsByTagName("li"); 
+        for(i=0; i <tabList.length; i++){ 
+        if (i == Num){ 
+           thisObj.className = "active"; 
+              document.getElementById(tabObj+"_Content"+i).style.display = "block"; 
+        }else{ 
+           tabList[i].className = "normal"; 
+           document.getElementById(tabObj+"_Content"+i).style.display = "none"; 
+        } 
+        } 
+        } 
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+123\r\n4
+5
+6
+{&amp;quot;longitude&amp;quot;:&amp;quot;112.95377&amp;quot;,&amp;quot;latitude&amp;quot;:&amp;quot;27.833841&amp;quot;,&amp;quot;speed&amp;quot;:&amp;quot;0.0&amp;quot;,&amp;quot;accuracy&amp;quot;:&amp;quot;70.0&amp;quot;,&amp;quot;errMsg&amp;quot;:&amp;quot;getLocation:ok&amp;quot;}
+{&amp;quot;longitude&amp;quot;:&amp;quot;112.95362&amp;quot;,&amp;quot;latitude&amp;quot;:&amp;quot;27.833849&amp;quot;,&amp;quot;speed&amp;quot;:&amp;quot;0.0&amp;quot;,&amp;quot;accuracy&amp;quot;:&amp;quot;70.0&amp;quot;,&amp;quot;errMsg&amp;quot;:&amp;quot;getLocation:ok&amp;quot;}
+{&amp;quot;longitude&amp;quot;:&amp;quot;112.95377&amp;quot;,&amp;quot;latitude&amp;quot;:&amp;quot;27.833824&amp;quot;,&amp;quot;speed&amp;quot;:&amp;quot;0.0&amp;quot;,&amp;quot;accuracy&amp;quot;:&amp;quot;60.0&amp;quot;,&amp;quot;errMsg&amp;quot;:&amp;quot;getLocation:ok&amp;quot;}
+{&amp;quot;longitude&amp;quot;:&amp;quot;112.95377&amp;quot;,&amp;quot;latitude&amp;quot;:&amp;quot;27.833826&amp;quot;,&amp;quot;speed&amp;quot;:&amp;quot;0.0&amp;quot;,&amp;quot;accuracy&amp;quot;:&amp;quot;40.0&amp;quot;,&amp;quot;errMsg&amp;quot;:&amp;quot;getLocation:ok&amp;quot;}
+{&amp;quot;longitude&amp;quot;:&amp;quot;112.95377&amp;quot;,&amp;quot;latitude&amp;quot;:&amp;quot;27.833826&amp;quot;,&amp;quot;speed&amp;quot;:&amp;quot;0.0&amp;quot;,&amp;quot;accuracy&amp;quot;:&amp;quot;40.0&amp;quot;,&amp;quot;errMsg&amp;quot;:&amp;quot;getLocation:ok&amp;quot;}
+{"longitude":"112.95377","latitude":"27.833824","speed":"0.0","accuracy":"40.0","errMsg":"getLocation:ok"}
+{"longitude":"112.95377","latitude":"27.833824","speed":"0.0","accuracy":"40.0","errMsg":"getLocation:ok"}
