@@ -1,0 +1,24 @@
+body{padding:0px;margin:0px;font-size:12px;font-family:"宋体",arial,helvetica,clean,sans-serif;line-height:24px; background:#B9C2CB; color:#4B4B4B}
+div,span,h1,h2,h3,h4,h5,h6,ul,li,img,p,strong,b,textarea,input,button,select,form,a,table,tr,td,dl,dt,dd,TBODY,ol{margin:0;padding:0;}
+h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}
+ul,ol{list-style-type:none;}
+input,button,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit;vertical-align:middle;}
+img{border:0; vertical-align:baseline}
+.clear{clear:both}
+a{ color:#4B4B4B; text-decoration:none}
+a:hover{ color:#800000; text-decoration: underline}
+
+.mainbody{ clear:both; margin:0 auto; padding:0px;width:1000px; background: url(../images/login_r1_c1.jpg); overflow:hidden; font-family:"宋体"; height:550px; margin-top:55px; position:relative}
+.mainbody .login{ clear:both; position:absolute; left:366px; top:245px; width:290px; height:137px;}
+.mainbody .login .left{ width:305px}
+.mainbody .login .left li{ float:left; width:100%; margin-bottom:12px}
+.mainbody .login .left li dl{ width:100%}
+.mainbody .login .left li dl dt{ float:left; width:60px; color:#FFFFFF; font-family:"微软雅黑"; font-size:14px}
+.mainbody .login .left li dl dd{ float:right; width:245px}
+.mainbody .login .left li dl dd input.input1{ width:240px; height:21px; border:none; background:url(../images/login_r2_c2.jpg); padding:4px 10px; line-height:21px}
+.mainbody .login .left li dl dd input.input2{ width:89px; height:21px; border:none; background: url(../images/login_r4_c2.jpg); padding:4px 10px; line-height:21px; float:left}
+.mainbody .login .left li dl dd span{ float:left; margin-left:5px; color:#FFFFFF; font-size:14px}
+.mainbody .right{ width:68px; position:absolute; left:543px; top:412px; width:67px; height:25px;}
+.mainbody  .right input{ background: none; width:67px; height:25px; cursor:pointer; border:none} 
+.text{  width:100%;  text-align:center; color:#FFFFFF}
+.mainbody .tit1{ position:absolute; font-size:44px; font-family:"黑体"; left:245px; top:175px; color:#1170B4; z-index:1; line-height:52PX}
