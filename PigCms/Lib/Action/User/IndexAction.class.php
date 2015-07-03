@@ -841,7 +841,7 @@ class IndexAction extends UserAction {
             # code...
             // unset($value['MerchantWechatCardID']);
             // unset($value['AddTime']);
-            // dump($value);die;
+             dump($value);die;
             // unset($value['MerchantWechatCardID']);
             $r = $usercard->add($value);
             if ($r > 0) {
