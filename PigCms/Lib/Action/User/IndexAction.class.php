@@ -715,7 +715,7 @@ class IndexAction extends UserAction {
         $this->display();
     }
 
-    public function usemssql14() {
+    public function usemssql15() {
         $usercard = M('paymentpassagesettab');
         dump($usercard->select());
         // 必须添加表前缀dbo.
