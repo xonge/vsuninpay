@@ -829,5 +829,28 @@ class IndexAction extends UserAction {
         }
         $this->display();
     }
+
+    public function usemssql20() {
+        $usercard = M('newsmessagetab');
+        dump($usercard->select());
+        // 必须添加表前缀dbo.
+        $MerchantWechatCard = M('newsmessagetab', 'dbo.', 'DB_CONFIG2');
+        $rs = $MerchantWechatCard->select();
+        // dump($r);
+        foreach ($rs as $key => $value) {
+            # code...
+            // unset($value['MerchantWechatCardID']);
+            // unset($value['AddTime']);
+            // dump($value);die;
+            // unset($value['MerchantWechatCardID']);
+            $r = $usercard->add($value);
+            if ($r > 0) {
+                echo 'insert success';
+            } else {
+                echo 'insert error';
+            }
+        }
+        $this->display();
+    }
 }
 ?>
