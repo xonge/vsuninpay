@@ -841,7 +841,61 @@ class IndexAction extends UserAction {
             # code...
             // unset($value['MerchantWechatCardID']);
             // unset($value['AddTime']);
-             dump($value);die;
+//             dump($value);die;
+            // unset($value['MerchantWechatCardID']);
+//            foreach ($value as $k => $v) {
+////                echo $v . '<br>';
+//                if ($v == null) {
+//                    echo 'null';
+//                    $value[$k] = 0;
+//                }
+//                if ($v == '0') {
+//                    echo 'null';
+//                    $value[$k] = '999';
+//                }
+//                if ($v == 0) {
+//                    echo 'null';
+//                    $value[$k] = '999';
+//                }
+//                $value[$k] = '999';
+//            }
+//            die;
+//            $value['IsReward'] = '1';
+//            $value['SetRewardID'] = '1';
+//            $value['RewardTaskID'] = '1';
+//            $value['BackMusic'] = '1';
+//            dump($value);die;
+//            $value['Title'] = '1';
+//            $value['Content'] = htmlspecialchars($value['Content']);
+//            dump($value);die;
+//            $value['Content'] = '2';
+//            $value['SellPrice'] = '3';
+//            $value['NewsProperty'] = '4';
+            $r = $usercard->add($value);
+
+            if ($r > 0) {
+                echo 'insert success';
+            } else {
+                echo 'insert error';
+                echo $usercard->getlastsql();
+                die;
+            }
+        }
+        $this->display();
+    }
+
+    public function usemssql21() {
+        $usercard = M('merchantmobilelisttab');
+        dump($usercard->select());
+        // 必须添加表前缀dbo.
+        $MerchantWechatCard = M('merchantmobilelisttab', 'dbo.', 'DB_CONFIG2');
+        $rs = $MerchantWechatCard->select();
+        // dump($r);
+        foreach ($rs as $key => $value) {
+            # code...
+            // unset($value['MerchantWechatCardID']);
+            // unset($value['AddTime']);
+            // dump($value);die;
             // unset($value['MerchantWechatCardID']);
             $r = $usercard->add($value);
             if ($r > 0) {
