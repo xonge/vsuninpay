@@ -119,6 +119,7 @@ class Red_packetAction extends WapAction {
         echo json_encode($result);
     }
 
+//    使用企业付款发红包
     function pay() {
         if ($this->packet_info['packet_type'] == '1') {
             $max = $this->packet_info['item_max']; //单个上限
@@ -129,22 +130,17 @@ class Red_packetAction extends WapAction {
             } else if ($this->packet_info['deci'] == 2) {
                 //$prize 		= mt_rand(1,$max*100)/100;
                 $prize = sprintf("%.2f", mt_rand(1, $max * 100) / 100);
-
             }
-
             $prize_name = $prize . '元';
-
         } else if ($this->packet_info['packet_type'] == '2') {
             $unit = $this->packet_info['item_unit']; //面额
             $prize = $this->packet_info['item_unit'];
             $prize_name = $prize . '元';
         }
-
 //        抽中红包返回
         $result['err'] = 0;
         $result['msg'] = '恭喜您抽中了' . $prize_name . ',返回到微信主界面即可领取';
         $result['money'] = $prize;
-
 //        获得openid
         $ucode = $this->_post('ucode');
         $log = array();
