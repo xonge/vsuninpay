@@ -161,7 +161,6 @@ class Red_packetAction extends WapAction {
             vendor('WxPay.class#wxpay');
             $pay = new WxPay();
             $payarr['amount'] = 1; // 红包金额，单位为分
-            $ucode = $this->_post('ucode');
             $pay->mch_pay($ucode, null, $payarr);
             exit;
         } else {
