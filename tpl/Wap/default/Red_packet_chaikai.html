@@ -10,10 +10,10 @@
     <script>
         wx.config({
             debug: false,
-            appId: 'wx74f49269aa53e0bf',
-            timestamp: 1436146710,
-            nonceStr: 'gnmU0Z66FYmpQQju',
-            signature: 'a121ae920dfcf09c62e022e1a28bd9970f11617f',
+            appId: '{pigcms:$signpackage.appId}',
+            timestamp: {pigcms:$signpackage.timestamp},
+            nonceStr: '{pigcms:$signpackage.nonceStr}',
+            signature: '{pigcms:$signpackage.signature}',
             jsApiList: [
                 'checkJsApi',
                 'onMenuShareTimeline',
@@ -55,7 +55,7 @@
             wx.showOptionMenu();
             wx.onMenuShareTimeline({
                 title: "一大波现金正在来袭...",
-                link: "http://www.shenghuozz0371.com/main/index.php?utcode=o3NXGs9LkNwkjxmNzJegbIqmRBzI&sk=1436072245&sh=300",
+                link: "{pigcms:$signpackage.url}",
                 imgUrl: "http://www.shenghuozz0371.com/uploads/2015/06/20150629130917BIUHY.jpg",
                 trigger: function (res) {
                 },
@@ -69,7 +69,7 @@
             wx.onMenuShareAppMessage({
                 title: "一大波现金正在来袭...",
                 desc: "土豪任性，送您大礼！分享到朋友圈有几个人，就给你返几个红包哦",
-                link: "http://www.shenghuozz0371.com/main/index.php?utcode=o3NXGs9LkNwkjxmNzJegbIqmRBzI&sk=1436072245&sh=300",
+                link: "{pigcms:$signpackage.url}",
                 imgUrl: "http://www.shenghuozz0371.com/uploads/2015/06/20150629130917BIUHY.jpg",
                 trigger: function (res) {
                 },
