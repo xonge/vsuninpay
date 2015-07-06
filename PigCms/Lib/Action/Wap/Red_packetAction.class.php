@@ -41,6 +41,7 @@ class Red_packetAction extends WapAction {
         $result = array();
         $id = $this->_get('id', 'intval');
         $openid = $this->_get('wecha_id');
+        $ucode = $this->_post('ucode');
         // echo $openid;
 
         if ($this->is_start() == 1) {
@@ -57,7 +58,7 @@ class Red_packetAction extends WapAction {
             exit;
         }
 
-        $pwhere = array('token' => $this->token, 'wecha_id' => $this->wecha_id, 'packet_id' => $id);
+        $pwhere = array('token' => $this->token, 'wecha_id' => $ucode, 'packet_id' => $id);
         $p_count = M('Red_packet_log')->where($pwhere)->count();
 
         /*奖品数量消耗完提示红包被领光*/
@@ -101,18 +102,22 @@ class Red_packetAction extends WapAction {
             $prize_name = $prize . '元';
         }
 
+//        抽中红包返回
         $result['err'] = 0;
         $result['msg'] = '恭喜您抽中了' . $prize_name . ',返回到微信主界面即可领取';
+        $result['money'] = $prize;
 
+//        获得openid
+        $ucode = $this->_post('ucode');
         $log = array();
         $log['token'] = $this->token;
-        $log['wecha_id'] = $this->wecha_id;
+        $log['wecha_id'] = $ucode;
         $log['packet_id'] = $id;
         $log['prize_name'] = $prize_name;
         $log['worth'] = $prize;
         $log['add_time'] = time();
         $log['type'] = $this->packet_info['packet_type'];
-        $md5 = $this->wecha_id . $id . $prize . time();
+        $md5 = $ucode . $id . $prize . time();
         $log['code'] = substr(md5($md5), 0, 12);
 
         $log_id = M('Red_packet_log')->add($log);
