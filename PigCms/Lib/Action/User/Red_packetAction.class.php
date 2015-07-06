@@ -149,6 +149,8 @@ class Red_packetAction extends UserAction {
 		$count = M('Red_packet_log')->where($where)->count();
 		$Page = new Page($count, 20);
 		$list = M('Red_packet_log')->where($where)->order('add_time desc')->limit($Page->firstRow . ',' . $Page->listRows)->select();
+        $list = M('Red_packet_log')->where($where)->select();
+//        dump($list);
 		foreach ($list as $key => $value) {
 			$list[$key]['wxname'] = M('Userinfo')->where(array('wecha_id' => $value['wecha_id']))->getField('wechaname');
 		}
