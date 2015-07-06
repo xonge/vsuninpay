@@ -26,6 +26,11 @@ class Red_packetAction extends WapAction {
         $this->display();
     }
 
+    // 提示关注页面
+    function guanzhu() {
+        $this->display();
+    }
+
 	function index() {
 		// 直接把自己作为授权页面
 		include 'WxOAuth2.class.php';
