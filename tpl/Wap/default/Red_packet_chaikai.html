@@ -1,9 +1,9 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
-    <title>²ğ¿ªÓĞ¾ªÏ²</title>
+    <title>æ‹†å¼€æœ‰æƒŠå–œ</title>
     <link rel="stylesheet" href="/tpl/static/packet/css/chaikai.css" />
     <script src="/tpl/static/packet/js/jquery-2.1.1.min.js"></script>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
@@ -54,7 +54,7 @@
         wx.ready(function () {
             wx.showOptionMenu();
             wx.onMenuShareTimeline({
-                title: "Ò»´ó²¨ÏÖ½ğÕıÔÚÀ´Ï®...",
+                title: "ä¸€å¤§æ³¢ç°é‡‘æ­£åœ¨æ¥è¢­...",
                 link: "http://www.shenghuozz0371.com/main/index.php?utcode=o3NXGs9LkNwkjxmNzJegbIqmRBzI&sk=1436072245&sh=300",
                 imgUrl: "http://www.shenghuozz0371.com/uploads/2015/06/20150629130917BIUHY.jpg",
                 trigger: function (res) {
@@ -67,8 +67,8 @@
                 }
             });
             wx.onMenuShareAppMessage({
-                title: "Ò»´ó²¨ÏÖ½ğÕıÔÚÀ´Ï®...",
-                desc: "ÍÁºÀÈÎĞÔ£¬ËÍÄú´óÀñ£¡·ÖÏíµ½ÅóÓÑÈ¦ÓĞ¼¸¸öÈË£¬¾Í¸øÄã·µ¼¸¸öºì°üÅ¶",
+                title: "ä¸€å¤§æ³¢ç°é‡‘æ­£åœ¨æ¥è¢­...",
+                desc: "åœŸè±ªä»»æ€§ï¼Œé€æ‚¨å¤§ç¤¼ï¼åˆ†äº«åˆ°æœ‹å‹åœˆæœ‰å‡ ä¸ªäººï¼Œå°±ç»™ä½ è¿”å‡ ä¸ªçº¢åŒ…å“¦",
                 link: "http://www.shenghuozz0371.com/main/index.php?utcode=o3NXGs9LkNwkjxmNzJegbIqmRBzI&sk=1436072245&sh=300",
                 imgUrl: "http://www.shenghuozz0371.com/uploads/2015/06/20150629130917BIUHY.jpg",
                 trigger: function (res) {
@@ -84,13 +84,16 @@
         $(document).ready(function(){
 
             $(function(){
-                $.post("ajax.checkpay.php",{ucode:"o3NXGs9LkNwkjxmNzJegbIqmRBzI"},function(data){
-                    if(data==1){
+                $.post("http://v.suninpay.com/index.php?g=Wap&m=Red_packet&a=checkpay&token=wfzqmi1427969786&id=1",{ucode:"{pigcms:$openid}"},function(data){
+//                    console.log()
+                    var _json = JSON.parse(data);
+                    if(_json['err']==1){
                         $(".second-box").show();
                         $('.second-box .money1').show();
                         return;
                     }
-                    if(data==2){
+//                    é¢†å–è¿‡äº†
+                    if(_json['err']==3){
                         $(".second-box").show();
                         $('.second-box .money2').show();
                         return;
@@ -100,7 +103,8 @@
                         $('.second-box .money6').show();
                         return;
                     }
-                    if(data==4){
+//                    å¯ä»¥é¢†å–çº¢åŒ…
+                    if(_json['err']==1989){
                         $(".first-box").show();
                         return;
                     }
@@ -109,7 +113,8 @@
 
             $(".hot-click").click(function(){
                 $('.hot-click').unbind();
-                $.post("ajax.pay.php",{ucode:"o3NXGs9LkNwkjxmNzJegbIqmRBzI"},function(data){
+                $.post("http://v.suninpay.com/index.php?g=Wap&m=Red_packet&a=pay&token=wfzqmi1427969786&id=1",{ucode:"{pigcms:$openid}"},function(data){
+                    var _json = JSON.parse(data);
                     $(".first-box").hide();
                     $(".second-box").show();
                     if(data==1){
@@ -124,7 +129,8 @@
                         $('.second-box .money4').show();
                         return false;
                     }
-                    $('.second-box .money3 .money-number').text(data);
+//                    æ˜¾ç¤ºçº¢åŒ…é‡‘é¢
+                    $('.second-box .money3 .money-number').text(_json['money']);
                     $('.second-box .money3').show();
                 });
             });
@@ -146,51 +152,51 @@
     <img class="body" src="/tpl/static/packet/images/fools_1.png">
     <img class="user-headimg" src="/tpl/static/packet/images/hbss_icon.jpg">
     <div class="hot-click"></div>
-    <div class="nickname">Õâ¶ù¸í¶ùºÃĞ¦ µÄÔùÀñ</div>
+    <div class="nickname">{pigcms:$openid} çš„èµ 1ç¤¼</div>
 </div>
 
 <div class="second-box" style="display:none">
     <div class="second-wrapper">
         <img class="second-bg" src="/tpl/static/packet/images/fools_2.png">
-        <img class="second-headimg" src="http://wx.qlogo.cn/mmopen/odc6tlYafIRsJlZOqo2lWE2e2P5sUf2DwS3tuMpKP21XYVnJF0FTNfxC7EA0tanibOxXNxLHiaKcgJjj0DKpTTtKvf3yYhR1Bg/132">
+        <img class="second-headimg" src="{pigcms:$headimgurl}">
         <div class="second-nickname">
-            Õâ¶ù¸í¶ùºÃĞ¦ µÄÔùÀñ
-            <p style="font-size:13px; color:#999999">¹§Ï²·¢²Æ£¬´ó¼ª´óÀû£¡</p>
+            {pigcms:$openid} çš„èµ ç¤¼
+            <p style="font-size:13px; color:#999999">æ­å–œå‘è´¢ï¼Œå¤§å‰å¤§åˆ©ï¼</p>
         </div>
-        <!--ucode´íÎó-->
-        <div class="money1"><p style="color:rgb(214, 86, 69);font-size:1.2em;">·¢ËÍ¡°H¡±¸ø¡°Õâ¶ù¸í¶ùºÃĞ¦¡±¹«ÖÚºÅ,ÁìÈ¡ÔùÀñ</p></div>
-        <!--ÁìÈ¡¹ıÁË-->
+        <!--ucodeé”™è¯¯-->
+        <div class="money1"><p style="color:rgb(214, 86, 69);font-size:1.2em;">å‘é€â€œHâ€ç»™â€œSuninpayâ€å…¬ä¼—å·,é¢†å–èµ ç¤¼</p></div>
+        <!--é¢†å–è¿‡äº†-->
         <div class="money2">
             <div class="needMore">
-                <p style="color:rgb(214, 86, 69);font-size:1.2em;">¸øºÃÓÑ·¢ÀñÎï×Ô¼ºÒ²¿ÉÒÔÔÙÁìÅ¶~</p>
-                <a href="javascript:void(0);" class="lg-btn sendMoney">Á¢¼´·¢ÀñÎï</a>
+                <p style="color:rgb(214, 86, 69);font-size:1.2em;">ç»™å¥½å‹å‘ç¤¼ç‰©è‡ªå·±ä¹Ÿå¯ä»¥å†é¢†å“¦~</p>
+                <a href="javascript:void(0);" class="lg-btn sendMoney">ç«‹å³å‘ç¤¼ç‰©</a>
             </div>
         </div>
-        <!--ÁìÈ¡³É¹¦-->
-        <div class="money3"><span class="money-number"></span> <span class="yuan">Ôª</span>
-            <p style="color:#70A0D7;font-size:1em;">ÒÑ´æÈëÁãÇ®,¿ÉÖ±½ÓÌáÏÖ</p>
-            <p>»¹ÏëÒª?¸æËßÄã¸öÃØÃÜ...</p>
-            <p style="color:rgb(214, 86, 69);font-size:1.2em;">¸øºÃÓÑ·¢ÀñÎï×Ô¼ºÒ²¿ÉÒÔÔÙÁìÀñÎïÅ¶~</p>
-            <a href="javascript:void(0);" class="lg-btn sendMoney">Á¢¼´·¢ÀñÎï</a>
+        <!--é¢†å–æˆåŠŸ-->
+        <div class="money3"><span class="money-number"></span> <span class="yuan">å…ƒ</span>
+            <p style="color:#70A0D7;font-size:1em;">å·²å­˜å…¥é›¶é’±,å¯ç›´æ¥æç°</p>
+            <p>è¿˜æƒ³è¦?å‘Šè¯‰ä½ ä¸ªç§˜å¯†...</p>
+            <p style="color:rgb(214, 86, 69);font-size:1.2em;">ç»™å¥½å‹å‘ç¤¼ç‰©è‡ªå·±ä¹Ÿå¯ä»¥å†é¢†ç¤¼ç‰©å“¦~</p>
+            <a href="javascript:void(0);" class="lg-btn sendMoney">ç«‹å³å‘ç¤¼ç‰©</a>
         </div>
-        <!--ÏµÍ³´íÎó-->
+        <!--ç³»ç»Ÿé”™è¯¯-->
         <div class="money4">
-            <p style="color:rgb(214, 86, 69);font-size:1.2em;">ÈËÌ«¶àÁË£¬ÇëÖØĞÂ´ò¿ªÊÔÊÔ£¡</p>
+            <p style="color:rgb(214, 86, 69);font-size:1.2em;">äººå¤ªå¤šäº†ï¼Œè¯·é‡æ–°æ‰“å¼€è¯•è¯•ï¼</p>
         </div>
-        <!--Ã»ÓĞÇ®ÁË-->
+        <!--æ²¡æœ‰é’±äº†-->
         <div class="money6">
-            <p style="color:rgb(214, 86, 69);font-size:1.2em;">À´ÍíÁË,Ã»ÓĞÁË</p>
-            <a href="javascript:void(0);" class="lg-btn sendMoney">Á¢¼´·¢ÀñÎï</a>
+            <p style="color:rgb(214, 86, 69);font-size:1.2em;">æ¥æ™šäº†,æ²¡æœ‰äº†</p>
+            <a href="javascript:void(0);" class="lg-btn sendMoney">ç«‹å³å‘ç¤¼ç‰©</a>
         </div>
-        <!--Èç¹ûÓĞµÚ¶ş¸ö¹«ÖÚºÅ-->
+        <!--å¦‚æœæœ‰ç¬¬äºŒä¸ªå…¬ä¼—å·-->
         <div class="money5">
-            <p style="color:rgb(214, 86, 69);font-size:1.2em;">·¢ËÍ"H"¸ø""¹«ÖÚºÅ<br>»ñµÃ¸ü¶à¾ªÏ²</p>
+            <p style="color:rgb(214, 86, 69);font-size:1.2em;">å‘é€"H"ç»™""å…¬ä¼—å·<br>è·å¾—æ›´å¤šæƒŠå–œ</p>
             <p><img src="http://open.weixin.qq.com/qr/code/?username=" width="180"/></p>
-            <p style="color:#F00;font-size:1.2em;">³¤°´¶şÎ¬Âë£¬Ê¶±ğ½øÈë¹«ÖÚºÅ</p>
+            <p style="color:#F00;font-size:1.2em;">é•¿æŒ‰äºŒç»´ç ï¼Œè¯†åˆ«è¿›å…¥å…¬ä¼—å·</p>
         </div>
     </div>
 </div>
-<div class="share" style="display:none"> <span class="share-p">·¢¸øºÃÓÑ£¬ÏíÊÜÏÂ½ğÓêµÄ¿ì¸Ğ£¡£¡£¡</span>
+<div class="share" style="display:none"> <span class="share-p">å‘ç»™å¥½å‹ï¼Œäº«å—ä¸‹é‡‘é›¨çš„å¿«æ„Ÿï¼ï¼ï¼</span>
     <img class="pointer" src="/tpl/static/packet/images/share_arrow.gif">
     <img class="close" src="/tpl/static/packet/images/close-black.gif">
 </div>
