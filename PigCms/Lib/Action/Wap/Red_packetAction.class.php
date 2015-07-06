@@ -33,7 +33,45 @@ class Red_packetAction extends WapAction {
 
 //    红包拆开页面
     function chaikai() {
-        $this->display();
+        // 直接把自己作为授权页面
+        include 'WxOAuth2.class.php';
+        $oauth2 = new WxOAuth2();
+        $v_token = $this->_get('token');
+        $code = $this->_get('code');
+        $state = $this->_get('state');
+
+        // 如果没有授权，就去授权
+        if (!$state) {
+            $appid = M('wxuser')->where(array('token' => $v_token))->getField('appid');
+            $oauth2->app_id = $appid;
+            $callback = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING'];
+            $url = $oauth2->get_authorize_url($callback, 'snsapi_base', $v_token);
+            header('location:' . $url);
+        } else {
+            if ($code) {
+                // 如果用户同意授权
+                // 根据用户标识来确定app_id
+                $wxuser = M('wxuser')->where(array('token' => $v_token))->find();
+                // dump($wxuser);
+                $oauth2->app_id = $wxuser['appid'];
+                $oauth2->app_secret = $wxuser['appsecret'];
+                // 确认授权后会，根据返回的code获取token
+                $token_arr = $oauth2->get_access_token($wxuser['appid'], $wxuser['appsecret'], $code);
+                if (!$token_arr) {
+                    die;
+                } else {
+                    // header('location:' . implode(',', $token_arr));
+                }
+                // $user_info = $oauth2->get_user_info($token_arr['access_token'], $token_arr['openid']); //获取用户信息
+                $this->assign('openid', $token_arr['openid']);
+                if (!$this->wecha_id) {
+                    $this->openid = $this->wecha_id = $token_arr['openid'];
+                    $this->assign('reopenid', $this->wecha_id);
+                }
+                $this->assign('is_start', $this->is_start($this->packet_info['id']));
+                $this->display();
+            }
+        }
     }
 
 //    检查红包状态
