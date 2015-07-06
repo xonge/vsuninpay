@@ -1,0 +1,198 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <title>拆开有惊喜</title>
+    <link rel="stylesheet" href="/tpl/static/packet/css/chaikai.css" />
+    <script src="/tpl/static/packet/js/jquery-2.1.1.min.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script>
+        wx.config({
+            debug: false,
+            appId: 'wx74f49269aa53e0bf',
+            timestamp: 1436146710,
+            nonceStr: 'gnmU0Z66FYmpQQju',
+            signature: 'a121ae920dfcf09c62e022e1a28bd9970f11617f',
+            jsApiList: [
+                'checkJsApi',
+                'onMenuShareTimeline',
+                'onMenuShareAppMessage',
+                'onMenuShareQQ',
+                'onMenuShareWeibo',
+                'hideMenuItems',
+                'showMenuItems',
+                'hideAllNonBaseMenuItem',
+                'showAllNonBaseMenuItem',
+                'translateVoice',
+                'startRecord',
+                'stopRecord',
+                'onRecordEnd',
+                'playVoice',
+                'pauseVoice',
+                'stopVoice',
+                'uploadVoice',
+                'downloadVoice',
+                'chooseImage',
+                'previewImage',
+                'uploadImage',
+                'downloadImage',
+                'getNetworkType',
+                'openLocation',
+                'getLocation',
+                'hideOptionMenu',
+                'showOptionMenu',
+                'closeWindow',
+                'scanQRCode',
+                'chooseWXPay',
+                'openProductSpecificView',
+                'addCard',
+                'chooseCard',
+                'openCard'
+            ]
+        });
+        wx.ready(function () {
+            wx.showOptionMenu();
+            wx.onMenuShareTimeline({
+                title: "一大波现金正在来袭...",
+                link: "http://www.shenghuozz0371.com/main/index.php?utcode=o3NXGs9LkNwkjxmNzJegbIqmRBzI&sk=1436072245&sh=300",
+                imgUrl: "http://www.shenghuozz0371.com/uploads/2015/06/20150629130917BIUHY.jpg",
+                trigger: function (res) {
+                },
+                success: function (res) {
+                },
+                cancel: function (res) {
+                },
+                fail: function (res) {
+                }
+            });
+            wx.onMenuShareAppMessage({
+                title: "一大波现金正在来袭...",
+                desc: "土豪任性，送您大礼！分享到朋友圈有几个人，就给你返几个红包哦",
+                link: "http://www.shenghuozz0371.com/main/index.php?utcode=o3NXGs9LkNwkjxmNzJegbIqmRBzI&sk=1436072245&sh=300",
+                imgUrl: "http://www.shenghuozz0371.com/uploads/2015/06/20150629130917BIUHY.jpg",
+                trigger: function (res) {
+                },
+                success: function (res) {
+                },
+                cancel: function (res) {
+                },
+                fail: function (res) {
+                }
+            });
+        });
+        $(document).ready(function(){
+
+            $(function(){
+                $.post("ajax.checkpay.php",{ucode:"o3NXGs9LkNwkjxmNzJegbIqmRBzI"},function(data){
+                    if(data==1){
+                        $(".second-box").show();
+                        $('.second-box .money1').show();
+                        return;
+                    }
+                    if(data==2){
+                        $(".second-box").show();
+                        $('.second-box .money2').show();
+                        return;
+                    }
+                    if(data==3){
+                        $(".second-box").show();
+                        $('.second-box .money6').show();
+                        return;
+                    }
+                    if(data==4){
+                        $(".first-box").show();
+                        return;
+                    }
+                });
+            })
+
+            $(".hot-click").click(function(){
+                $('.hot-click').unbind();
+                $.post("ajax.pay.php",{ucode:"o3NXGs9LkNwkjxmNzJegbIqmRBzI"},function(data){
+                    $(".first-box").hide();
+                    $(".second-box").show();
+                    if(data==1){
+                        $('.second-box .money1').show();
+                        return false;
+                    }
+                    if(data==2){
+                        $('.second-box .money2').show();
+                        return false;
+                    }
+                    if(data==4){
+                        $('.second-box .money4').show();
+                        return false;
+                    }
+                    $('.second-box .money3 .money-number').text(data);
+                    $('.second-box .money3').show();
+                });
+            });
+
+            $('.sendMoney').click(function(){
+                $(".share").show();
+            })
+            $(".close").click(function(){
+                $(".share").fadeTo(500,0,function(){
+                    $(".share").hide();
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+
+<div class="first-box" style="display:none">
+    <img class="body" src="/tpl/static/packet/images/fools_1.png">
+    <img class="user-headimg" src="/tpl/static/packet/images/hbss_icon.jpg">
+    <div class="hot-click"></div>
+    <div class="nickname">这儿疙儿好笑 的赠礼</div>
+</div>
+
+<div class="second-box" style="display:none">
+    <div class="second-wrapper">
+        <img class="second-bg" src="/tpl/static/packet/images/fools_2.png">
+        <img class="second-headimg" src="http://wx.qlogo.cn/mmopen/odc6tlYafIRsJlZOqo2lWE2e2P5sUf2DwS3tuMpKP21XYVnJF0FTNfxC7EA0tanibOxXNxLHiaKcgJjj0DKpTTtKvf3yYhR1Bg/132">
+        <div class="second-nickname">
+            这儿疙儿好笑 的赠礼
+            <p style="font-size:13px; color:#999999">恭喜发财，大吉大利！</p>
+        </div>
+        <!--ucode错误-->
+        <div class="money1"><p style="color:rgb(214, 86, 69);font-size:1.2em;">发送“H”给“这儿疙儿好笑”公众号,领取赠礼</p></div>
+        <!--领取过了-->
+        <div class="money2">
+            <div class="needMore">
+                <p style="color:rgb(214, 86, 69);font-size:1.2em;">给好友发礼物自己也可以再领哦~</p>
+                <a href="javascript:void(0);" class="lg-btn sendMoney">立即发礼物</a>
+            </div>
+        </div>
+        <!--领取成功-->
+        <div class="money3"><span class="money-number"></span> <span class="yuan">元</span>
+            <p style="color:#70A0D7;font-size:1em;">已存入零钱,可直接提现</p>
+            <p>还想要?告诉你个秘密...</p>
+            <p style="color:rgb(214, 86, 69);font-size:1.2em;">给好友发礼物自己也可以再领礼物哦~</p>
+            <a href="javascript:void(0);" class="lg-btn sendMoney">立即发礼物</a>
+        </div>
+        <!--系统错误-->
+        <div class="money4">
+            <p style="color:rgb(214, 86, 69);font-size:1.2em;">人太多了，请重新打开试试！</p>
+        </div>
+        <!--没有钱了-->
+        <div class="money6">
+            <p style="color:rgb(214, 86, 69);font-size:1.2em;">来晚了,没有了</p>
+            <a href="javascript:void(0);" class="lg-btn sendMoney">立即发礼物</a>
+        </div>
+        <!--如果有第二个公众号-->
+        <div class="money5">
+            <p style="color:rgb(214, 86, 69);font-size:1.2em;">发送"H"给""公众号<br>获得更多惊喜</p>
+            <p><img src="http://open.weixin.qq.com/qr/code/?username=" width="180"/></p>
+            <p style="color:#F00;font-size:1.2em;">长按二维码，识别进入公众号</p>
+        </div>
+    </div>
+</div>
+<div class="share" style="display:none"> <span class="share-p">发给好友，享受下金雨的快感！！！</span>
+    <img class="pointer" src="/tpl/static/packet/images/share_arrow.gif">
+    <img class="close" src="/tpl/static/packet/images/close-black.gif">
+</div>
+</body>
+</html>
