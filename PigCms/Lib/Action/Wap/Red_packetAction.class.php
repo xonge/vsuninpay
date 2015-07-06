@@ -45,7 +45,9 @@ class Red_packetAction extends WapAction {
             $appid = M('wxuser')->where(array('token' => $v_token))->getField('appid');
             $oauth2->app_id = $appid;
             $callback = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING'];
-            $url = $oauth2->get_authorize_url($callback, 'snsapi_base', $v_token);
+//            $url = $oauth2->get_authorize_url($callback, 'snsapi_base', $v_token);
+            $url = $oauth2->get_authorize_url($callback, 'snsapi_userinfo',
+                $v_token);
             header('location:' . $url);
         } else {
             if ($code) {
@@ -62,8 +64,9 @@ class Red_packetAction extends WapAction {
                 } else {
                     // header('location:' . implode(',', $token_arr));
                 }
-                // $user_info = $oauth2->get_user_info($token_arr['access_token'], $token_arr['openid']); //获取用户信息
+                $user_info = $oauth2->get_user_info($token_arr['access_token'], $token_arr['openid']); //获取用户信息
                 $this->assign('openid', $token_arr['openid']);
+                $this->assign('headimgurl', $user_info['headimgurl']);
                 if (!$this->wecha_id) {
                     $this->openid = $this->wecha_id = $token_arr['openid'];
                     $this->assign('reopenid', $this->wecha_id);
