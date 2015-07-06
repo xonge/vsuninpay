@@ -141,6 +141,9 @@ class Red_packetAction extends WapAction {
         $result['err'] = 0;
         $result['msg'] = '恭喜您抽中了' . $prize_name . ',返回到微信主界面即可领取';
         $result['money'] = $prize;
+
+//        红包活动id
+        $id = $this->_get('id');
 //        获得openid
         $ucode = $this->_post('ucode');
         $log = array();
