@@ -31,6 +31,11 @@ class Red_packetAction extends WapAction {
         $this->display();
     }
 
+//    红包拆开页面
+    function chaikai() {
+        $this->display();
+    }
+
 	function index() {
 		// 直接把自己作为授权页面
 		include 'WxOAuth2.class.php';
