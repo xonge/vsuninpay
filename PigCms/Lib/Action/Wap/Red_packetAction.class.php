@@ -21,6 +21,11 @@ class Red_packetAction extends WapAction {
 		$this->assign('packet_info', $this->packet_info);
 	}
 
+//    显示红包发放引导页面，取名fake只是为了说明这是诱导页面
+    function fake_1() {
+        $this->display();
+    }
+
 	function index() {
 		// 直接把自己作为授权页面
 		include 'WxOAuth2.class.php';
