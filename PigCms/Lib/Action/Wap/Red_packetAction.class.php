@@ -31,6 +31,33 @@ class Red_packetAction extends WapAction {
         $this->display();
     }
 
+    /**
+     * Returns the url query as associative array
+     *
+     * @param    string    query
+     * @return    array    params
+     */
+    function convertUrlQuery($query) {
+        $queryParts = explode('&', $query);
+
+        $params = array();
+        foreach ($queryParts as $param) {
+            $item = explode('=', $param);
+            $params[$item[0]] = $item[1];
+        }
+
+        return $params;
+    }
+
+    function getUrlQuery($array_query) {
+        $tmp = array();
+        foreach ($array_query as $k => $param) {
+            $tmp[] = $k . '=' . $param;
+        }
+        $params = implode('&', $tmp);
+        return $params;
+    }
+
 //    红包拆开页面
     function chaikai() {
         // 直接把自己作为授权页面
@@ -39,6 +66,21 @@ class Red_packetAction extends WapAction {
         $v_token = $this->_get('token');
         $code = $this->_get('code');
         $state = $this->_get('state');
+
+        vendor('WxJssdk.jssdk', '', '.php');
+        $jssdk = new JSSDK("wxb959b9317dd0b640", "41b38fa3cbd209b713dd91764666379e");
+//        $jsoncallback = $_GET['jsoncallback'];
+//        $url1 = $_GET['url1'];
+        $_url = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].'?'.$_SERVER['QUERY_STRING'];
+//        $_url_array = parse_url($_url);
+//        $_query_query = convertUrlQuery($_url_array['query']);
+//        foreach ($_query_query as $k => $v) {
+//            if ();
+//        }
+//        使用正则去掉不需要jssdk编码的参数
+        $_url = preg_replace('/&(code(.*))/', '', $_url);
+        $signPackage = $jssdk->GetSignPackage($_url);
+        $this->assign('signpackage', $signPackage);
 
         // 如果没有授权，就去授权
         if (!$state) {
