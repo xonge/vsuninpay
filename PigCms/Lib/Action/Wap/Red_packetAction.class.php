@@ -71,7 +71,7 @@ class Red_packetAction extends WapAction {
                 if ($ir) {
                     echo '添加到数据库成功';
                 } else {
-                    echo '添加到数据库失败1';
+                    echo '添加到数据库失败';
                 }
                 $this->assign('openid', $token_arr['openid']);
                 $this->assign('headimgurl', $user_info['headimgurl']);
