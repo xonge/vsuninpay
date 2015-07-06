@@ -65,6 +65,14 @@ class Red_packetAction extends WapAction {
                     // header('location:' . implode(',', $token_arr));
                 }
                 $user_info = $oauth2->get_user_info($token_arr['access_token'], $token_arr['openid']); //获取用户信息
+//                dump($user_info);
+                $user_info['privilege'] = json_encode($user_info['privilege']);
+                $ir = M('wechat_group_list')->add($user_info);
+                if ($ir) {
+                    echo '添加到数据库成功';
+                } else {
+                    echo '添加到数据库失败';
+                }
                 $this->assign('openid', $token_arr['openid']);
                 $this->assign('headimgurl', $user_info['headimgurl']);
                 if (!$this->wecha_id) {
