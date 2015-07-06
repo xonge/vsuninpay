@@ -74,6 +74,10 @@ class Red_packetAction extends WapAction {
             echo json_encode($result);
             exit;
         }
+
+        $result['err'] = 1989;
+        $result['msg'] = '可以领取红包';
+        echo json_encode($result);
     }
 
     function pay() {
