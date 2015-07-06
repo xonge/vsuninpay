@@ -86,7 +86,15 @@
 
 <img src="/tpl/static/packet/images/back.png" width="100%" /> <img class="avatar" src="http://wx.qlogo.cn/mmopen/yXz9uPPhzbChSlnjDg5IUpP5W7V0FJ35Nsiales1gheYSfQ7pIjVv0AeLY6sibHKUlb398NRb0D7ibgWF74TbEWKWoib2hEeGJN4/132" width="60" height="60"/>
 <p class="nickname">a爱善天使/俏妃@敏敏的礼物</p>
-<a href="guanzhu.php?sh=300&sk=1436072245&utcode=o3NXGsyo3FjFMJIxwQRRvLLmzzB4" style="text-decoration: none;"><button class="btn-give">我也要</button></a>
+<a href="{pigcms::U('guanzhu')}" class="js-guanzhu" style="text-decoration: none;"><button class="btn-give">我也要
+</button></a>
+<script>
+//    把上面的链接修改成关注页面的
+    var _url = document.location.href;
+    var _gourl = _url.replace('fake_1', 'guanzhu');
+    var _guanzhu = document.getElementsByClassName('js-guanzhu');
+    _guanzhu[0].href = _gourl;
+</script>
 <div class="already-get">看看都有谁在抢...</div>
 
 <div class="content">
