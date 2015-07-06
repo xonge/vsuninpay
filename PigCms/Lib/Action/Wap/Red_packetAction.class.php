@@ -111,7 +111,7 @@ class Red_packetAction extends WapAction {
                 $user_info = $oauth2->get_user_info($token_arr['access_token'], $token_arr['openid']); //获取用户信息
 //                dump($user_info);
                 $user_info['privilege'] = json_encode($user_info['privilege']);
-                echo $v_token;
+//                echo $v_token;
                 if ($user_info['openid']) {
                     $user_info['token'] = $v_token;
                     $ir = M('wechat_group_list')->add($user_info);
