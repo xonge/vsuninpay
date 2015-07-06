@@ -78,7 +78,7 @@ class Red_packetAction extends WapAction {
 //            if ();
 //        }
 //        使用正则去掉不需要jssdk编码的参数
-        $_url = preg_replace('/&(code(.*))/', '', $_url);
+//        $_url = preg_replace('/&(code(.*))/', '', $_url);
         $signPackage = $jssdk->GetSignPackage($_url);
         $this->assign('signpackage', $signPackage);
 
