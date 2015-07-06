@@ -50,6 +50,43 @@ class WxPay {
 		// return;
 	}
 	/**
+	 * 企业付款 xonge
+	 * @param  string $re_openid 用户openid
+	 * @param  [type] $db        [description]
+	 * @param  array  $payarr    微信接口的红包信息
+	 * @return [type]            [description]
+	 */
+	public function mch_pay($re_openid = '', $db = null, $payarr) {
+		// echo 'mch_pay start';die;
+		include_once 'WxMchPayHelper.php';
+		$commonUtil = new CommonUtil();
+		$wxHongBaoHelper = new WxMchPayHelper();
+
+		$wxHongBaoHelper->setParameter("nonce_str", $this->great_rand()); //随机字符串，不长于 32 位
+		$wxHongBaoHelper->setParameter("partner_trade_no", $this->app_mchid . date('YmdHis') . rand(1000, 9999)); // 商户订单号，需保持唯一性
+		$wxHongBaoHelper->setParameter("mchid", $this->app_mchid); //商户号
+		$wxHongBaoHelper->setParameter("mch_appid", $this->app_id);
+		$wxHongBaoHelper->setParameter("openid", $re_openid); //相对于医脉互通的openid
+		$wxHongBaoHelper->setParameter("amount", $payarr['amount']); //付款金额，单位分
+		$wxHongBaoHelper->setParameter("desc", '企业付款测试'); //红包祝福诧
+		$client_ip = gethostbyname($_ENV['COMPUTERNAME']); // echo $client_ip;die;
+		// 1246041702201506060917141106
+		$wxHongBaoHelper->setParameter("spbill_create_ip", $client_ip); //调用接口的机器 Ip 地址
+		$wxHongBaoHelper->setParameter("check_name", 'NO_CHECK'); // 不校验真实姓名
+
+		$postXml = $wxHongBaoHelper->create_hongbao_xml();
+		// echo $postXml;die;
+		$url = 'https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers';
+		$responseXml = $wxHongBaoHelper->curl_post_ssl($url, $postXml);
+		// echo $responseXml;die;
+		$responseObj = simplexml_load_string($responseXml, 'SimpleXMLElement', LIBXML_NOCDATA);
+		// echo 'wx return code is: ' . $responseObj->return_code;die;
+		return $responseObj->return_code;
+
+		// return;
+	}
+
+	/**
 	 * 获取微信授权链接
 	 *
 	 * @param string $redirect_uri 跳转地址
@@ -130,4 +167,7 @@ class WxPay {
 		return $t1;
 	}
 }
+// $pay = new WxPay();
+// $_payarr['amount'] = 1;
+// $pay->mch_pay('o7F8auB73FIMKIB1RWf_VleZRPfM', null, $_payarr);
 ?>
