@@ -36,6 +36,123 @@ class Red_packetAction extends WapAction {
         $this->display();
     }
 
+//    检查红包状态
+    function checkpay() {
+        $result = array();
+        $id = $this->_get('id', 'intval');
+        $openid = $this->_get('wecha_id');
+        // echo $openid;
+
+        if ($this->is_start() == 1) {
+            $result['err'] = 1;
+            $result['msg'] = '活动还没有开始，请耐心等待！';
+            echo json_encode($result);
+            exit;
+        }
+
+        if ($this->is_start() == 2) {
+            $result['err'] = 2;
+            $result['msg'] = '活动已经结束，敬请关注下一轮活动开始！';
+            echo json_encode($result);
+            exit;
+        }
+
+        $pwhere = array('token' => $this->token, 'wecha_id' => $this->wecha_id, 'packet_id' => $id);
+        $p_count = M('Red_packet_log')->where($pwhere)->count();
+
+        /*奖品数量消耗完提示红包被领光*/
+        if ($p_count >= $this->packet_info['get_number']) {
+            $result['err'] = 3;
+            $result['msg'] = '领取次数已经用光了！<br/>点击“我的红包”查看记录';
+            echo json_encode($result);
+            exit;
+        }
+
+        if (!$this->check_packet_type()) {
+            $result['err'] = 4;
+            $result['msg'] = '红包已经领光啦，敬请关注下一轮活动开始！';
+            echo json_encode($result);
+            exit;
+        }
+    }
+
+    function pay() {
+        if ($this->packet_info['packet_type'] == '1') {
+            $max = $this->packet_info['item_max']; //单个上限
+            if ($this->packet_info['deci'] == 0) {
+                $prize = mt_rand(1, $max);
+            } else if ($this->packet_info['deci'] == 1) {
+                $prize = mt_rand(1, $max * 10) / 10;
+            } else if ($this->packet_info['deci'] == 2) {
+                //$prize 		= mt_rand(1,$max*100)/100;
+                $prize = sprintf("%.2f", mt_rand(1, $max * 100) / 100);
+
+            }
+
+            $prize_name = $prize . '元';
+
+        } else if ($this->packet_info['packet_type'] == '2') {
+            $unit = $this->packet_info['item_unit']; //面额
+            $prize = $this->packet_info['item_unit'];
+            $prize_name = $prize . '元';
+        }
+
+        $result['err'] = 0;
+        $result['msg'] = '恭喜您抽中了' . $prize_name . ',返回到微信主界面即可领取';
+
+        $log = array();
+        $log['token'] = $this->token;
+        $log['wecha_id'] = $this->wecha_id;
+        $log['packet_id'] = $id;
+        $log['prize_name'] = $prize_name;
+        $log['worth'] = $prize;
+        $log['add_time'] = time();
+        $log['type'] = $this->packet_info['packet_type'];
+        $md5 = $this->wecha_id . $id . $prize . time();
+        $log['code'] = substr(md5($md5), 0, 12);
+
+        $log_id = M('Red_packet_log')->add($log);
+        if ($log_id) {
+            echo json_encode($result);
+            // 这里做发微信红包处理
+            vendor('WxPay.class#wxpay');
+            $pay = new WxPay();
+
+            if ($prize < 1) {
+                // 如果中奖金额小于100分，做100补齐
+                $payarr['total_amount'] = 100;
+                $payarr['min_value'] = 100;
+                $payarr['max_value'] = 100;
+                $pay->pay($openid, null, $payarr);
+            } else {
+                // vendor('WxPay.class#wxpay');
+                // $pay = new WxPay();
+                // $payarr['total_amount'] = $prize_name * 100;
+                // $payarr['min_value'] = $prize_name * 100;
+                // $payarr['max_value'] = $prize_name * 100;
+                // echo $this->wecha_id;
+                // // $pay->pay('o7F8auB73FIMKIB1RWf_VleZRPfM', null, $payarr);
+                // $pay->pay($this->wecha_id, null, $payarr);
+
+                $payarr['total_amount'] = $prize * 100;
+                $payarr['min_value'] = $prize * 100;
+                $payarr['max_value'] = $prize * 100;
+                // echo $this->wecha_id;
+                // $pay->pay('o7F8auB73FIMKIB1RWf_VleZRPfM', null, $payarr);
+                $pay->pay($openid, null, $payarr);
+            }
+            exit;
+        } else {
+            $result['err'] = 5;
+            $result['msg'] = '未知错误，请稍后再试';
+            $result['type'] = $this->packet_info['packet_type'];
+            $result['prize'] = $prize;
+            echo json_encode($result);
+
+            exit;
+        }
+    }
+
 	function index() {
 		// 直接把自己作为授权页面
 		include 'WxOAuth2.class.php';
