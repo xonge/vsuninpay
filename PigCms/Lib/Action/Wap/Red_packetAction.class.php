@@ -81,6 +81,8 @@ class Red_packetAction extends WapAction {
 //        $_url = preg_replace('/&(code(.*))/', '', $_url);
         $signPackage = $jssdk->GetSignPackage($_url);
         $this->assign('signpackage', $signPackage);
+        $_url = preg_replace('/&(code(.*))/', '', $_url);
+        $this->assign('url', $_url);
 
         // 如果没有授权，就去授权
         if (!$state) {
