@@ -124,10 +124,9 @@ class Red_packetAction extends WapAction {
 
             if ($prize < 1) {
                 // 如果中奖金额小于100分，做100补齐
-                $payarr['total_amount'] = 100;
-                $payarr['min_value'] = 100;
-                $payarr['max_value'] = 100;
-                $pay->pay($openid, null, $payarr);
+                $payarr['amount'] = 1;
+                $ucode = $this->_post('ucode');
+                $pay->mch_pay($ucode, null, $payarr);
             } else {
                 // vendor('WxPay.class#wxpay');
                 // $pay = new WxPay();
