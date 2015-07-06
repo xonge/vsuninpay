@@ -161,32 +161,12 @@ class Red_packetAction extends WapAction {
         $log_id = M('Red_packet_log')->add($log);
         if ($log_id) {
             echo json_encode($result);
-            // 这里做发微信红包处理
+            // 这里使用企业付款发红包
             vendor('WxPay.class#wxpay');
             $pay = new WxPay();
-
-            if ($prize < 1) {
-                // 如果中奖金额小于100分，做100补齐
-                $payarr['amount'] = 1;
-                $ucode = $this->_post('ucode');
-                $pay->mch_pay($ucode, null, $payarr);
-            } else {
-                // vendor('WxPay.class#wxpay');
-                // $pay = new WxPay();
-                // $payarr['total_amount'] = $prize_name * 100;
-                // $payarr['min_value'] = $prize_name * 100;
-                // $payarr['max_value'] = $prize_name * 100;
-                // echo $this->wecha_id;
-                // // $pay->pay('o7F8auB73FIMKIB1RWf_VleZRPfM', null, $payarr);
-                // $pay->pay($this->wecha_id, null, $payarr);
-
-                $payarr['total_amount'] = $prize * 100;
-                $payarr['min_value'] = $prize * 100;
-                $payarr['max_value'] = $prize * 100;
-                // echo $this->wecha_id;
-                // $pay->pay('o7F8auB73FIMKIB1RWf_VleZRPfM', null, $payarr);
-                $pay->pay($openid, null, $payarr);
-            }
+            $payarr['amount'] = 1; // 红包金额，单位为分
+            $ucode = $this->_post('ucode');
+            $pay->mch_pay($ucode, null, $payarr);
             exit;
         } else {
             $result['err'] = 5;
@@ -194,7 +174,6 @@ class Red_packetAction extends WapAction {
             $result['type'] = $this->packet_info['packet_type'];
             $result['prize'] = $prize;
             echo json_encode($result);
-
             exit;
         }
     }
