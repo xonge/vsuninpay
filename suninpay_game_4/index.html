@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>有多远滚多远-html5youxi.com小游戏</title>
+    <!--<script type="text/javascript" src="http://static.play68.com/js/play68_sdk.js"></script>-->
+    <script language="javascript" type="text/javascript"
+            src="js/play68.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="HandheldFriendly" content="true" />
+
+    <!-- Chrome for Android web app tags -->
+    <meta name="mobile-web-app-capable" content="yes" />
+
+    <!-- All margins and padding must be zero for the canvas to fill the screen. -->
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        html, body {
+            background: #000;
+            color: #fff;
+            overflow: hidden;
+            touch-action: none;
+            -ms-touch-action: none;
+        }
+        canvas {
+            touch-action-delay: none;
+            touch-action: none;
+            -ms-touch-action: none;
+        }
+        .green {
+            color: #e8f0de;
+            border: solid 1px #538312;
+            background: #64991e;
+            background: -webkit-gradient(linear, left top, left bottom, from(#7db72f), to(#4e7d0e));
+            background: -moz-linear-gradient(top, #7db72f, #4e7d0e);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#7db72f', endColorstr='#4e7d0e');
+        }
+        .blue {
+            color: #d9eef7;
+            border: solid 1px #0076a3;
+            background: #0095cd;
+            background: -webkit-gradient(linear, left top, left bottom, from(#00adee), to(#0078a5));
+            background: -moz-linear-gradient(top, #00adee, #0078a5);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00adee', endColorstr='#0078a5');
+        }
+        .button {
+            display: inline-block;
+            zoom: 1;
+            vertical-align: baseline;
+            margin: 0 2px;
+            outline: none;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            font: 16px/100% Arial, Helvetica, sans-serif;
+            padding: .5em 2em .55em;
+            text-shadow: 0 1px 1px rgba(0,0,0,.3);
+            -webkit-border-radius: .5em;
+            -moz-border-radius: .5em;
+            border-radius: .5em;
+            -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+            -moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+            box-shadow: 0 1px 2px rgba(0,0,0,.2);
+        }
+
+    </style>
+</head>
+<body>
+<div id="game3366" style="position:absolute; z-index:99; top:10px; left:0px; width:100%; text-align:center;">
+
+    <a href="javascript:void(0);" style="padding: 8px 20px;background-color: #fff;border-radius: 5px;text-decoration: none;color:black;" onclick="more_3366();">更多游戏</a>
+</div>
+<input id="bt-game-id" type="hidden" value="17-jsfq">
+
+<div id="fb-root"></div>
+<script>
+    (function(){
+        if (window.location.protocol.substr(0, 4) === "file")
+        {
+            alert("Exported games won't work until you upload them. (When running on the file:/// protocol, browsers block many features from working for security reasons.)");
+        }
+    })();
+</script>
+<div id="c2canvasdiv">
+    <canvas id="c2canvas" width="480" height="854">
+        <h1>Your browser does not appear to support HTML5.  Try upgrading your browser to the latest version.  <a href="http://www.whatbrowser.org">What is a browser?</a>
+            <br/><br/><a href="http://www.microsoft.com/windows/internet-explorer/default.aspx">Microsoft Internet Explorer</a><br/>
+            <a href="http://www.mozilla.com/firefox/">Mozilla Firefox</a><br/>
+            <a href="http://www.google.com/chrome/">Google Chrome</a><br/>
+            <a href="http://www.apple.com/safari/download/">Apple Safari</a><br/>
+            <a href="http://www.google.com/chromeframe">Google Chrome Frame for Internet Explorer</a><br/></h1>
+    </canvas>
+
+</div>
+<div id="share" style="display: none;">
+    <img width="100%" src="../../image/share.png" style="position: fixed; z-index: 9999; top: 0; left: 0; display: " onclick="document.getElementById('share').style.display='none';window.setTimeout(function(){shareShowing = false},500);">
+</div>
+<!-- Pages load faster with scripts at the bottom -->
+<script src="js/jquery-2.0.0.min.js"></script>
+<script src="js/perlin.js"></script>
+<script src="js/c2runtime.min.js"></script>
+
+<script>
+
+    window.shareData = {
+        title: "你说有多远滚多远，就别叫我回来，因为我已经滚得太远了...", // 分享标题
+        link:  "http://game.html5youxi.com/201501/ydygdy/", // 分享链接
+        imgUrl: 'http://game.html5youxi.com/201501/ydygdy/icon.png', // 分享图标
+        desc : "你说有多远滚多远，就别叫我回来，因为我已经滚得太远了..."
+    };
+
+    jQuery(document).ready(function (){
+        cr_sizeCanvas(jQuery(window).width(), jQuery(window).height());
+    });
+    jQuery(window).resize(function() {
+        //cr_sizeCanvas(100%, 100%);
+        cr_sizeCanvas(jQuery(window).width(), jQuery(window).height());
+        //var ww = jQuery(window).width()-1;
+        //var hh = jQuery(window).height()-1;
+        //alert("ww:"+ww+"hh:"+hh);
+    });
+    jQuery(document).ready(function ()
+    {
+        cr_createRuntime("c2canvas");
+    });
+    function onVisibilityChanged() {
+        if (document.hidden || document.mozHidden || document.webkitHidden || document.msHidden)
+            cr_setSuspended(true);
+        else
+            cr_setSuspended(false);
+    };
+
+    document.addEventListener("visibilitychange", onVisibilityChanged, false);
+    document.addEventListener("mozvisibilitychange", onVisibilityChanged, false);
+    document.addEventListener("webkitvisibilitychange", onVisibilityChanged, false);
+    document.addEventListener("msvisibilitychange", onVisibilityChanged, false);
+    function more_3366(){
+        window.location.href="http://m.html5youxi.com"
+    }
+
+    var shareShowing = false;
+
+</script>
+
+<script language="javascript">
+    function sendScore(score) {
+        if(-1==score){
+            if (window.thisScore>0){
+                play68_submitScore(window.thisScore);
+            }else{
+                play68_submitScore(window.thisScore);
+            }
+        }
+        else{
+            window.thisScore=score;
+            // play68_submitScore(window.thisScore);
+            updateShare(score);
+            //Play68.setRankingScoreDesc(window.thisScore);
+        }
+    }
+</script>
+
+
+
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript" src="js/common2.js"></script>
+</body>
+</html>
