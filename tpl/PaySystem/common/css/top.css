@@ -1,0 +1,22 @@
+@charset "utf-8";
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px; background:#D2DBE2; line-height:24px; font-family: "宋体",arial,helvetica,clean,sans-serif; font-size:12px }
+div,span,h1,h2,h3,h4,h5,h6,ul,li,img,p,strong,b,textarea,input,button,select,form,a,table,tr,td,dl,dt,dd,TBODY,ol{margin:0;padding:0;}
+ul,ol{list-style-type:none;}
+.STYLE1 {
+	color: #43860c;
+	font-size: 12px;
+}
+.header{ background:url(../ManageImages/index_r1_c1_r1_c2.jpg); height:89px; width:100%;font-size:12px ; overflow:hidden}
+.header .logo{ float:left; background:url(../ManageImages/logo.jpg); width:354px; height:46px; overflow:hidden; color:#FFFFFF;  line-height:40px; margin-left:20px; margin-top:18px}
+.header .right{ float:right; background:url(../ManageImages/index_r1_c1_r1_c7.jpg); width:812px; height:89px; position:relative}
+.header .right a.a1{ background:url(../ManageImages/index_r1_c1_r3_c8.jpg); display:block; width:16px; height:16px; overflow:hidden; position:absolute; display:block; bottom:10px; right:46px}
+.header .right a.a2{ background: url(../ManageImages/index_r1_c1_r3_c10.jpg); display:block; width:15px; height:17px; overflow:hidden; position:absolute; display:block; bottom:10px; right:17px}
+
+
+.header2{ clear: both; width:100%; height:40px; background: url(../ManageImages/index_r1_c1_r9_c6.jpg)}
+.header2 .left{ background:url(../ManageImages/index_r1_c1_r10_c2.jpg) center left no-repeat; padding-left:20px; color:#03366D; font-family:"宋体"; float:left; margin-left:20px; margin-top:10px }
+.header2 .right{ background: url(../ManageImages/index_r1_c1_r10_c12.jpg) center left no-repeat; padding-left:20px; color:#03366D; font-family:"宋体"; float:right; margin-right:20px; margin-top:10px }
