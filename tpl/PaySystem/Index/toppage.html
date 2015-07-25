@@ -1,0 +1,56 @@
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="TopPage.aspx.cs" Inherits="BackManage_TopPage" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+    <title><%=GetWebsiteName()%>��̨����ϵͳ</title>
+    <link href="ManageCss/top.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<form id="FomSub" runat="server">
+    <div>
+        <div class="header">
+            <div class="logo"></div>
+            <div class="right">
+                <a href="SystemMain.aspx"  target="_top" class="a1" title="��������"></a>
+                <!--
+                <a href="SystemMain.aspx"  target="_top" class="a1">ȫ������</a>
+                <a href="SystemMain.aspx"  target="_top" class="a1">�ڵ����</a>
+                <a href="SystemMain.aspx"  target="_top" class="a1">���ݹ���</a>
+                -->
+                <a href="LogOut.aspx" target="_top" class="a2" title="�˳�ϵͳ"></a>
+            </div>
+        </div>
+        <div class="header2">
+            <div class="left" style="font-family:'����'">�𾴵��û�<%=Session["ManageUserName"] %>����ã���ӭ��ĵ�¼��&nbsp;��ǰ��¼IP��ַ��<%=StrIP%></div>
+            <div class="right" style="font-family:'����'">
+                ϵͳʱ�䣺<%=DateTime.Now.ToString("yyyy��MM��dd��") %> <%= GetWeekDay()%> <%=DateTime.Now.ToString("HH:mm:ss") %>
+                <!--
+                ����֧�֣�<a href="http://www.liujinliang.com" target="_blank">�����������</a>&nbsp;QQ��<a href="http://wpa.qq.com/msgrd?V=1&amp;Uin=285145952&amp;Site=�����������&amp;Menu=yes" target="_blank"><img src='http://wpa.qq.com/pa?p=1:285145952:4'  border="0" alt="QQ" />ǧ����п�</a>
+                -->
+            </div>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+    function ManageCenter()
+    {
+        //alert("OK!");
+        //��ǰҳ����ת��
+        parent.location.href="SystemMain.aspx";
+        //form.submit();
+    }
+
+    function GuideMain()
+    {
+        //alert("OK!");
+        //��ǰҳ����ת��
+        //parent.location.href="../ManageLogin.aspx";
+        parent.location.href="../ManageOut.aspx";
+        //form.submit();
+    }
+</script>
+</body>
+</html>
