@@ -1,0 +1,423 @@
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="MerchantMessageManage.aspx.cs" Inherits="BackManage_MerchantMessageManage" %>
+
+<%@ Register Src="../BeforeControl/TableNewsLink.ascx" TagName="TableNewsLink"
+TagPrefix="uc2" %>
+<%@ Register Src="../BeforeControl/DataPaing.ascx" TagName="DataPaing" TagPrefix="uc1" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head id="Head1" runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title><%=StrChildType %>|<%=GetWebsiteName()%></title>
+    <link href="ManageCss/RightPage.css" rel="stylesheet" type="text/css" />
+</head>
+<body onload="oload()" onresize="oresize()">
+<form id="FomSub" runat="server">
+    <div>
+        <div class="list_mainb">
+            <div class="title01">
+                <h1><%=StrChildType %></h1>
+            </div>
+            <div class="list_box_zhut">
+                <div class="list_seach">
+                    <asp:Button ID="BtnSetLoginPwd" runat="server" Text=" 重置所有商户登录密码为123456 " OnClick="BtnSetLoginPwd_Click" Visible="false"
+                                OnClientClick="JavaScript:return confirm('确定要重置所有商户的登录密码为123456吗？一旦重置将不可恢复！')" Height="28" />
+                    &nbsp;
+                    <asp:Button ID="BtnSetPayPwd" runat="server" Text=" 重置选中的所有商户商户的支付密码为123456 " OnClick="BtnSetPayPwd_Click" Visible="false"
+                                OnClientClick="JavaScript:return confirm('确定要重置所有商户的支付密码为123456吗？一旦重置将不可恢复！')" Height="28"  />
+                    &nbsp;
+
+                </div>
+                <div class="list_seach">
+                    请输入【商户号】或【用户名】或【姓名】或【单位名称】或【手机号】或【QQ号】：
+                    <!--
+                    <input name="" type="text" class="inputk_80"/>
+                    -->
+                    <input id="TxtMerchantCode" name="TxtMerchantCode" type="text" class="inputk_80" runat="server" />
+                    通道：
+                    <asp:DropDownList ID="DpdPassageList" runat="server" >
+                        <asp:ListItem Value="0" Text="所有通道" Selected="True"></asp:ListItem>
+                        <asp:ListItem Value="1" Text="宝付"></asp:ListItem>
+                        <asp:ListItem Value="2" Text="支付宝"></asp:ListItem>
+                    </asp:DropDownList>
+                    状态：
+                    <asp:DropDownList ID="DpdMerchantStateList" runat="server" >
+                        <asp:ListItem Value="2" Text="所有状态" Selected="True"></asp:ListItem>
+                        <asp:ListItem Value="0" Text="正常"></asp:ListItem>
+                        <asp:ListItem Value="1" Text="冻结"></asp:ListItem>
+                    </asp:DropDownList>
+                    商户类型：
+                    <asp:DropDownList ID="DpdMerchantClassList" runat="server" >
+                        <asp:ListItem Value="0" Text="所有类型" Selected="True"></asp:ListItem>
+                        <asp:ListItem Value="1" Text="代理商"></asp:ListItem>
+                        <asp:ListItem Value="2" Text="商户"></asp:ListItem>
+                    </asp:DropDownList><br />
+                    审核状态：
+                    <asp:DropDownList ID="DpdPassStateList" runat="server" >
+                        <asp:ListItem Value="" Text="所有类型" Selected="True"></asp:ListItem>
+                        <asp:ListItem Value="1" Text="已审核"></asp:ListItem>
+                        <asp:ListItem Value="0" Text="未审核"></asp:ListItem>
+                    </asp:DropDownList>
+                    所属分站：
+                    <asp:DropDownList ID="DpdChildStationList" runat="server" >
+                        <asp:ListItem Value="" Text="所有类型" Selected="True"></asp:ListItem>
+                        <asp:ListItem Value="1" Text="已审核"></asp:ListItem>
+                        <asp:ListItem Value="0" Text="未审核"></asp:ListItem>
+                    </asp:DropDownList>
+                    注册时间：
+                    <input type="text" id="TxtStartTime" name="TxtStartTime"  class="inputk_80" readonly="readonly"
+                           onclick="WdatePicker()" value=""  runat="server" style="width:80px;;cursor:pointer;" />
+                    到&nbsp;<input type="text" id="TxtEndTime" name="TxtEndTime" class="inputk_80" readonly="readonly"
+                                  onclick="WdatePicker()" value=""  runat="server" style="width:80px;;cursor:pointer;" />
+                    <!--
+                    <input name="" type="button" class="searchbt" value="" />
+                    -->
+                    <asp:Button ID="BtnSearch" runat="server" OnClick="BtnSearch_Click" CssClass="searchbt" Text="" />
+                    <asp:Button  ID="BtnGuideExcel" runat="server" Text=" 导出信息数据Excel格式文档 " CssClass="bt" Height="26" OnClick="BtnGuideExcel_Click"></asp:Button>
+                    &nbsp;
+                    <a href="../Register.aspx?MainID=5&MPID=<%= StrManageUserID%>" target="_blank" class="searchbt">注册代理商</a>
+                    &nbsp;
+                    审核申请：<a href="MerchantMessageManage.aspx?MainID=5&MPID=<%= StrManageUserID%>" target="_blank" class="searchbt">0</a>个。
+
+                </div>
+                <center>
+
+                    <table border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="#DCDCDC" class="table1">
+                        <tr>
+                            <th width="30px" style="display:none;">选择</th>
+                            <th>类别</th>
+                            <th>用户名</th>
+                            <th>商户号</th>
+                            <th>通道</th>
+                            <th>姓名</th>
+                            <th>身份证尾号</th>
+                            <th>单位名称</th>
+                            <th>状态</th>
+                            <th>审核</th>
+                            <th>T+0</th>
+                            <th colspan="2">账户金额</th>
+                            <th>手续费</th>
+                            <th colspan="2">提现设置</th>
+                            <th>上级帐号</th>
+                            <th>下级</th>
+                        </tr>
+                        <asp:Repeater ID="RptNewsList" runat="server" OnItemCommand="RptNewsList_ItemCommand">
+                            <ItemTemplate>
+                                <tr class="<%# Container.ItemIndex%2==0 ?"tr1":"tr2"%>" onMouseOver="this.className='tr2';"  onmouseout="this.className='tr1';">
+                                <!--
+                                <a href="../<%=StrPage %>?MTID=<%=StrMainID %>&CTID=<%=StrChildID %>&NID=<%# Eval("MerchantID")%>" title="<%# Eval("RealName") %>"
+                                        target="_blank"></a>     GetName(Eval("MerchantCode"), 8)   全部通道
+                                -->
+                                <td style="display:none;"><input id="<%# Eval("MerchantID")%>" name="" type="checkbox" value="" /></td>
+                                <td>
+                                    <asp:LinkButton ID="LkbtMerchantClass" runat="server" CommandName='<%# Eval("MerchantID") %>' CommandArgument="1" >
+                                        <%# GetMerchantClass(Eval("MerchantClassID").ToString())%>
+                                    </asp:LinkButton>
+                                </td>
+                                <td><a href="MerchantMessageAdd.aspx?MNID=<%= StrMenuID%>&AltType=2&MUID=<%# Eval("MerchantID")%>" ><%# Eval("UserName")%></a></td>
+                                <td><span class="green"><%# Eval("MerchantCode")%></span></td>
+                                <td><span class="brown_color"><%# GetDataNameValue("PaymentPassageID", "PaymentPassageName", "PaymentPassageSetTab", Eval("PaymentPassageID").ToString())%></span></td>
+                                <td><%# GetString(Eval("RealName"), 3,"")%></td>
+                                <td><%# Convert.ToString(Eval("RightBodyCode"))%></td>
+                                <td><%# GetString(Eval("MerchantName"), 5,"")%></td>
+                                <td>
+                                    <asp:LinkButton ID="LkbtMerchantState" runat="server" CommandName='<%# Eval("MerchantID") %>' CommandArgument="2" >
+                                        <%# GetMerchantState(Eval("MerchantState").ToString())%>
+                                    </asp:LinkButton>
+                                </td>
+                                <td><a href="MerchantMessagePass.aspx?MNID=<%= StrMenuID%>&AltType=2&MUID=<%# Eval("MerchantID")%>" >
+                                    <%# Eval("IsPass").ToString() == "2" ? "<span style='color:#999999;'>申请</span>" : Eval("IsPass").ToString() == "1" ?
+                                    "<span class='FontGreen'>已审</span>" : "<span class='red'>未审</span>"%></a></td>
+                                <td>
+                                    <asp:LinkButton ID="LkbtIsZero" runat="server" CommandName='<%# Eval("MerchantID") %>' CommandArgument="3" >
+                                        <%# GetIsZero(Eval("IsZero").ToString())%>
+                                    </asp:LinkButton>
+                                </td>
+                                <td>
+                                    ￥<span id="SpnAccountMoney" class='red'><%# GetSolidDoubleValue(Eval("AccountUsedValue"), 2)%></span>
+                                </td>
+                                <td >
+                                    <% if (StrManageUserID == "1" || int.Parse(StrManageGradeID) >= 4)
+                                    { %>
+                                    <asp:Button ID="BtnAccountMony" runat="server" CssClass="input1" Text="金额" CommandName='<%# Eval("MerchantID") %>' CommandArgument="4" />
+                                    <% } %>
+                                </td>
+                                <td>
+                                    <asp:Button ID="BtnRechargeFeeMoney" runat="server" CssClass="input1" Text="充值" CommandName='<%# Eval("MerchantID") %>' CommandArgument="5" />
+                                </td>
+                                <td>
+                                    <asp:Button ID="BtnWithdrawalRatioSet" runat="server" CssClass="input1" Text="提现" CommandName='<%# Eval("MerchantID") %>' CommandArgument="6" />
+                                </td>
+                                <td>
+                                    <asp:Button ID="BtnWithdrawalBankSet" runat="server" CssClass="input1" Text="银行" CommandName='<%# Eval("MerchantID") %>' CommandArgument="7" />
+                                </td>
+                                <td><%# GetDataNameValue("MerchantID", "UserName", "MerchantMessageTab", Eval("MainID").ToString())%></td>
+                                <td><%# Eval("DownGradeCount")%></td>
+                                </tr>
+                            </ItemTemplate>
+                        </asp:Repeater>
+                    </table>
+                </center>
+                <div class="bottm_page">
+                    <uc1:DataPaing ID="DtPag" runat="server" />
+                </div>
+            </div>
+        </div>
+        <div id="topFill" style=" top:0px; z-index:9999">
+            <div class="bg">
+            </div>
+            <div id="alertBox">
+                <div class="close1"><input type="button" value="关闭" onclick="isno('no')" /></div>
+                <div id="alertTitle" style=" display:none">警告</div>
+                <div id="alertContent">
+                    <ul>
+                        <li><input id="HdnMerchantUserID" type="hidden" runat="server" /></li>
+                        <li >姓名：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="TxtRealName" runat="server" name="TxtRealName" type="text" class="inputk_130" /><span style="color:#ff0000;">*</span></li>
+                        <li >QQ号：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="TxtQQNumber" runat="server" name="" type="text" class="inputk_130" /></li>
+                        <li >手机号：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="TxtMobile" runat="server" name="" type="text" class="inputk_130" /><span style="color:#ff0000;">*</span></li>
+                        <li >座机电话：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="TxtPhone" runat="server" name="" type="text" class="inputk_130" /></li>
+                        <li >身份证号：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="TxtBodyCode" runat="server" name="" type="text" class="inputk_130" /><span style="color:#ff0000;">*</span></li>
+                        <li >联系地址：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="TxtAddress" runat="server" name="" type="text" class="inputk_130" /></li>
+                        <li >商户类型：
+                            <asp:DropDownList ID="DpdMerchantTypeList" runat="server" >
+                                <asp:ListItem Value="1" Text="是" Selected="True">代理商</asp:ListItem>
+                                <asp:ListItem Value="2" Text="否">普通商户</asp:ListItem>
+                            </asp:DropDownList><br />
+
+                        </li>
+                        <li >上级代理：<span id="SpnUpProxyName" runat="server"><%= DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")%></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="TxtUpProxyUserName" runat="server" name="" type="text" class="inputk_130" /><span style="color:#ff0000;">*</span></li>
+                    </ul>
+
+                </div>
+                <div id="alertBtn">
+                    <!--
+                    <input type="button" value="保存" onclick="isno('yes')" class="bt" />
+                    -->
+                    <asp:Button  ID="BtnSaveAlter" runat="server" CommandName='<%# Eval("MerchantID")%>' Text="保  存"
+                                 OnClientClick="JavaScript:return SaveClose('yes');" CssClass="bt" OnClick="BtnSaveAlter_Click"></asp:Button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<script type="text/javascript" >
+    //document.documentElement.clientHeight+'px'
+    //  onload的时候声明对象
+    var obj = new Object;
+    function oload()
+    {
+        obj = document.getElementById('topFill');
+        obj.style.display = 'none';
+    }
+
+    function ShowAlterValue(StrMerchantUserID)
+    {
+        SetDesignationMerchantMessage(StrMerchantUserID);
+
+        document.body.style.overflow = 'hidden';
+        document.body.style.height = document.documentElement.clientHeight + 'px';
+        obj.style.display = 'block';
+        obj.style.height = document.documentElement.clientHeight + 'px';
+    }
+
+    function cl()
+    {
+        document.body.style.overflow = 'hidden';
+        document.body.style.height = document.documentElement.clientHeight + 'px';
+        obj.style.display = 'block';
+        obj.style.height = document.documentElement.clientHeight + 'px';
+    }
+
+    function bcl()
+    {
+        document.body.style.overflow = '';
+        obj.style.display = 'none';
+    }
+    function oresize()
+    {
+        if(obj.style.display != 'block')
+        {
+
+        }
+        else
+        {
+            cl();
+        }
+    }
+
+    function isno(str)
+    {
+        if (str == 'yes')
+        {
+            return confirm('确定保存修改吗？');
+            return CheckEmpty();
+            window.close();
+        }
+        else
+        {
+            bcl();
+        }
+    }
+
+    function SaveClose(str)
+    {
+        if (str == 'yes')
+        {
+            return confirm('确定保存修改吗？');
+            return CheckEmpty();
+            window.close();
+        }
+        else
+        {
+            bcl();
+        }
+    }
+</script>
+<script type="text/javascript">
+    var  highlightcolor='#eafcd5';
+    //此处clickcolor只能用win系统颜色代码才能成功,如果用#xxxxxx的代码就不行,还没搞清楚为什么:(
+    var  clickcolor='#51b2f6';
+    function  changeto(){
+        source=event.srcElement;
+        if  (source.tagName=="TR"||source.tagName=="TABLE")
+            return;
+        while(source.tagName!="TD")
+            source=source.parentElement;
+        source=source.parentElement;
+        cs  =  source.children;
+        //alert(cs.length);
+        if  (cs[1].style.backgroundColor!=highlightcolor&&source.id!="nc"&&cs[1].style.backgroundColor!=clickcolor)
+            for(i=0;i<cs.length;i++){
+                cs[i].style.backgroundColor=highlightcolor;
+            }
+    }
+
+    function  changeback(){
+        if  (event.fromElement.contains(event.toElement)||source.contains(event.toElement)||source.id=="nc")
+            return
+        if  (event.toElement!=source&&cs[1].style.backgroundColor!=clickcolor)
+        //source.style.backgroundColor=originalcolor
+            for(i=0;i<cs.length;i++){
+                cs[i].style.backgroundColor="";
+            }
+    }
+
+    function  clickto(){
+        source=event.srcElement;
+        if  (source.tagName=="TR"||source.tagName=="TABLE")
+            return;
+        while(source.tagName!="TD")
+            source=source.parentElement;
+        source=source.parentElement;
+        cs  =  source.children;
+        //alert(cs.length);
+        if  (cs[1].style.backgroundColor!=clickcolor&&source.id!="nc")
+            for(i=0;i<cs.length;i++){
+                cs[i].style.backgroundColor=clickcolor;
+            }
+        else
+            for(i=0;i<cs.length;i++){
+                cs[i].style.backgroundColor="";
+            }
+    }
+</script>
+<script type="text/javascript">
+    function CheckEmpty()
+    {
+        if (FomSub.TxtRealName.value=="")
+        {
+            alert("对不起，商户姓名不能为空！");
+            FomSub.TxtRealName.focus();
+            return false;
+        }
+        if (FomSub.TxtMobile.value=="")
+        {
+            alert("对不起，联系手机不能为空！");
+            FomSub.TxtMobile.focus();
+            return false;
+        }
+        if (FomSub.TxtBodyCode.value=="")
+        {
+            alert("对不起，身份证号码不能为空！");
+            FomSub.TxtBodyCode.focus();
+            return false;
+        }
+        //FomSub.submit();
+    }
+</script>
+<script type="text/javascript">
+    function SetDesignationMerchantMessage(StrMerchantUserID)
+    {
+        //alert("OK！");
+        //alert(StrMerchantUserID);      //可以成功获取值。
+        var StrReceiveMerchantID=StrMerchantUserID+"";
+
+        //debugger;
+        if (StrReceiveMerchantID!=null & StrReceiveMerchantID!="")
+        {
+            document.all["HdnMerchantUserID"].value = StrReceiveMerchantID;
+            BackManage_MerchantMessageManage.GetMerchantMessageJsonList(StrReceiveMerchantID,OutMerchantReturnShow);
+        }
+    }
+
+    function OutMerchantReturnShow(StrReturn)
+    {
+        //debugger;
+        //注意，此处的字符串参数(StrPersonMessage)必须为字符串类型，不能够为回调函数的返回值类型。
+        //所以在将其赋值作为字符串参数传递时必须加上.value的属性以获取其字符串属性值才可以
+        //进行函数截取操作，否则会报“对象不支持次属性或方法错误！”的错误。
+        //var StrPersonMessage=StrReturn.value;
+        //alert("OK!");
+        //alert(StrReturn.value);
+        //debugger;
+
+        SetMerchantMessage(StrReturn);
+        //SearchResult(StrReturn);
+    }
+
+    function SetMerchantMessage(StrReturn)
+    {
+        //var objLength=document.FomSub.DpdRalationMemberList.options.length;
+        //for(var j=0;j<objLength;j++)
+        //{
+        //document.FomSub.DpdRalationMemberList.remove(0);
+        //}
+
+        debugger;
+        //document.write(StrReturn.value);
+
+        //返回的二维数组为Json语法格式。
+        var StrMerchantColumnList=StrReturn.value;
+        var ObjMerchantColumnJson= eval( "(" + StrMerchantColumnList + ")" )
+        //var IntMerchantColumnCount=0;
+        var IntMerchantColumnCount=ObjMerchantColumnJson.MerchantColumnList.length;       //可以正确读取。
+
+        if(StrReturn.value)
+        {
+            for(I = 0;I <IntMerchantColumnCount;I++)
+            {
+                //此处Json键值名称的读取只能够用小写名称，不能够含有大写字母，否则就会读取失败。
+                var StrMerchantBusinessID = ObjMerchantColumnJson.MerchantColumnList[I].businessid;
+                var StrMerchantBusinessKey = ObjMerchantColumnJson.MerchantColumnList[I].businesskey;
+                var StrMerchantPaymentAccount = ObjMerchantColumnJson.MerchantColumnList[I].paymentaccount;
+                var StrBankCode = ObjMerchantColumnJson.MerchantColumnList[I].bankcode;
+                var StrFeeMoney = ObjMerchantColumnJson.MerchantColumnList[I].feemoney;
+                var StrIsChoose = ObjMerchantColumnJson.MerchantColumnList[I].ischoose;
+                var StrUpdateTime = ObjMerchantColumnJson.MerchantColumnList[I].updatetime;
+
+                //此处Json键值名称的读取只能够用小写名称，不能够含有大写字母，否则就会读取失败。
+                document.all["TxtRealName"].value = StrMerchantBusinessID;
+                document.all["TxtQQNumber"].value = StrMerchantBusinessKey;
+                document.all["TxtMobile"].value = StrMerchantPaymentAccount;
+                document.all["DpdMerchantClassList"].value = StrIsChoose;
+                document.all["SpnUpProxyName"].innerText = StrUpdateTime;
+                document.all["TxtBankCode"].value = StrBankCode;
+                document.all["TxtFeeMoney"].value = StrFeeMoney;
+            }
+        }
+    }
+</script>
+<script language="javascript" src="../My97DatePicker/WdatePicker.js" type="text/javascript"></script>
+</body>
+</html>
