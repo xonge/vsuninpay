@@ -1,0 +1,73 @@
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="LeftMenuPage.aspx.cs" Inherits="BackManage_LeftMenuPage" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head id="Head1" runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+    <title><%=GetWebsiteName()%>后台管理系统</title>
+    <meta content="name:GB website:" name="design" />
+    <meta name="keyword" content=",长沙网站建设，长沙域名注册，虚拟主机，空间租用，网站建设，网页设计，网页制作，网站设计，企业邮局，主机托管等服务." />
+    <meta name="description" content="，网站建设，域名注册，虚拟主机，空间租用，网站建设，网页设计，网页制作，网站设计，企业邮局，主机托管等服务" />
+    <link href="ManageCss/main1.css" rel="stylesheet" type="text/css" />
+    <script src="ManageJs/sdmenu.js" type="text/javascript"></script>
+</head>
+<body>
+<form id="FomSub" runat="server">
+    <div>
+        <table width="191" height="100%" border="0" cellpadding="0" cellspacing="0" background="ManageImages/leftbg.jpg">
+            <tr>
+                <td valign="top">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="table-layout:fixed">
+                        <tr>
+                            <td>
+                                <div id="my_menu" class="sdmenu">
+                                    <asp:Repeater ID="RptMainList" runat="server">
+                                        <ItemTemplate>
+                                            <div>
+                                                <span><h2><%# Eval("MenuName") %></h2></span>
+                                                <ul class="leftul1">
+                                                    <asp:Repeater ID="RptChildList" runat="server" DataSource='<%# GetData(Eval("ManageMenuID")) %>'>
+                                                        <ItemTemplate>
+                                                            <li class="aaaa">
+                                                                <a href="<%# Eval("MenuPage") %><%# Eval("MenuClass") %><%# Eval("ManageMenuID") %><%# Eval("PageType") %><%# Eval("MenuName") %>"
+                                                                target="<%# Eval("MenuTarget") %>"><%# Eval("MenuName") %></a>
+                                                            </li>
+                                                        </ItemTemplate>
+                                                    </asp:Repeater>
+                                                </ul>
+                                            </div>
+                                        </ItemTemplate>
+                                    </asp:Repeater>
+                                </div>
+
+                                <script type="text/javascript">
+                                    // <![CDATA[
+                                    var myMenu;
+                                    window.onload = function() {
+                                        myMenu = new SDMenu("my_menu");
+                                        myMenu.init();
+                                        var firstSubmenu = myMenu.submenus[0];
+                                        myMenu.expandMenu(firstSubmenu);
+                                    };
+                                    // ]]>
+
+                                    function jump(str)
+                                    {
+                                        self.parent.parent.right.location.href=str;
+                                    }
+                                </script>
+
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+</form>
+</body>
+</html>
+
+
