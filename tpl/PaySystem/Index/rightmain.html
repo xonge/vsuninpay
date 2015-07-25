@@ -1,0 +1,167 @@
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="RightMain.aspx.cs" Inherits="BackManage_RightMain" %>
+
+<%@ Register Src="../BeforeControl/DivDateList.ascx" TagName="DivDateList" TagPrefix="uc1" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+    <title><%=GetWebsiteName()%>后台管理系统</title>
+    <link href="ManageCss/RightPage.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<form id="FomSub" runat="server">
+    <div>
+        <div class="GuideTitle">
+            <div class="tit1">快捷区域</div>
+        </div>
+
+        <div class="index_cont_1">
+            <ul>
+                <li>
+                    <dl>
+                        <dt><a href="MerchantMessageManage.aspx?MNID=22&Type=商户信息管理"><img src="ManageImages/01.jpg" /></a></dt>
+                        <dd><a href="MerchantMessageManage.aspx?MNID=22&Type=商户信息管理">商户管理</a></dd>
+                    </dl>
+                </li>
+                <!--
+                <li>
+                    <dl>
+                        <dt><a href="JavaScript://"><img src="ManageImages/02.jpg" /></a></dt>
+                        <dd><a href="JavaScript://">文件上传</a></dd>
+                    </dl>
+                </li>
+                -->
+                <li>
+                    <dl>
+                        <dt><a href="BankTransactionManage.aspx?MNID=26&Type=网银交易管理"><img src="ManageImages/03.jpg" /></a></dt>
+                        <dd><a href="BankTransactionManage.aspx?MNID=26&Type=网银交易管理">交易管理</a></dd>
+                    </dl>
+                </li>
+                <!--
+                <li>
+                    <dl>
+                        <dt><a href="JavaScript://"><img src="ManageImages/04.jpg" /></a></dt>
+                        <dd><a href="JavaScript://">留言管理</a></dd>
+                    </dl>
+                </li>
+                -->
+                <li>
+                    <dl>
+                        <dt><a href="RechargeRateSet.aspx?MNID=20&Type=充值费率设置"><img src="ManageImages/05.jpg" /></a></dt>
+                        <dd><a href="RechargeRateSet.aspx?MNID=20&Type=充值费率设置">充值费率</a></dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt><a href="PassageSetManage.aspx?MNID=24&Type=通道设置管理"><img src="ManageImages/06.jpg" /></a></dt>
+                        <dd><a href="PassageSetManage.aspx?MNID=24&Type=通道设置管理">通道设置</a></dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt><a href="SystemNoticeManage.aspx?MNID=21&Type=系统公告管理"><img src="ManageImages/07.jpg" /></a></dt>
+                        <dd><a href="SystemNoticeManage.aspx?MNID=21&Type=系统公告管理">公告管理</a></dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt><a href="PassageChangeSet.aspx?MNID=25&Type=网银切换设置"><img src="ManageImages/08.jpg" /></a></dt>
+                        <dd><a href="PassageChangeSet.aspx?MNID=25&Type=网银切换设置">网关切换</a></dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt><a href="WithdrawalsRecordManage.aspx?MNID=32&Type=提现记录管理"><img src="ManageImages/09.jpg" /></a></dt>
+                        <dd><a href="WithdrawalsRecordManage.aspx?MNID=32&Type=提现记录管理">提现管理</a></dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt><a href="FundsChangeManage.aspx?MNID=23&Type=资金变动记录"><img src="ManageImages/10.jpg" /></a></dt>
+                        <dd><a href="FundsChangeManage.aspx?MNID=23&Type=资金变动记录">资金管理</a></dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt><a href="BankTransactionStatistics.aspx?MNID=28&Type=网银交易统计"><img src="ManageImages/11.jpg" /></a></dt>
+                        <dd><a href="BankTransactionStatistics.aspx?MNID=28&Type=网银交易统计">交易统计</a></dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+
+        <div class="GuideTitle">
+            <div class="tit1"><%=GetWebsiteName()%>后台管理系统数据统计</div>
+        </div>
+
+        <div id="treel">
+            <ul>
+                <li>
+                    <dl>
+                        <dt>会员数</dt>
+                        <dd>
+                            共有会员数：
+					        <span class="blue">
+					            <%= GetDataNameValue("Count(*)", "MerchantMessageTab where 1=1" + StrQueryWhere, "")%>
+					        </span>位。
+                            今天注册会员数：
+					        <span class="blue">
+					            <%= GetDataNameValue("Count(*)", "MerchantMessageTab where 1=1 " + StrQueryWhere + " and AddTime between '" + DateTime.Now.ToString("yyyy-MM-dd") + "' and '" + DateTime.Now.AddDays(1).ToString("yyyy-MM-dd") + "'", "")%>
+					        </span>位。
+                            本月注册会员数：
+					        <span class="blue">
+					            <%= GetDataNameValue("Count(*)", "MerchantMessageTab where 1=1 " + StrQueryWhere + " and AddTime between '" + DateTime.Now.AddMonths(-1).ToString("yyyy-MM-dd") + "' and '" + DateTime.Now.ToString("yyyy-MM-dd") + "'", "")%>
+					        </span>位。
+                        </dd>
+                    </dl>
+                </li>
+                <li>
+                    <dl>
+                        <dt>交易量</dt>
+                        <dd>
+                            共有交易量：
+					        <span class="blue">
+					            <%= GetDataNameValue("Count(*)", "FundsTransactionRecordTab where 1=1" + StrQueryWhere, "")%>
+					        </span>笔。
+                            今天交易量：
+					        <span class="blue">
+					            <%= GetDataNameValue("Count(*)", "FundsTransactionRecordTab where 1=1 " + StrQueryWhere + " and AddTime between '" + DateTime.Now.ToString("yyyy-MM-dd") + "' and '" + DateTime.Now.AddDays(1).ToString("yyyy-MM-dd") + "'", "")%>
+					        </span>笔。
+                            本月交易量：
+					        <span class="blue">
+					            <%= GetDataNameValue("Count(*)", "FundsTransactionRecordTab where 1=1 " + StrQueryWhere + " and AddTime between '" + DateTime.Now.AddMonths(-1).ToString("yyyy-MM-dd") + "' and '" + DateTime.Now.ToString("yyyy-MM-dd") + "'", "")%>
+					        </span>笔。
+                        </dd>
+                    </dl>
+                </li>
+                <li style="display:none;">
+                    <dl>
+                        <dt>登录数</dt>
+                        <dd>IP：<span class="blue">1110</span>， pv：<span class="blue">112</span>万元，  uv：<span class="blue">555</span>万</dd>
+                    </dl>
+                </li>
+
+            </ul>
+        </div>
+        <div class="GuideTitle2">
+            <div class="tit1"><%=GetWebsiteName()%>后台公告栏</div>
+            <div class="index_gonggao">
+                <ul>
+                    <!--
+                    <li><a href="JavaScript://">数据统计数据统计数据统计数据统计</a><span>(2012/12/13)</span></li>
+                    <li><a href="JavaScript://">数据统计数据统计数据统计数据统计</a><span>(2012/12/13)</span></li>
+                    <li><a href="JavaScript://">数据统计数据统计数据统计数据统计</a><span>(2012/12/13)</span></li>
+                    <li><a href="JavaScript://">数据统计数据统计数据统计数据统计</a><span>(2012/12/13)</span></li>
+                    <li><a href="JavaScript://">数据统计数据统计数据统计数据统计</a><span>(2012/12/13)</span></li>
+                    <li><a href="JavaScript://">数据统计数据统计数据统计数据统计</a><span>(2012/12/13)</span></li>
+                    -->
+                    <uc1:DivDateList ID="DivNoticeDateList" runat="server" />
+                </ul>
+            </div>
+        </div>
+    </div>
+</form>
+</body>
+</html>
