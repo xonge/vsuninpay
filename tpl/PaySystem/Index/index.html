@@ -1,0 +1,25 @@
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="SystemMain.aspx.cs" Inherits="BackManage_SystemMain" %>
+<% Response.Expires = -1 ;%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" >
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+    <title><%=GetWebsiteName()%>后台管理系统</title>
+</head>
+
+<form id="FomSub" runat="server" target="_top">
+    <frameset rows="129,*" cols="*" frameborder="no" border="0" framespacing="0">
+        <frame src="TopPage.aspx" name="TopFrame" scrolling="No" noresize="noresize" id="TopFrame" title="TopFrame"  width="100%"/>
+        <frameset cols="220,*" frameborder="no" border="0" framespacing="0">
+            <frame height="100%" src="LeftMenuPage.aspx" name="LeftMenuPage" scrolling="yes" noresize="noresize" id="LeftMenuPage" title="LeftMenuPage" />
+            <frame height="100%" width="100%" src="RightMain.aspx" name="RightPage" id="RightPage" title="RightPage" />
+        </frameset>
+    </frameset>
+    <noframes>
+    </noframes>
+</form>
+<body>
+</body>
+</html>
