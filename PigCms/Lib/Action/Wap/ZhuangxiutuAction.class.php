@@ -6,6 +6,34 @@ class ZhuangxiutuAction extends BaseAction{
     public $lottory_db;
 
     public function index(){
+        if (IS_POST) {
+            $loupan = $this->_post('loupan');
+            $realname = $this->_post('realname');
+            $phone = $this->_post('phone');
+            $weixin = $this->_post('weixin');
+            $imgurls = $this->_post('imgurls');
+
+            unset($data);
+            $data['loupan'] = $loupan;
+            $data['realname'] = $realname;
+            $data['phone'] = $phone;
+            $data['weixin'] = $weixin;
+            $data['imgurls'] = $imgurls;
+            $data['addtime'] = date('Y-m-d H:i:s');
+            $zhuangxiutu = M('xg_zhuangxiutu');
+            $queryResult = $zhuangxiutu->add($data);
+
+            if ($queryResult > 0) {
+                $response['error'] = 0;
+                $response['message'] = 'insert success';
+            } else {
+                echo $zhuangxiutu->getLastSql();
+                $response['error'] = 101;
+                $response['message'] = 'insert error';
+            }
+            $this->ajaxReturn($response);
+            exit;
+        }
         $agent = $_SERVER['HTTP_USER_AGENT'];
         if(!strpos($agent,"icroMessenger")) {
             //echo '此功能只能在微信浏览器中使用';exit;
@@ -35,7 +63,7 @@ class ZhuangxiutuAction extends BaseAction{
             $data['usenums']=0;
         }else {
 
-            $data=$this->prizeHandle($token,$wecha_id,$Lottery);
+//            $data=$this->prizeHandle($token,$wecha_id,$Lottery);
         }
 
         $data['token'] 		= $token;
@@ -68,5 +96,21 @@ class ZhuangxiutuAction extends BaseAction{
         $this->assign('Coupon',$data);
         //var_dump($data);exit();
         $this->display();
+    }
+
+    Public function upload() {
+        import('ORG.Net.UploadFile');
+        $upload = new UploadFile();// 实例化上传类
+        $upload->maxSize = 3145728;// 设置附件上传大小
+        $upload->allowExts = array('jpg', 'gif', 'png', 'jpeg');// 设置附件上传类型
+        $upload->savePath = './Uploads/';// 设置附件上传目录
+        if (!$upload->upload()) {// 上传错误提示错误信息
+            $this->error($upload->getErrorMsg());
+        } else {// 上传成功 获取上传文件信息
+            $info = $upload->getUploadFileInfo();
+//            dump($info);
+            $info['error'] = 0;
+            $this->ajaxReturn($info);
+        }
     }
 }
