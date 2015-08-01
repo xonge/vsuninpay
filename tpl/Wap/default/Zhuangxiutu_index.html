@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
     <title>上传装修图</title>
     <link rel="stylesheet" href="http://xiangtan.suninpay.com/WebCss/bootstrap.min.css"/>
-    <link rel="stylesheet" href="css/style20150731.css"/>
+    <link rel="stylesheet" href="{pigcms::RES}/css/zhuangxiutu/style20150731.css"/>
 </head>
 <body>
-<form id="zhuangxiutu" action="" method="post">
+<form id="zhuangxiutu" action="{pigcms::U('upload')}" method="post">
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-12 title">上传装修图</div>
@@ -22,32 +22,35 @@
         <div class="row">
             <div class="form-group">
                 <label for="loupan">您的姓名</label>
-                <input class="form-control" id="loupan" type="text" placeholder="请输入您的姓名"/>
+                <input class="form-control" id="realname" type="text" placeholder="请输入您的姓名"/>
             </div>
         </div>
         <div class="row">
             <div class="form-group">
                 <label for="loupan">您的电话</label>
-                <input class="form-control" id="loupan" type="phone" placeholder="请输入您的电话"/>
+                <input class="form-control" id="phone" type="phone" placeholder="请输入您的电话"/>
             </div>
         </div>
         <div class="row">
             <div class="form-group">
                 <label for="loupan">您的微信</label>
-                <input class="form-control" id="loupan" type="text" placeholder="请输入您的微信号"/>
+                <input class="form-control" id="weixin" type="text" placeholder="请输入您的微信号"/>
             </div>
         </div>
         <div class="row">
             <div class="form-group">
                 <label for="loupan">您的装修图</label>
-                <input class="form-control" id="loupan" type="file" placeholder="请输入您的微信号"/>
+                <input class="form-control" id="fileField" type="file" placeholder="请输入您的微信号"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group img-container">
             </div>
         </div>
         <div class="row">
             <div class="col-xs-12">
-                <button type="submit" class="btn btn-success btn-zhuangxiutu">提交</button>
-                <div class="btn btn-default btn-zhuangxiutu"
-                     onclick="javascript:document.getElementById('zhuangxiutu').reset();">重置
+                <button type="submit" class="btn btn-success btn-zhuangxiutu" onclick="javascript:do_login();">提交</button>
+                <div class="btn btn-default btn-zhuangxiutu" onclick="javascript:document.getElementById('zhuangxiutu').reset();">重置
                 </div>
             </div>
         </div>
@@ -58,8 +61,107 @@
         </div>
     </div>
 </form>
-<script>
+<script type="text/javascript" src="//union.suninpay.com/wap/tpl/fanwe/js/jquery-1.6.2.min.js"></script>
+<script type="text/javascript" src="//union.suninpay.com/wap/tpl/fanwe/js/public_jquery.js"></script>
+<script src="//union.suninpay.com//wap/tpl/fanwe/js/jupload/js/vendor/jquery.ui.widget.js"></script>
+<script src="//union.suninpay.com//wap/tpl/fanwe/js/jupload/js/jquery.iframe-transport.js"></script>
+<script src="//union.suninpay.com//wap/tpl/fanwe/js/jupload/js/jquery.fileupload.js"></script>
+<script type="text/javascript">
+    //uploadingBox.uploadingBoxShow();
+    $("#fileField").fileupload({
+        url:"{pigcms::U('upload')}",//文件上传地址，当然也可以直接写在input的data-url属性内
+        validation: {
+            allowedExtensions: ['jpeg', 'jpg', 'png']
+        },
+        add: function (e, data) {
+//            uploadingBox.uploadingBoxShow();
+            data.submit();
+        },
+//formData:{param1:"p1",param2:"p2"},//如果需要额外添加参数可以在这里添加
+        done:function(e,result){
+//            $('#container_box').hide();
+//done方法就是上传完毕的回调函数，其他回调函数可以自行查看api
+//注意result要和jquery的ajax的data参数区分，这个对象包含了整个请求信息
+//返回的数据在result.result中，假设我们服务器返回了一个json对象
+            if(result.result == "111" || result.result == "222"){
+//                window.location="{:U('Home/Index/photo')}";
+            }
+            else if(result.result == "Invalid file type."){
+//                alert("请选择图片类型的文件上传");
+            }
+            else{
+//                alert(result.result.msg);
+            }
+//            console.log(result);
+            var _result = JSON.parse(result.result);
+//            console.log(_result);
+            if (_result['error'] === 0) {
+                var _html = "<img src=/." + _result[0]['savepath'] + _result[0]['savename'] + ">";
+                $(".img-container").append(_html);
+                var _input = "<input type=hidden name=focus_imgs[] value=" + _result[0]['savepath'] + _result[0]['savename'] + " />";
+                $(".img-container").append(_input);
+            }
+//console.log(JSON.stringify(result.result));
+        }
+    });
 
+    $(function(){
+        $('.btn-zhuangxiutu').click(function(e){
+            e.preventDefault();
+
+            var obj1=$("#loupan").val();
+            var obj2=$("#realname").val();
+            var obj3=$("#phone").val();
+            var obj4=$("#weixin").val();
+
+            var _imgurls = new Array();
+            $("input[name='focus_imgs[]']").each(function(){
+//            $(this).val();
+                _imgurls.push($(this).val());
+            });
+//        console.log(_imgurls.join(","));
+            var imgurls = _imgurls.join(",");
+
+            if(!obj1){
+                alert("请填写您的楼盘");
+                return false;
+            }
+            if(!obj2){
+                alert("请填写您的姓名");
+                return false;
+            }
+
+            var query = new Object();
+            query.loupan = obj1;
+            query.realname = obj2;
+            query.phone = obj3;
+            query.weixin = obj4;
+
+            query.imgurls = imgurls;
+            query.post_type = "json";
+            var ajaxurl = '{pigcms::U('index')}';
+            //alert(ajaxurl);
+
+            $.ajax({
+                url:ajaxurl,
+                data:query,
+                type:"Post",
+                dataType:"json",
+                success:function(data){
+//                alert(data.info);
+//                console.log(data);
+                    if (data['error'] === 0) {
+                        alert('提交成功');
+                        document.getElementById('zhuangxiutu').reset();
+                    }
+                }
+                ,error:function(){
+                    alert("服务器提交错误");
+                }
+            });
+            return false;
+        })
+    });
 </script>
 </body>
 </html>
