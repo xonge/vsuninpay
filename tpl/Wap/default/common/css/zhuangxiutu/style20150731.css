@@ -21,3 +21,10 @@
     font-size: 1rem;
     color: #369031;
 }
+
+.img-container {
+    height: 30px;
+}
+.img-container img {
+    max-height: 28px;
+}
