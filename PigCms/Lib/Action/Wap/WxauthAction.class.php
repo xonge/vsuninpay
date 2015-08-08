@@ -1,14 +1,61 @@
 <?php
 
-class WxOAuth2 {
+class WxauthAction extends BaseAction {
     //高级功能-》开发者模式-》获取
     // private $app_id = 'wxa0c4*************';
     // private $app_secret = 'e095b6dc**********************';
     // private $app_id = 'wxf44f5e407cb908a3';
     // private $app_secret = '34c072e1743b20a77e3e67ef5bcb90b3';
     private $token = array();
-    public $app_id = '';
+    private $app_id = '';
     public $app_secret = '';
+
+    function __construct() {
+        $this->app_id = 'wx5d06b443e344a78b';
+    }
+
+    public function redirect() {
+        $redirect_url = $this->_get['url'];
+
+        if (!$redirect_url) {
+//            $redirect_url = 'http://union.suninpay.com/wap/index.php?ctl=register';
+            $redirect_url = urlencode('http://v.suninpay.com/' . U('get_access_token_test'));
+        }
+        $this->app_id = 'wx5d06b443e344a78b';
+        $wx['appid'] = 'wx5d06b443e344a78b';
+
+        $wx['authorize_url'] = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' . $wx['appid'] . '&redirect_uri=' . $redirect_url . '&response_type=code&scope=snsapi_base&state=123#wechat_redirect';
+//        $wx['authorize_url'] = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' . $wx['appid'] . '&redirect_uri=' . $redirect_url . '&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect';
+
+        header('Location:' . $wx['authorize_url']);
+    }
+
+    public function get_access_token_test() {
+        $wx['code'] = $this->_get('code');
+        $wx['state'] = $this->_get('state');
+        echo $wx['code'];
+        echo $wx['state'];
+        $app_id = $this->app_id;
+        $map['appid'] = $app_id;
+        $wxuser = M('wxuser')->where($map)->find();
+        $app_secret = $wxuser['appsecret'];
+        echo $app_id;
+        $token_url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid={$app_id}&secret={$app_secret}&code={$wx['code']}&grant_type=authorization_code";
+        $token_data = $this->http($token_url);
+        // echo $token_url . '<br>';
+        var_dump($token_data);
+//        exit;
+        if ($token_data[0] == 200) {
+//            return json_decode($token_data[1], true);
+            $json_data = json_decode($token_data[1], true);
+            $openid = $json_data['openid'];
+            $url = 'http://union.suninpay.com/wap//index.php?ctl=register' .
+                '&openid=' . $openid . '&forhongbao=1';
+            header('Location:' . $url);
+        }
+
+        return FALSE;
+    }
 
     // public function __get($property_name) {
     // 	echo "在直接获取私有属性值的时候，自动调用了这个__get()方法<br>";
