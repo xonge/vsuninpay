@@ -6,7 +6,7 @@
 </head>
 <body>
 	</br></br>
-	<div>
+	<div> 
 		<ul>
 			<h1><a href="./demo/js_api_call.php" >1.JSapi支付demo(在微信客户端中点击)</a></h1>
 			<h1><a href="./demo/native_call_qrcode.php" >2.native支付模式一demo(用微信扫的静态链接二维码)</a></h1>
